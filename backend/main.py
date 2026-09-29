@@ -11,7 +11,7 @@ load_dotenv()
 app = FastAPI(
     title="EduGenie API",
     description="Google Gemini Powered Learning Assistant",
-    version="2.0.0"
+    version="2.1.0"
 )
 
 # CORS
@@ -21,21 +21,17 @@ app.add_middleware(
         "https://edugenie-web.onrender.com",
         "http://localhost",
         "http://localhost:3000",
-        "http://127.0.0.1:5500",
+        "http://127.0.0.1:5500"
     ],
     allow_credentials=False,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["*"]
 )
 
-
-# Gemini client
+# Gemini
 api_key = os.getenv("GEMINI_API_KEY")
 
-if api_key:
-    client = genai.Client(api_key=api_key)
-else:
-    client = None
+client = genai.Client(api_key=api_key) if api_key else None
 
 
 class QuestionRequest(BaseModel):
@@ -73,35 +69,53 @@ def ask_question(request: QuestionRequest):
             "answer": "Gemini API key is not configured."
         }
 
-    try:
-
-        prompt = f"""
+    prompt = f"""
 You are EduGenie, a friendly AI learning assistant.
 
-Help the student understand the topic clearly and simply.
+Explain the student's question clearly and simply.
 
 Student question:
 {question}
 
-Give a student-friendly answer with:
-- Simple explanation
-- Important points
-- Example when useful
+Give:
+1. A simple explanation
+2. Important points
+3. An example when useful
+
+Keep the answer student-friendly.
 """
 
-        response = client.models.generate_content(
-            model="gemini-3.8-flash",
-            contents=prompt
-        )
+    models = [
+        "gemini-3.6-flash",
+        "gemini-3.5-flash-lite"
+    ]
 
-        return {
-            "question": question,
-            "answer": response.text
-        }
+    last_error = ""
 
-    except Exception as error:
+    for model in models:
 
-        return {
-            "question": question,
-            "answer": "Gemini error: " + str(error)
-        }
+        try:
+
+            response = client.models.generate_content(
+                model=model,
+                contents=prompt
+            )
+
+            return {
+                "question": question,
+                "answer": response.text,
+                "model": model
+            }
+
+        except Exception as error:
+
+            last_error = str(error)
+
+    return {
+        "question": question,
+        "answer": (
+            "Gemini is temporarily unavailable. "
+            "Please try again shortly."
+        ),
+        "error": last_error
+    }
