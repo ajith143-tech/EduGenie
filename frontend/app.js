@@ -51,12 +51,16 @@ function setRobotMessage(message) {
 
 async function askQuestion() {
 
-    const input = document.getElementById("question");
-    const responseBox = document.getElementById("response");
+    const input =
+        document.getElementById("question");
+
+    const responseBox =
+        document.getElementById("response");
 
     if (!input || !responseBox) return;
 
-    const question = input.value.trim();
+    const question =
+        input.value.trim();
 
     if (!question) {
 
@@ -69,12 +73,20 @@ async function askQuestion() {
         return;
     }
 
+    // Create a chat automatically if needed
+    if (!activeChatId) {
+        createNewChat();
+    }
 
-    // Robot thinking message
+    const chat =
+        eduGenieChats.find(
+            item => item.id === activeChatId
+        );
+
+    if (!chat) return;
+
     setRobotMessage("🤔 Thinking...");
 
-
-    // Loading message
     responseBox.innerHTML = `
         <div class="thinking">
             ✨ EduGenie is thinking
@@ -84,46 +96,82 @@ async function askQuestion() {
         </div>
     `;
 
+    // Build conversation context
+    let conversationContext = "";
+
+    if (chat.messages.length > 0) {
+
+        conversationContext = `
+Previous conversation:
+
+${chat.messages.map(message => `
+Student: ${message.question}
+EduGenie: ${message.answer}
+`).join("\n")}
+
+Continue the conversation naturally.
+
+`;
+    }
+
+    const fullQuestion =
+        conversationContext +
+        `Student's new question:
+${question}`;
 
     try {
 
-        const response = await fetch(API_URL, {
+        const response =
+            await fetch(API_URL, {
+                method: "POST",
 
-            method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-                question: question
-            })
-
-        });
-
+                body: JSON.stringify({
+                    question: fullQuestion
+                })
+            });
 
         if (!response.ok) {
 
             throw new Error(
-                "Server returned error: " + response.status
+                "Server returned error: " +
+                response.status
             );
-
         }
 
-
-        const data = await response.json();
-
+        const data =
+            await response.json();
 
         const answer =
             data.answer ||
             "Sorry, I couldn't generate an answer.";
 
+        // Save conversation
+        chat.messages.push({
+            question: question,
+            answer: answer,
+            time: new Date().toLocaleString()
+        });
 
-        // Robot answer message
+        // Use first question as chat title
+        if (
+            chat.title === "New Chat"
+        ) {
+            chat.title =
+                question.length > 35
+                    ? question.substring(0, 35) + "..."
+                    : question;
+        }
+
+        saveChats();
+
+        renderChatHistory();
+
         setRobotMessage("🎉 Here you go!");
 
-
-        // Display answer
         responseBox.innerHTML = `
             <div class="ai-answer">
 
@@ -145,23 +193,33 @@ async function askQuestion() {
             </div>
         `;
 
+        // Clear input for the next message
+        input.value = "";
+        input.focus();
 
     } catch (error) {
 
-        console.error("EduGenie Error:", error);
+        console.error(
+            "EduGenie Error:",
+            error
+        );
 
-
-        setRobotMessage("💙 Let's try again!");
-
+        setRobotMessage(
+            "💙 Let's try again!"
+        );
 
         responseBox.innerHTML = `
             <div class="error-message">
 
-                ⚠️ <strong>Connection Error</strong>
+                ⚠️ <strong>
+                    Connection Error
+                </strong>
 
                 <br><br>
 
-                ${escapeHtml(error.message)}
+                ${escapeHtml(
+                    error.message
+                )}
 
                 <br><br>
 
@@ -169,9 +227,7 @@ async function askQuestion() {
 
             </div>
         `;
-
     }
-
 }
 
 
