@@ -37,6 +37,12 @@ async function askQuestion() {
             <span class="dot">.</span>
         </div>
     `;
+const robotMessage = document.getElementById("robotMessage");
+
+if (robotMessage) {
+    robotMessage.innerText = "🤔 Thinking...";
+}
+
 
     try {
 
@@ -61,6 +67,9 @@ async function askQuestion() {
         const answer =
             data.answer ||
             "Sorry, I couldn't generate an answer.";
+if (robotMessage) {
+    robotMessage.innerText = "🎉 Here you go!";
+}
 
         responseBox.innerHTML = `
             <div class="ai-answer">
