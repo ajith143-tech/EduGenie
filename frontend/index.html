@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@
 
         <div class="logo">
             <div class="logo-icon">🎓</div>
+
             <div>
                 <h1>Edu<span>Genie</span></h1>
                 <p>Your AI Learning Companion</p>
@@ -30,7 +32,9 @@
             <a href="#history">◷ History</a>
         </nav>
 
-        <button class="curious-btn">✨ Stay Curious</button>
+        <button class="curious-btn">
+            ✨ Stay Curious
+        </button>
 
     </header>
 
@@ -40,7 +44,9 @@
         <!-- SIDEBAR -->
         <aside class="sidebar">
 
-            <a class="side-home active" href="#">⌂ <span>Home</span></a>
+            <a class="side-home active" href="#">
+                ⌂ <span>Home</span>
+            </a>
 
             <h3>Subjects</h3>
 
@@ -111,7 +117,8 @@
 
                 <div class="hero-text">
 
-                   <h2>Hello, <span>Learner</span> 👋</h2>
+                    <h2>Hello, <span>Learner</span> 👋</h2>
+
                     <h3>Ask. Learn. Grow.</h3>
 
                     <p>
@@ -129,36 +136,50 @@
                 </div>
 
 
- <div class="robot-roamer" id="robotRoamer">
+                <!-- ROAMING ROBOT -->
+                <div class="robot-roamer" id="robotRoamer">
 
-    <div class="robot-bubble" id="robotMessage">
-        💡 Need help?
-    </div>
+                    <div class="robot-bubble" id="robotMessage">
+                        💡 Need help?
+                    </div>
 
-    <div class="mini-robot">
+                    <div class="mini-robot">
 
-        <div class="bot-cap">🎓</div>
+                        <div class="bot-cap">
+                            🎓
+                        </div>
 
-        <div class="bot-body">
-            <div class="bot-face">
-                <span class="bot-eye">●</span>
-                <span class="bot-eye">●</span>
-                <div class="bot-smile"></div>
-            </div>
+                        <div class="bot-body">
 
-            <div class="bot-panel">✦</div>
-        </div>
+                            <div class="bot-face">
+                                <span class="bot-eye">●</span>
+                                <span class="bot-eye">●</span>
 
-        <div class="bot-hover-left"></div>
-        <div class="bot-hover-right"></div>
+                                <div class="bot-smile"></div>
+                            </div>
 
-    </div>
+                            <div class="bot-panel">
+                                ✦
+                            </div>
 
-    <div class="bot-spark spark-one">✦</div>
-    <div class="bot-spark spark-two">✧</div>
-    <div class="bot-spark spark-three">•</div>
+                        </div>
 
-</div>
+                        <div class="bot-hover-left"></div>
+                        <div class="bot-hover-right"></div>
+
+                    </div>
+
+                    <div class="bot-spark spark-one">
+                        ✦
+                    </div>
+
+                    <div class="bot-spark spark-two">
+                        ✧
+                    </div>
+
+                    <div class="bot-spark spark-three">
+                        •
+                    </div>
 
                 </div>
 
@@ -176,17 +197,34 @@
                         rows="2"
                     ></textarea>
 
+
                     <div class="input-bottom">
 
                         <button class="subject-btn">
                             📖 General ▾
                         </button>
 
+
                         <button class="attach-btn">
                             🔗
                         </button>
 
-                        <button class="ask-btn" onclick="askQuestion()">
+
+                        <!-- VOICE BUTTON -->
+                        <button
+                            class="voice-btn"
+                            id="voiceBtn"
+                            onclick="startVoiceInput()"
+                            title="Ask using your voice"
+                        >
+                            🎤
+                        </button>
+
+
+                        <button
+                            class="ask-btn"
+                            onclick="askQuestion()"
+                        >
                             ➤ Ask EduGenie
                         </button>
 
@@ -236,21 +274,34 @@
             <section class="response-card">
 
                 <div id="response">
+
                     <div class="welcome-response">
+
                         🤖 <strong>EduGenie</strong>
-                        <p>Your AI learning assistant is ready.</p>
+
+                        <p>
+                            Your AI learning assistant is ready.
+                        </p>
+
                     </div>
+
                 </div>
 
             </section>
 
-<footer>
-    ✦ EduGenie &nbsp; • &nbsp;
-    Powered by Gemini &nbsp; • &nbsp;
-    Learn Smarter, Not Harder 💙
-    <br>
-    Created by Aji's 🎀 team
-</footer>
+
+            <!-- FOOTER -->
+            <footer>
+
+                ✦ EduGenie &nbsp; • &nbsp;
+                Powered by Gemini &nbsp; • &nbsp;
+                Learn Smarter, Not Harder 💙
+
+                <br>
+
+                Created by Aji's 🎀 team
+
+            </footer>
 
         </main>
 
@@ -261,7 +312,9 @@
             <!-- PROGRESS -->
             <section class="info-card">
 
-                <h3>⚙ Your Progress</h3>
+                <h3>
+                    ⚙ Your Progress
+                </h3>
 
                 <div class="progress-area">
 
@@ -270,8 +323,16 @@
                     </div>
 
                     <div>
-                        <strong>Learning<br>Progress</strong>
-                        <p>You're doing great! 🚀</p>
+
+                        <strong>
+                            Learning<br>
+                            Progress
+                        </strong>
+
+                        <p>
+                            You're doing great! 🚀
+                        </p>
+
                     </div>
 
                 </div>
@@ -280,47 +341,105 @@
 
 
             <!-- RECENT CHATS -->
-            <section class="info-card" id="history">
+            <section
+                class="info-card"
+                id="history"
+            >
 
                 <div class="card-title">
-                    <h3>💬 Recent Chats</h3>
-                    <a href="#">View All →</a>
+
+                    <h3>
+                        💬 Recent Chats
+                    </h3>
+
+                    <a href="#">
+                        View All →
+                    </a>
+
                 </div>
 
+
                 <div class="history-item">
+
                     <span>💻</span>
+
                     <div>
-                        <strong>What is HTML?</strong>
-                        <small>Today, 4:25 PM</small>
+
+                        <strong>
+                            What is HTML?
+                        </strong>
+
+                        <small>
+                            Today, 4:25 PM
+                        </small>
+
                     </div>
+
                     <b>›</b>
+
                 </div>
 
+
                 <div class="history-item">
+
                     <span>🌿</span>
+
                     <div>
-                        <strong>Explain photosynthesis</strong>
-                        <small>Yesterday</small>
+
+                        <strong>
+                            Explain photosynthesis
+                        </strong>
+
+                        <small>
+                            Yesterday
+                        </small>
+
                     </div>
+
                     <b>›</b>
+
                 </div>
 
+
                 <div class="history-item">
+
                     <span>📚</span>
+
                     <div>
-                        <strong>DBMS key concepts</strong>
-                        <small>Yesterday</small>
+
+                        <strong>
+                            DBMS key concepts
+                        </strong>
+
+                        <small>
+                            Yesterday
+                        </small>
+
                     </div>
+
                     <b>›</b>
+
                 </div>
 
+
                 <div class="history-item">
+
                     <span>∑</span>
+
                     <div>
-                        <strong>Math problem solution</strong>
-                        <small>2 days ago</small>
+
+                        <strong>
+                            Math problem solution
+                        </strong>
+
+                        <small>
+                            2 days ago
+                        </small>
+
                     </div>
+
                     <b>›</b>
+
                 </div>
 
             </section>
@@ -329,9 +448,13 @@
             <!-- FACT -->
             <section class="fact-card">
 
-                <div class="fact-icon">💡</div>
+                <div class="fact-icon">
+                    💡
+                </div>
 
-                <h3>Did you know?</h3>
+                <h3>
+                    Did you know?
+                </h3>
 
                 <p>
                     AI can help you understand difficult
@@ -350,7 +473,9 @@
                     you are building your future.”
                 </p>
 
-                <div>🏔️</div>
+                <div>
+                    🏔️
+                </div>
 
             </section>
 
@@ -362,4 +487,5 @@
     <script src="app.js"></script>
 
 </body>
+
 </html>
