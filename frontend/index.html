@@ -2,194 +2,537 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>EduGenie | Your AI Learning Companion</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="style.css">
+    <title>
+        EduGenie | Your AI Learning Companion
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- ==================== NAVBAR ==================== -->
+
     <header class="navbar">
 
         <div class="logo">
-            <div class="logo-icon">🎓</div>
+
+            <div class="logo-icon">
+                🎓
+            </div>
 
             <div>
-                <h1>Edu<span>Genie</span></h1>
-                <p>Your AI Learning Companion</p>
+
+                <h1>
+                    Edu<span>Genie</span>
+                </h1>
+
+                <p>
+                    Your AI Learning Companion
+                </p>
+
             </div>
+
         </div>
 
+
         <nav class="top-nav">
-            <a class="active" href="#">⌂ Learn</a>
-            <a href="#chat">💬 Chat</a>
-            <a href="#subjects">📚 Subjects</a>
-            <a href="#notes">📝 Notes</a>
-            <a href="#history">◷ History</a>
+
+            <a
+                class="active"
+                href="#"
+            >
+                ⌂ Learn
+            </a>
+
+            <a
+                href="#chat"
+                onclick="
+                    document
+                        .getElementById('question')
+                        .focus();
+                "
+            >
+                💬 Chat
+            </a>
+
+            <a
+                href="#subjects"
+                onclick="
+                    document
+                        .getElementById('subjects')
+                        .scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    return false;
+                "
+            >
+                📚 Subjects
+            </a>
+
+            <a
+                href="#notes"
+                onclick="
+                    document
+                        .getElementById('notes')
+                        .scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    return false;
+                "
+            >
+                📝 Notes
+            </a>
+
+            <a
+                href="#history"
+                onclick="
+                    showAllChats();
+                "
+            >
+                ◷ History
+            </a>
+
         </nav>
 
+
         <button class="curious-btn">
+
             ✨ Stay Curious
+
         </button>
 
     </header>
 
 
+
+    <!-- ==================== APP LAYOUT ==================== -->
+
     <div class="app-layout">
 
-        <!-- SIDEBAR -->
+
+        <!-- ==================== SIDEBAR ==================== -->
+
         <aside class="sidebar">
 
-            <a class="side-home active" href="#">
-                ⌂ <span>Home</span>
+
+            <a
+                class="side-home active"
+                href="#"
+            >
+
+                ⌂
+
+                <span>
+                    Home
+                </span>
+
             </a>
 
-            <h3>Subjects</h3>
-
-            <button onclick="setQuestion('Explain Computer Science in simple words')">
-                &lt;/&gt; <span>Computer Science</span>
-            </button>
-
-            <button onclick="setQuestion('Explain this Mathematics topic simply')">
-                ∑ <span>Mathematics</span>
-            </button>
-
-            <button onclick="setQuestion('Explain Physics in simple words')">
-                ⚛ <span>Physics</span>
-            </button>
-
-            <button onclick="setQuestion('Explain Chemistry in simple words')">
-                ⚗ <span>Chemistry</span>
-            </button>
-
-            <button onclick="setQuestion('Help me learn English')">
-                📖 <span>English</span>
-            </button>
-
-            <button onclick="setQuestion('Tell me an interesting general knowledge fact')">
-                💡 <span>General Knowledge</span>
-            </button>
 
 
-            <h3>Quick Actions</h3>
+            <!-- SUBJECTS -->
 
-            <button onclick="setQuestion('Generate study notes for me')">
-                📝 <span>Generate Notes</span>
-            </button>
+            <h3 id="subjects">
+                Subjects
+            </h3>
 
-            <button onclick="setQuestion('Create a quiz for me')">
-                📋 <span>Create Quiz</span>
-            </button>
 
-            <button onclick="setQuestion('Create a study plan for me')">
-                📅 <span>Study Plan</span>
-            </button>
+            <button
+                onclick="
+                    setQuestion(
+                        'Explain Computer Science in simple words'
+                    )
+                "
+            >
 
-            <button onclick="setQuestion('Explain this concept visually')">
-                🖼 <span>Image to Concept</span>
-            </button>
+                &lt;/&gt;
 
-            <button onclick="setQuestion('Ask me anything about my studies')">
-                ✨ <span>Ask Anything</span>
+                <span>
+                    Computer Science
+                </span>
+
             </button>
 
 
-            <div class="dream-box">
+            <button
+                onclick="
+                    setQuestion(
+                        'Explain this Mathematics topic simply'
+                    )
+                "
+            >
+
+                ∑
+
+                <span>
+                    Mathematics
+                </span>
+
+            </button>
+
+
+            <button
+                onclick="
+                    setQuestion(
+                        'Explain Physics in simple words'
+                    )
+                "
+            >
+
+                ⚛
+
+                <span>
+                    Physics
+                </span>
+
+            </button>
+
+
+            <button
+                onclick="
+                    setQuestion(
+                        'Explain Chemistry in simple words'
+                    )
+                "
+            >
+
+                ⚗
+
+                <span>
+                    Chemistry
+                </span>
+
+            </button>
+
+
+            <button
+                onclick="
+                    setQuestion(
+                        'Help me learn English'
+                    )
+                "
+            >
+
+                📖
+
+                <span>
+                    English
+                </span>
+
+            </button>
+
+
+            <button
+                onclick="
+                    setQuestion(
+                        'Tell me an interesting general knowledge fact'
+                    )
+                "
+            >
+
+                💡
+
+                <span>
+                    General Knowledge
+                </span>
+
+            </button>
+
+
+
+            <!-- QUICK ACTIONS -->
+
+            <h3>
+                Quick Actions
+            </h3>
+
+
+            <button
+                onclick="
+                    setQuestion(
+                        'Generate study notes for me'
+                    )
+                "
+            >
+
+                📝
+
+                <span>
+                    Generate Notes
+                </span>
+
+            </button>
+
+
+            <button
+                onclick="
+                    setQuestion(
+                        'Create a quiz for me'
+                    )
+                "
+            >
+
+                📋
+
+                <span>
+                    Create Quiz
+                </span>
+
+            </button>
+
+
+            <button
+                onclick="
+                    setQuestion(
+                        'Create a study plan for me'
+                    )
+                "
+            >
+
+                📅
+
+                <span>
+                    Study Plan
+                </span>
+
+            </button>
+
+
+            <button
+                onclick="
+                    setQuestion(
+                        'Explain this concept visually'
+                    )
+                "
+            >
+
+                🖼
+
+                <span>
+                    Image to Concept
+                </span>
+
+            </button>
+
+
+            <button
+                onclick="
+                    setQuestion(
+                        'Ask me anything about my studies'
+                    )
+                "
+            >
+
+                ✨
+
+                <span>
+                    Ask Anything
+                </span>
+
+            </button>
+
+
+
+            <!-- NOTES -->
+
+            <div
+                id="notes"
+                class="dream-box"
+            >
+
                 Better Questions
+
                 <br>
+
                 =
+
                 <br>
+
                 Bigger Dreams ✦
+
             </div>
 
         </aside>
 
 
-        <!-- MAIN CONTENT -->
+
+        <!-- ==================== MAIN CONTENT ==================== -->
+
         <main class="main-content">
 
-            <!-- HERO -->
+
+
+            <!-- ==================== HERO ==================== -->
+
             <section class="hero">
 
                 <div class="hero-text">
 
-                    <h2>Hello, <span>Learner</span> 👋</h2>
 
-                    <h3>Ask. Learn. Grow.</h3>
+                    <h2>
+
+                        Hello,
+                        <span>
+                            Learner
+                        </span>
+
+                        👋
+
+                    </h2>
+
+
+                    <h3>
+                        Ask. Learn. Grow.
+                    </h3>
+
 
                     <p>
+
                         EduGenie is your AI-powered study buddy,
                         ready to help you understand, solve and
                         excel in your studies!
+
                     </p>
 
+
                     <div class="hero-tags">
-                        <span>✦ Smart Answers</span>
-                        <span>✦ Better Learning</span>
-                        <span>✦ Brighter Future</span>
+
+                        <span>
+                            ✦ Smart Answers
+                        </span>
+
+                        <span>
+                            ✦ Better Learning
+                        </span>
+
+                        <span>
+                            ✦ Brighter Future
+                        </span>
+
                     </div>
+
 
                 </div>
 
 
-                <!-- ROAMING ROBOT -->
-                <div class="robot-roamer" id="robotRoamer">
 
-                    <div class="robot-bubble" id="robotMessage">
+                <!-- ==================== ROBOT ==================== -->
+
+                <div
+                    class="robot-roamer"
+                    id="robotRoamer"
+                >
+
+
+                    <div
+                        class="robot-bubble"
+                        id="robotMessage"
+                    >
+
                         💡 Need help?
+
                     </div>
 
+
                     <div class="mini-robot">
+
 
                         <div class="bot-cap">
                             🎓
                         </div>
 
+
                         <div class="bot-body">
 
-                            <div class="bot-face">
-                                <span class="bot-eye">●</span>
-                                <span class="bot-eye">●</span>
 
-                                <div class="bot-smile"></div>
+                            <div class="bot-face">
+
+                                <span class="bot-eye">
+                                    ●
+                                </span>
+
+                                <span class="bot-eye">
+                                    ●
+                                </span>
+
+                                <div
+                                    class="bot-smile"
+                                ></div>
+
                             </div>
+
 
                             <div class="bot-panel">
                                 ✦
                             </div>
 
+
                         </div>
 
-                        <div class="bot-hover-left"></div>
-                        <div class="bot-hover-right"></div>
+
+                        <div
+                            class="bot-hover-left"
+                        ></div>
+
+                        <div
+                            class="bot-hover-right"
+                        ></div>
+
 
                     </div>
 
-                    <div class="bot-spark spark-one">
+
+                    <div
+                        class="bot-spark spark-one"
+                    >
                         ✦
                     </div>
 
-                    <div class="bot-spark spark-two">
+
+                    <div
+                        class="bot-spark spark-two"
+                    >
                         ✧
                     </div>
 
-                    <div class="bot-spark spark-three">
+
+                    <div
+                        class="bot-spark spark-three"
+                    >
                         •
                     </div>
+
 
                 </div>
 
             </section>
 
 
-            <!-- ASK BOX -->
-            <section class="ask-card" id="chat">
+
+            <!-- ==================== ASK CHAT ==================== -->
+
+            <section
+                class="ask-card"
+                id="chat"
+            >
+
 
                 <div class="input-area">
+
 
                     <textarea
                         id="question"
@@ -198,104 +541,214 @@
                     ></textarea>
 
 
+
                     <div class="input-bottom">
 
-                        <button class="subject-btn">
+
+                        <button
+                            class="subject-btn"
+                        >
+
                             📖 General ▾
+
                         </button>
 
 
-                        <button class="attach-btn">
+                        <button
+                            class="attach-btn"
+                        >
+
                             🔗
+
                         </button>
 
 
-                        <!-- VOICE BUTTON -->
+
+                        <!-- VOICE -->
+
                         <button
                             class="voice-btn"
                             id="voiceBtn"
                             onclick="startVoiceInput()"
                             title="Ask using your voice"
                         >
+
                             🎤
+
                         </button>
 
+
+
+                        <!-- ASK -->
 
                         <button
                             class="ask-btn"
                             onclick="askQuestion()"
                         >
+
                             ➤ Ask EduGenie
+
                         </button>
+
 
                     </div>
 
                 </div>
 
 
+
                 <div class="try-title">
+
                     💡 Try asking...
+
                 </div>
+
 
 
                 <div class="quick-prompts">
 
-                    <button onclick="setQuestion('What is HTML?')">
-                        &lt;/&gt;<br>
+
+                    <button
+                        onclick="
+                            setQuestion(
+                                'What is HTML?'
+                            )
+                        "
+                    >
+
+                        &lt;/&gt;
+
+                        <br>
+
                         What is HTML?
+
                     </button>
 
-                    <button onclick="setQuestion('Explain photosynthesis')">
-                        🌿<br>
+
+                    <button
+                        onclick="
+                            setQuestion(
+                                'Explain photosynthesis'
+                            )
+                        "
+                    >
+
+                        🌿
+
+                        <br>
+
                         Explain photosynthesis
+
                     </button>
 
-                    <button onclick="setQuestion('Solve this math problem for me')">
-                        ∑<br>
+
+                    <button
+                        onclick="
+                            setQuestion(
+                                'Solve this math problem for me'
+                            )
+                        "
+                    >
+
+                        ∑
+
+                        <br>
+
                         Solve this math problem
+
                     </button>
 
-                    <button onclick="setQuestion('Give me a study plan')">
-                        📅<br>
+
+                    <button
+                        onclick="
+                            setQuestion(
+                                'Give me a study plan'
+                            )
+                        "
+                    >
+
+                        📅
+
+                        <br>
+
                         Give me a study plan
+
                     </button>
 
-                    <button onclick="setQuestion('Give me quick notes on OS')">
-                        📝<br>
+
+                    <button
+                        onclick="
+                            setQuestion(
+                                'Give me quick notes on OS'
+                            )
+                        "
+                    >
+
+                        📝
+
+                        <br>
+
                         Quick notes on OS
+
                     </button>
+
 
                 </div>
+
 
             </section>
 
 
-            <!-- RESPONSE -->
-            <section class="response-card">
+
+            <!-- ==================== RESPONSE ==================== -->
+
+            <section
+                class="response-card"
+            >
 
                 <div id="response">
 
-                    <div class="welcome-response">
 
-                        🤖 <strong>EduGenie</strong>
+                    <div
+                        class="welcome-response"
+                    >
+
+                        🤖
+
+                        <strong>
+                            EduGenie
+                        </strong>
+
 
                         <p>
-                            Your AI learning assistant is ready.
+
+                            Your AI learning assistant
+                            is ready.
+
                         </p>
 
+
                     </div>
+
 
                 </div>
 
             </section>
 
 
-            <!-- FOOTER -->
+
+            <!-- ==================== FOOTER ==================== -->
+
             <footer>
 
-                ✦ EduGenie &nbsp; • &nbsp;
-                Powered by Gemini &nbsp; • &nbsp;
-                Learn Smarter, Not Harder 💙
+                ✦ EduGenie
+                &nbsp; • &nbsp;
+
+                Powered by Gemini
+                &nbsp; • &nbsp;
+
+                Learn Smarter,
+                Not Harder 💙
 
                 <br>
 
@@ -303,120 +756,206 @@
 
             </footer>
 
+
         </main>
 
 
-        <!-- RIGHT PANEL -->
+
+        <!-- ==================== RIGHT PANEL ==================== -->
+
         <aside class="right-panel">
 
+
+
             <!-- PROGRESS -->
+
             <section class="info-card">
 
+
                 <h3>
+
                     ⚙ Your Progress
+
                 </h3>
 
-                <div class="progress-area">
 
-                    <div class="progress-circle">
-                        <span>78%</span>
+                <div
+                    class="progress-area"
+                >
+
+
+                    <div
+                        class="progress-circle"
+                    >
+
+                        <span>
+                            78%
+                        </span>
+
                     </div>
+
 
                     <div>
 
                         <strong>
-                            Learning<br>
+
+                            Learning
+                            <br>
                             Progress
+
                         </strong>
 
+
                         <p>
+
                             You're doing great! 🚀
+
                         </p>
 
                     </div>
 
+
                 </div>
 
             </section>
 
 
-       <!-- RECENT CHATS -->
-<section
-    class="info-card"
-    id="history"
->
 
-    <div class="card-title">
+            <!-- ==================== RECENT CHATS ==================== -->
 
-        <h3>
-            💬 Recent Chats
-        </h3>
-
-        <a
-            href="#"
-            onclick="showAllChats(); return false;"
-        >
-            View All →
-        </a>
-
-    </div>
-
-    <div
-        id="chatHistoryList"
-        class="chat-history-list"
-    >
-
-        <div class="empty-history">
-            💬 No chats yet.
-            <br>
-            Ask EduGenie something to start!
-        </div>
-
-    </div>
-
-</section>
+            <section
+                class="info-card"
+                id="history"
+            >
 
 
-            <!-- FACT -->
-            <section class="fact-card">
+                <div class="card-title">
 
-                <div class="fact-icon">
-                    💡
+
+                    <h3>
+
+                        💬 Recent Chats
+
+                    </h3>
+
+
+                    <a
+                        href="#"
+                        onclick="
+                            showAllChats();
+                            return false;
+                        "
+                    >
+
+                        View All →
+
+                    </a>
+
+
                 </div>
+
+
+
+                <div
+                    id="chatHistoryList"
+                    class="chat-history-list"
+                >
+
+
+                    <div
+                        class="empty-history"
+                    >
+
+                        💬 No chats yet.
+
+                        <br>
+
+                        Ask EduGenie
+                        something to start!
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- ==================== FACT ==================== -->
+
+            <section
+                class="fact-card"
+            >
+
+
+                <div
+                    class="fact-icon"
+                >
+
+                    💡
+
+                </div>
+
 
                 <h3>
+
                     Did you know?
+
                 </h3>
 
+
                 <p>
-                    AI can help you understand difficult
-                    concepts through simple explanations,
+
+                    AI can help you understand
+                    difficult concepts through
+                    simple explanations,
                     examples and practice questions.
+
                 </p>
+
 
             </section>
 
 
-            <!-- MOTIVATION -->
-            <section class="quote-card">
+
+            <!-- ==================== MOTIVATION ==================== -->
+
+            <section
+                class="quote-card"
+            >
+
 
                 <p>
+
                     “You are not just studying,
                     you are building your future.”
+
                 </p>
 
+
                 <div>
+
                     🏔️
+
                 </div>
 
+
             </section>
+
 
         </aside>
 
+
     </div>
 
 
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+
     <script src="app.js"></script>
+
 
 </body>
 
