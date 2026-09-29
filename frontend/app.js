@@ -23,7 +23,7 @@ async function askQuestion() {
 
     try {
         const response = await fetch(
-            "http://127.0.0.1:8000/ask?question=" +
+            "https://edugenie-1-g40s.onrender.com/ask?question=" +
             encodeURIComponent(question),
             {
                 method: "POST"
