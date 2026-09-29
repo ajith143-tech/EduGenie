@@ -1,0 +1,70 @@
+/* EduGenie Premium UI */
+
+:root {
+    --bg: #020b24;
+    --card: rgba(10, 31, 75, 0.82);
+    --blue: #438fff;
+    --purple: #7656ff;
+    --text: #ffffff;
+    --muted: #a9bbda;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(circle at 80% 10%, #123d82 0%, transparent 30%),
+        radial-gradient(circle at 10% 40%, #17104d 0%, transparent 35%),
+        var(--bg);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+}
+
+/* Smooth animations */
+
+.card,
+button,
+.nav-links a {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(67, 143, 255, 0.25);
+}
+
+button:hover {
+    transform: scale(1.04);
+}
+
+/* Glass effect */
+
+.ask-container,
+.card {
+    backdrop-filter: blur(15px);
+}
+
+/* Mobile improvements */
+
+@media (max-width: 600px) {
+
+    .hero {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .ask-container {
+        width: 92%;
+    }
+
+    .input-area input {
+        font-size: 14px;
+    }
+
+    .quick button {
+        font-size: 12px;
+    }
+}
