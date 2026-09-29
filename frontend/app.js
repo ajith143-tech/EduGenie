@@ -69,14 +69,16 @@ async function askQuestion() {
 
     } catch (error) {
 
-        responseBox.innerHTML = `
-            <div class="error-message">
-                ⚠️ <strong>Something went wrong.</strong>
-                <br><br>
-                Please try asking again.
-            </div>
-        `;
-    }
+    console.error("EduGenie Error:", error);
+
+    responseBox.innerHTML = `
+        <div class="error-message">
+            ⚠️ <strong>Something went wrong.</strong>
+            <br><br>
+            ${error.message}
+        </div>
+    `;
+}
 }
 
 
