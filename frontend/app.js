@@ -173,3 +173,37 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+// Floating robot messages
+const robotMessages = [
+    "💡 Need help?",
+    "📚 Let's learn!",
+    "✨ You've got this!",
+    "🚀 Keep going!",
+    "🧠 Let's understand it!",
+    "🎯 One step at a time!"
+];
+
+let robotMessageIndex = 0;
+
+function changeRobotMessage() {
+
+    const robotMessage = document.getElementById("robotMessage");
+
+    if (!robotMessage) return;
+
+    robotMessage.style.opacity = "0";
+
+    setTimeout(() => {
+
+        robotMessageIndex =
+            (robotMessageIndex + 1) % robotMessages.length;
+
+        robotMessage.innerText =
+            robotMessages[robotMessageIndex];
+
+        robotMessage.style.opacity = "1";
+
+    }, 400);
+}
+
+setInterval(changeRobotMessage, 3500);
