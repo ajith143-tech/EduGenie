@@ -24,6 +24,7 @@
 
 <body>
 
+
     <!-- ==================== NAVBAR ==================== -->
 
     <header class="navbar">
@@ -58,16 +59,21 @@
                 ⌂ Learn
             </a>
 
+
             <a
                 href="#chat"
                 onclick="
                     document
-                        .getElementById('question')
-                        .focus();
+                        .getElementById('chat')
+                        .scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    return false;
                 "
             >
                 💬 Chat
             </a>
+
 
             <a
                 href="#subjects"
@@ -83,6 +89,7 @@
                 📚 Subjects
             </a>
 
+
             <a
                 href="#notes"
                 onclick="
@@ -97,26 +104,22 @@
                 📝 Notes
             </a>
 
-           <a
-    href="#history"
-    onclick="
-        showAllChats();
-        document.getElementById('history').scrollIntoView({
-            behavior: 'smooth'
-        });
-        return false;
-    "
->
-    ◷ History
-</a>
+
+            <a
+                href="#history"
+                onclick="
+                    showAllChats();
+                    return false;
+                "
+            >
+                ◷ History
+            </a>
 
         </nav>
 
 
         <button class="curious-btn">
-
             ✨ Stay Curious
-
         </button>
 
     </header>
@@ -147,7 +150,6 @@
             </a>
 
 
-
             <!-- SUBJECTS -->
 
             <h3 id="subjects">
@@ -162,7 +164,6 @@
                     )
                 "
             >
-
                 &lt;/&gt;
 
                 <span>
@@ -179,7 +180,6 @@
                     )
                 "
             >
-
                 ∑
 
                 <span>
@@ -196,7 +196,6 @@
                     )
                 "
             >
-
                 ⚛
 
                 <span>
@@ -213,7 +212,6 @@
                     )
                 "
             >
-
                 ⚗
 
                 <span>
@@ -230,7 +228,6 @@
                     )
                 "
             >
-
                 📖
 
                 <span>
@@ -247,7 +244,6 @@
                     )
                 "
             >
-
                 💡
 
                 <span>
@@ -255,7 +251,6 @@
                 </span>
 
             </button>
-
 
 
             <!-- QUICK ACTIONS -->
@@ -272,7 +267,6 @@
                     )
                 "
             >
-
                 📝
 
                 <span>
@@ -289,7 +283,6 @@
                     )
                 "
             >
-
                 📋
 
                 <span>
@@ -306,7 +299,6 @@
                     )
                 "
             >
-
                 📅
 
                 <span>
@@ -323,7 +315,6 @@
                     )
                 "
             >
-
                 🖼
 
                 <span>
@@ -340,7 +331,6 @@
                     )
                 "
             >
-
                 ✨
 
                 <span>
@@ -348,7 +338,6 @@
                 </span>
 
             </button>
-
 
 
             <!-- NOTES -->
@@ -379,13 +368,11 @@
         <main class="main-content">
 
 
-
             <!-- ==================== HERO ==================== -->
 
             <section class="hero">
 
                 <div class="hero-text">
-
 
                     <h2>
 
@@ -429,31 +416,26 @@
 
                     </div>
 
-
                 </div>
 
 
 
-                <!-- ==================== ROBOT ==================== -->
+                <!-- ROBOT -->
 
                 <div
                     class="robot-roamer"
                     id="robotRoamer"
                 >
 
-
                     <div
                         class="robot-bubble"
                         id="robotMessage"
                     >
-
                         💡 Need help?
-
                     </div>
 
 
                     <div class="mini-robot">
-
 
                         <div class="bot-cap">
                             🎓
@@ -461,7 +443,6 @@
 
 
                         <div class="bot-body">
-
 
                             <div class="bot-face">
 
@@ -484,7 +465,6 @@
                                 ✦
                             </div>
 
-
                         </div>
 
 
@@ -492,10 +472,10 @@
                             class="bot-hover-left"
                         ></div>
 
+
                         <div
                             class="bot-hover-right"
                         ></div>
-
 
                     </div>
 
@@ -520,23 +500,20 @@
                         •
                     </div>
 
-
                 </div>
 
             </section>
 
 
 
-            <!-- ==================== ASK CHAT ==================== -->
+            <!-- ==================== CHAT ==================== -->
 
             <section
                 class="ask-card"
                 id="chat"
             >
 
-
                 <div class="input-area">
-
 
                     <textarea
                         id="question"
@@ -545,30 +522,22 @@
                     ></textarea>
 
 
-
                     <div class="input-bottom">
 
 
                         <button
                             class="subject-btn"
                         >
-
                             📖 General ▾
-
                         </button>
 
 
                         <button
                             class="attach-btn"
                         >
-
                             🔗
-
                         </button>
 
-
-
-                        <!-- VOICE -->
 
                         <button
                             class="voice-btn"
@@ -576,37 +545,25 @@
                             onclick="startVoiceInput()"
                             title="Ask using your voice"
                         >
-
                             🎤
-
                         </button>
 
-
-
-                        <!-- ASK -->
 
                         <button
                             class="ask-btn"
                             onclick="askQuestion()"
                         >
-
                             ➤ Ask EduGenie
-
                         </button>
-
 
                     </div>
 
                 </div>
 
 
-
                 <div class="try-title">
-
                     💡 Try asking...
-
                 </div>
-
 
 
                 <div class="quick-prompts">
@@ -619,13 +576,11 @@
                             )
                         "
                     >
-
                         &lt;/&gt;
 
                         <br>
 
                         What is HTML?
-
                     </button>
 
 
@@ -636,13 +591,11 @@
                             )
                         "
                     >
-
                         🌿
 
                         <br>
 
                         Explain photosynthesis
-
                     </button>
 
 
@@ -653,13 +606,11 @@
                             )
                         "
                     >
-
                         ∑
 
                         <br>
 
                         Solve this math problem
-
                     </button>
 
 
@@ -670,13 +621,11 @@
                             )
                         "
                     >
-
                         📅
 
                         <br>
 
                         Give me a study plan
-
                     </button>
 
 
@@ -687,18 +636,14 @@
                             )
                         "
                     >
-
                         📝
 
                         <br>
 
                         Quick notes on OS
-
                     </button>
 
-
                 </div>
-
 
             </section>
 
@@ -706,16 +651,11 @@
 
             <!-- ==================== RESPONSE ==================== -->
 
-            <section
-                class="response-card"
-            >
+            <section class="response-card">
 
                 <div id="response">
 
-
-                    <div
-                        class="welcome-response"
-                    >
+                    <div class="welcome-response">
 
                         🤖
 
@@ -725,20 +665,15 @@
 
 
                         <p>
-
                             Your AI learning assistant
                             is ready.
-
                         </p>
 
-
                     </div>
-
 
                 </div>
 
             </section>
-
 
 
             <!-- ==================== FOOTER ==================== -->
@@ -760,37 +695,29 @@
 
             </footer>
 
-
         </main>
 
 
 
-        <!-- ==================== RIGHT PANEL ==================== -->
+        <!-- ================================================= -->
+        <!-- RIGHT PANEL -->
+        <!-- ================================================= -->
 
         <aside class="right-panel">
-
 
 
             <!-- PROGRESS -->
 
             <section class="info-card">
 
-
                 <h3>
-
                     ⚙ Your Progress
-
                 </h3>
 
 
-                <div
-                    class="progress-area"
-                >
+                <div class="progress-area">
 
-
-                    <div
-                        class="progress-circle"
-                    >
+                    <div class="progress-circle">
 
                         <span>
                             78%
@@ -811,13 +738,10 @@
 
 
                         <p>
-
                             You're doing great! 🚀
-
                         </p>
 
                     </div>
-
 
                 </div>
 
@@ -825,7 +749,9 @@
 
 
 
-            <!-- ==================== RECENT CHATS ==================== -->
+            <!-- ================================================= -->
+            <!-- RECENT CHATS -->
+            <!-- ================================================= -->
 
             <section
                 class="info-card"
@@ -835,11 +761,8 @@
 
                 <div class="card-title">
 
-
                     <h3>
-
                         💬 Recent Chats
-
                     </h3>
 
 
@@ -850,21 +773,18 @@
                             return false;
                         "
                     >
-
                         View All →
-
                     </a>
-
 
                 </div>
 
 
+                <!-- SAVED CHATS APPEAR HERE -->
 
                 <div
                     id="chatHistoryList"
                     class="chat-history-list"
                 >
-
 
                     <div
                         class="empty-history"
@@ -872,41 +792,32 @@
 
                         💬 No chats yet.
 
-                        <br>
+                        <br><br>
 
                         Ask EduGenie
                         something to start!
 
                     </div>
 
-
                 </div>
-
 
             </section>
 
 
 
-            <!-- ==================== FACT ==================== -->
+            <!-- ================================================= -->
+            <!-- FACT -->
+            <!-- ================================================= -->
 
-            <section
-                class="fact-card"
-            >
+            <section class="fact-card">
 
-
-                <div
-                    class="fact-icon"
-                >
-
+                <div class="fact-icon">
                     💡
-
                 </div>
 
 
                 <h3>
-
                     Did you know?
-
                 </h3>
 
 
@@ -919,17 +830,15 @@
 
                 </p>
 
-
             </section>
 
 
 
-            <!-- ==================== MOTIVATION ==================== -->
+            <!-- ================================================= -->
+            <!-- MOTIVATION -->
+            <!-- ================================================= -->
 
-            <section
-                class="quote-card"
-            >
-
+            <section class="quote-card">
 
                 <p>
 
@@ -940,17 +849,13 @@
 
 
                 <div>
-
                     🏔️
-
                 </div>
-
 
             </section>
 
 
         </aside>
-
 
     </div>
 
@@ -959,7 +864,6 @@
     <!-- ==================== JAVASCRIPT ==================== -->
 
     <script src="app.js"></script>
-
 
 </body>
 
