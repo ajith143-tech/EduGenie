@@ -416,3 +416,106 @@ function startVoiceInput() {
     recognition.start();
 
 }
+// ---------- STUDENT LOGIN ----------
+
+function studentLogin() {
+
+    const name =
+        document.getElementById("studentName").value.trim();
+
+    const email =
+        document.getElementById("studentEmail").value.trim();
+
+    const password =
+        document.getElementById("studentPassword").value;
+
+    const message =
+        document.getElementById("loginMessage");
+
+    if (!name || !email || !password) {
+        message.innerText =
+            "⚠️ Please fill all the fields.";
+        return;
+    }
+
+    if (password.length < 4) {
+        message.innerText =
+            "⚠️ Password must contain at least 4 characters.";
+        return;
+    }
+
+    localStorage.setItem(
+        "edugenieLoggedIn",
+        "true"
+    );
+
+    localStorage.setItem(
+        "edugenieStudentName",
+        name
+    );
+
+    localStorage.setItem(
+        "edugenieStudentEmail",
+        email
+    );
+
+    showEduGenie();
+}
+
+
+// ---------- CHECK LOGIN ----------
+
+function checkStudentLogin() {
+
+    const loggedIn =
+        localStorage.getItem("edugenieLoggedIn");
+
+    const loginScreen =
+        document.getElementById("loginScreen");
+
+    if (loggedIn === "true") {
+        showEduGenie();
+    } else {
+        if (loginScreen) {
+            loginScreen.style.display = "flex";
+        }
+
+        document.body.style.overflow = "hidden";
+    }
+}
+
+
+// ---------- SHOW EDUGENIE ----------
+
+function showEduGenie() {
+
+    const loginScreen =
+        document.getElementById("loginScreen");
+
+    if (loginScreen) {
+        loginScreen.style.display = "none";
+    }
+
+    document.body.style.overflow = "auto";
+
+    const name =
+        localStorage.getItem(
+            "edugenieStudentName"
+        );
+
+    if (name) {
+        setRobotMessage(
+            "👋 Welcome, " + name + "!"
+        );
+    }
+}
+
+
+// ---------- RUN LOGIN CHECK ----------
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+        checkStudentLogin();
+    }
+);
