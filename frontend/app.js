@@ -70,7 +70,7 @@ if (robotMessage) {
 if (robotMessage) {
     robotMessage.innerText = "🎉 Here you go!";
 }
-
+typeAnswer(answer);
         responseBox.innerHTML = `
             <div class="ai-answer">
 
