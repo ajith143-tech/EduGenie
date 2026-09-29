@@ -1,5 +1,7 @@
 // EduGenie V2 - AI Learning Assistant
 
+const API_URL = "https://edugenie-1-g40s.onrender.com/ask";
+
 function setQuestion(text) {
     const input = document.getElementById("question");
 
@@ -10,6 +12,7 @@ function setQuestion(text) {
 }
 
 async function askQuestion() {
+
     const input = document.getElementById("question");
     const responseBox = document.getElementById("response");
 
@@ -36,23 +39,32 @@ async function askQuestion() {
     `;
 
     try {
-        const response = await fetch(
-            "https://edugenie-1-g40s.onrender.com/ask?question=" +
-            encodeURIComponent(question),
-            {
-                method: "POST"
-            }
-        );
+
+        const response = await fetch(API_URL, {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                question: question
+            })
+        });
 
         if (!response.ok) {
-            throw new Error("Server error");
+            throw new Error("Server returned error: " + response.status);
         }
 
         const data = await response.json();
-        const answer = data.answer || data.message || "No answer received.";
+
+        const answer =
+            data.answer ||
+            "Sorry, I couldn't generate an answer.";
 
         responseBox.innerHTML = `
             <div class="ai-answer">
+
                 <div class="answer-title">
                     🤖 EduGenie
                 </div>
@@ -64,21 +76,30 @@ async function askQuestion() {
                 <button class="copy-btn" onclick="copyAnswer()">
                     📋 Copy Answer
                 </button>
+
             </div>
         `;
 
     } catch (error) {
 
-    console.error("EduGenie Error:", error);
+        console.error("EduGenie Error:", error);
 
-    responseBox.innerHTML = `
-        <div class="error-message">
-            ⚠️ <strong>Something went wrong.</strong>
-            <br><br>
-            ${error.message}
-        </div>
-    `;
-}
+        responseBox.innerHTML = `
+            <div class="error-message">
+
+                ⚠️ <strong>Connection Error</strong>
+
+                <br><br>
+
+                ${escapeHtml(error.message)}
+
+                <br><br>
+
+                Please try again.
+
+            </div>
+        `;
+    }
 }
 
 
@@ -88,12 +109,20 @@ function formatAnswer(text) {
         return "No answer received.";
     }
 
-    return text
+    return escapeHtml(text)
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+        .replace(/\n/g, "<br>");
+}
+
+
+function escapeHtml(text) {
+
+    return String(text)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
-        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-        .replace(/\n/g, "<br>");
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 
@@ -121,6 +150,7 @@ async function copyAnswer() {
     } catch (error) {
 
         alert("Unable to copy the answer.");
+
     }
 }
 
@@ -140,8 +170,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 askQuestion();
             }
-
         });
     }
-
 });
