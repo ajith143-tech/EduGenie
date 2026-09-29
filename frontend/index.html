@@ -1,321 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>EduGenie - AI Learning Assistant</title>
-<link rel="stylesheet" href="style.css">
+    <title>EduGenie | Your AI Learning Companion</title>
 
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- NAVIGATION -->
+    <!-- NAVBAR -->
+    <header class="navbar">
 
-<nav class="navbar">
-
-    <div class="logo">
-        <div class="logo-icon">🎓</div>
-
-        <div>
-            <h1>Edu<span>Genie</span></h1>
-            <small>LEARN • ASK • GROW</small>
-        </div>
-    </div>
-
-    <div class="nav-links">
-        <a href="#" class="home-btn">⌂ Home</a>
-        <a href="#features">★ Features</a>
-        <a href="#about">ⓘ About</a>
-    </div>
-
-    <div class="menu">☰</div>
-
-</nav>
-
-
-<!-- HERO -->
-
-<section class="hero">
-
-    <div class="hero-content">
-
-        <div class="greeting">
-            ✨ Hello Student!
+        <div class="logo">
+            <div class="logo-icon">🎓</div>
+            <div>
+                <h1>Edu<span>Genie</span></h1>
+                <p>Your AI Learning Companion</p>
+            </div>
         </div>
 
-        <h1 class="hero-title">
-            Edu<span>Genie</span>
-        </h1>
+        <nav class="top-nav">
+            <a class="active" href="#">⌂ Learn</a>
+            <a href="#chat">💬 Chat</a>
+            <a href="#subjects">📚 Subjects</a>
+            <a href="#notes">📝 Notes</a>
+            <a href="#history">◷ History</a>
+        </nav>
 
-        <div class="subtitle">
-            Your AI Learning Assistant
-        </div>
+        <button class="curious-btn">✨ Stay Curious</button>
 
-        <div class="gemini">
-            Powered by <b>Google Gemini</b> ✦
-        </div>
+    </header>
 
-        <p class="description">
-            Ask questions, get clear explanations, find summaries,
-            and learn smarter — all in one place.
-        </p>
+
+    <div class="app-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <a class="side-home active" href="#">⌂ <span>Home</span></a>
+
+            <h3>Subjects</h3>
+
+            <button onclick="setQuestion('Explain Computer Science in simple words')">
+                &lt;/&gt; <span>Computer Science</span>
+            </button>
+
+            <button onclick="setQuestion('Explain this Mathematics topic simply')">
+                ∑ <span>Mathematics</span>
+            </button>
+
+            <button onclick="setQuestion('Explain Physics in simple words')">
+                ⚛ <span>Physics</span>
+            </button>
+
+            <button onclick="setQuestion('Explain Chemistry in simple words')">
+                ⚗ <span>Chemistry</span>
+            </button>
+
+            <button onclick="setQuestion('Help me learn English')">
+                📖 <span>English</span>
+            </button>
+
+            <button onclick="setQuestion('Tell me an interesting general knowledge fact')">
+                💡 <span>General Knowledge</span>
+            </button>
+
+
+            <h3>Quick Actions</h3>
+
+            <button onclick="setQuestion('Generate study notes for me')">
+                📝 <span>Generate Notes</span>
+            </button>
+
+            <button onclick="setQuestion('Create a quiz for me')">
+                📋 <span>Create Quiz</span>
+            </button>
+
+            <button onclick="setQuestion('Create a study plan for me')">
+                📅 <span>Study Plan</span>
+            </button>
+
+            <button onclick="setQuestion('Explain this concept visually')">
+                🖼 <span>Image to Concept</span>
+            </button>
+
+            <button onclick="setQuestion('Ask me anything about my studies')">
+                ✨ <span>Ask Anything</span>
+            </button>
+
+
+            <div class="dream-box">
+                Better Questions
+                <br>
+                =
+                <br>
+                Bigger Dreams ✦
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <!-- HERO -->
+            <section class="hero">
+
+                <div class="hero-text">
+
+                    <h2>Hello, <span>Aji</span> 🎀</h2>
+
+                    <h3>Ask. Learn. Grow.</h3>
+
+                    <p>
+                        EduGenie is your AI-powered study buddy,
+                        ready to help you understand, solve and
+                        excel in your studies!
+                    </p>
+
+                    <div class="hero-tags">
+                        <span>✦ Smart Answers</span>
+                        <span>✦ Better Learning</span>
+                        <span>✦ Brighter Future</span>
+                    </div>
+
+                </div>
+
+
+                <div class="robot">
+
+                    <div class="robot-glow"></div>
+
+                    <div class="robot-hat">🎓</div>
+
+                    <div class="robot-face">
+                        <span>◕‿◕</span>
+                    </div>
+
+                    <div class="robot-book">📖</div>
+
+                    <div class="robot-text">
+                        Small steps...<br>
+                        Big dreams! ✦
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ASK BOX -->
+            <section class="ask-card" id="chat">
+
+                <div class="input-area">
+
+                    <textarea
+                        id="question"
+                        placeholder="Ask me anything about your studies..."
+                        rows="2"
+                    ></textarea>
+
+                    <div class="input-bottom">
+
+                        <button class="subject-btn">
+                            📖 General ▾
+                        </button>
+
+                        <button class="attach-btn">
+                            🔗
+                        </button>
+
+                        <button class="ask-btn" onclick="askQuestion()">
+                            ➤ Ask EduGenie
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="try-title">
+                    💡 Try asking...
+                </div>
+
+
+                <div class="quick-prompts">
+
+                    <button onclick="setQuestion('What is HTML?')">
+                        &lt;/&gt;<br>
+                        What is HTML?
+                    </button>
+
+                    <button onclick="setQuestion('Explain photosynthesis')">
+                        🌿<br>
+                        Explain photosynthesis
+                    </button>
+
+                    <button onclick="setQuestion('Solve this math problem for me')">
+                        ∑<br>
+                        Solve this math problem
+                    </button>
+
+                    <button onclick="setQuestion('Give me a study plan')">
+                        📅<br>
+                        Give me a study plan
+                    </button>
+
+                    <button onclick="setQuestion('Give me quick notes on OS')">
+                        📝<br>
+                        Quick notes on OS
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- RESPONSE -->
+            <section class="response-card">
+
+                <div id="response">
+                    <div class="welcome-response">
+                        🤖 <strong>EduGenie</strong>
+                        <p>Your AI learning assistant is ready.</p>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <footer>
+                ✦ EduGenie &nbsp; • &nbsp;
+                Powered by Gemini &nbsp; • &nbsp;
+                Learn Smarter, Not Harder 💙
+            </footer>
+
+        </main>
+
+
+        <!-- RIGHT PANEL -->
+        <aside class="right-panel">
+
+            <!-- PROGRESS -->
+            <section class="info-card">
+
+                <h3>⚙ Your Progress</h3>
+
+                <div class="progress-area">
+
+                    <div class="progress-circle">
+                        <span>78%</span>
+                    </div>
+
+                    <div>
+                        <strong>Learning<br>Progress</strong>
+                        <p>You're doing great! 🚀</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- RECENT CHATS -->
+            <section class="info-card" id="history">
+
+                <div class="card-title">
+                    <h3>💬 Recent Chats</h3>
+                    <a href="#">View All →</a>
+                </div>
+
+                <div class="history-item">
+                    <span>💻</span>
+                    <div>
+                        <strong>What is HTML?</strong>
+                        <small>Today, 4:25 PM</small>
+                    </div>
+                    <b>›</b>
+                </div>
+
+                <div class="history-item">
+                    <span>🌿</span>
+                    <div>
+                        <strong>Explain photosynthesis</strong>
+                        <small>Yesterday</small>
+                    </div>
+                    <b>›</b>
+                </div>
+
+                <div class="history-item">
+                    <span>📚</span>
+                    <div>
+                        <strong>DBMS key concepts</strong>
+                        <small>Yesterday</small>
+                    </div>
+                    <b>›</b>
+                </div>
+
+                <div class="history-item">
+                    <span>∑</span>
+                    <div>
+                        <strong>Math problem solution</strong>
+                        <small>2 days ago</small>
+                    </div>
+                    <b>›</b>
+                </div>
+
+            </section>
+
+
+            <!-- FACT -->
+            <section class="fact-card">
+
+                <div class="fact-icon">💡</div>
+
+                <h3>Did you know?</h3>
+
+                <p>
+                    AI can help you understand difficult
+                    concepts through simple explanations,
+                    examples and practice questions.
+                </p>
+
+            </section>
+
+
+            <!-- MOTIVATION -->
+            <section class="quote-card">
+
+                <p>
+                    “You are not just studying,
+                    you are building your future.”
+                </p>
+
+                <div>🏔️</div>
+
+            </section>
+
+        </aside>
 
     </div>
 
 
-    <div class="robot-area">
-
-        <div class="tag tag1">📖 Explain Concepts</div>
-
-        <div class="tag tag2">❓ Solve Doubts</div>
-
-        <div class="tag tag3">📝 Summarize</div>
-
-        <div class="tag tag4">💡 Generate Questions</div>
-
-        <div class="robot">
-            🤖
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ASK EDUGENIE -->
-
-<section class="ask-container">
-
-    <div class="ask-title">
-        ✨ Ask EduGenie
-    </div>
-
-    <div class="ask-subtitle">
-        Type your question below and get instant AI-powered answers.
-    </div>
-
-    <div class="input-area">
-
-        <input
-            id="question"
-            type="text"
-            placeholder="e.g. Explain photosynthesis in simple words..."
-        >
-
-        <button class="ask-btn" onclick="askQuestion()">
-            ➤
-        </button>
-
-    </div>
-
-    <div class="quick">
-
-        <button onclick="setQuestion('Explain a concept')">
-            ✦ Explain a concept
-        </button>
-
-        <button onclick="setQuestion('Summarize this topic')">
-            Summarize this topic
-        </button>
-
-        <button onclick="setQuestion('Give me practice questions')">
-            Practice questions
-        </button>
-
-        <button onclick="setQuestion('Help me with my doubts')">
-            Help with doubts
-        </button>
-
-    </div>
-
-    <div id="response"></div>
-
-</section>
-
-
-<!-- FEATURES -->
-
-<section class="features" id="features">
-
-    <h2 class="section-title">
-        ✦ What Can EduGenie Do?
-    </h2>
-
-    <p class="section-subtitle">
-        Everything you need for better learning.
-    </p>
-
-
-    <div class="feature-grid">
-
-        <div class="card">
-            <div class="icon">📖</div>
-            <h3>Topic Explanations</h3>
-            <p>
-                Get simple and clear explanations for any academic topic.
-            </p>
-        </div>
-
-
-        <div class="card">
-            <div class="icon">💬</div>
-            <h3>AI-Powered Answers</h3>
-            <p>
-                Ask anything and get helpful AI-powered responses.
-            </p>
-        </div>
-
-
-        <div class="card">
-            <div class="icon">📄</div>
-            <h3>Summaries</h3>
-            <p>
-                Save time with short and easy-to-understand summaries.
-            </p>
-        </div>
-
-
-        <div class="card">
-            <div class="icon">❓</div>
-            <h3>Question Generation</h3>
-            <p>
-                Practice with custom questions and quizzes.
-            </p>
-        </div>
-
-
-        <div class="card">
-            <div class="icon">🎯</div>
-            <h3>Personalized Learning</h3>
-            <p>
-                Learn at your own pace with intelligent support.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ABOUT -->
-
-<section class="features" id="about">
-
-    <h2 class="section-title">🚀 About EduGenie</h2>
-
-    <p class="section-subtitle">
-        A Google Gemini powered learning assistant created to make
-        studying easier, smarter and more interactive.
-    </p>
-
-</section>
-
-
-<!-- FOOTER -->
-
-<footer>
-
-    <div>
-        <div class="footer-brand">EDUGENIE</div>
-        <p>Google Gemini Powered Learning Assistant</p>
-    </div>
-
-    <div class="team">
-        <b>🎓 Team EduGenie</b><br>
-        Ajith S | Perumal Raja | Sowmiya S<br>
-        Sridhar P | Kishore S
-    </div>
-
-</footer>
-
-
-<script>
-
-function setQuestion(text) {
-    document.getElementById("question").value = text;
-}
-
-async function askQuestion() {
-
-    const question =
-        document.getElementById("question").value.trim();
-
-    const responseBox =
-        document.getElementById("response");
-
-    if (!question) {
-        responseBox.style.display = "block";
-        responseBox.innerText =
-            "⚠️ Please enter a question first.";
-        return;
-    }
-
-    responseBox.style.display = "block";
-
-    responseBox.innerText =
-        "✨ EduGenie is preparing your answer...";
-
-    /*
-       Backend connection
-
-       When FastAPI is running, this will send
-       the question to the backend.
-    */
-
-    try {
-
-        const response = await fetch(
-            "http://127.0.0.1:8000/ask?question=" +
-            encodeURIComponent(question),
-            {
-                method: "POST"
-            }
-        );
-
-        const data = await response.json();
-
-        responseBox.innerText =
-            data.answer || data.message;
-
-    } catch (error) {
-
-        /*
-           Demo response when backend isn't running.
-        */
-
-        responseBox.innerText =
-            "🤖 EduGenie received your question: " +
-            question +
-            "\n\nGemini AI connection will be activated when the backend server is running.";
-
-    }
-}
-
-
-/* Create background stars */
-
-for (let i = 0; i < 45; i++) {
-
-    const star = document.createElement("div");
-
-    star.className = "star";
-
-    star.style.left =
-        Math.random() * 100 + "%";
-
-    star.style.top =
-        Math.random() * 100 + "%";
-
-    star.style.animationDelay =
-        Math.random() * 2 + "s";
-
-    document.body.appendChild(star);
-}
-
-</script>
-<script src="app.js"></script>
+    <script src="app.js"></script>
 
 </body>
 </html>
