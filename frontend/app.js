@@ -78,9 +78,7 @@ if (robotMessage) {
                     🤖 EduGenie
                 </div>
 
-                <div class="answer-content">
-                    ${formatAnswer(answer)}
-                </div>
+               <div class="answer-content" id="aiTyping"></div>
 
                 <button class="copy-btn" onclick="copyAnswer()">
                     📋 Copy Answer
