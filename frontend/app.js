@@ -14,6 +14,10 @@ const robotMessages = [
 ];
 
 
+// =====================================================
+// QUESTION INPUT
+// =====================================================
+
 function setQuestion(text) {
 
     const input = document.getElementById("question");
@@ -22,8 +26,22 @@ function setQuestion(text) {
 
     input.value = text;
     input.focus();
+
+    // Move to chat box
+    const chat = document.getElementById("chat");
+
+    if (chat) {
+        chat.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }
 }
 
+
+// =====================================================
+// ROBOT
+// =====================================================
 
 function setRobotMessage(message) {
 
@@ -48,6 +66,23 @@ function setRobotMessage(message) {
     }
 }
 
+
+// =====================================================
+// CHAT HISTORY DATA
+// =====================================================
+
+let eduGenieChats =
+    JSON.parse(
+        localStorage.getItem("eduGenieChats")
+    ) || [];
+
+let activeChatId = null;
+
+
+// =====================================================
+// ASK GEMINI
+// =====================================================
+
 async function askQuestion() {
 
     const input =
@@ -62,15 +97,19 @@ async function askQuestion() {
         input.value.trim();
 
     if (!question) {
+
         responseBox.innerHTML = `
             <div class="error-message">
                 ⚠️ <strong>Please enter a question first.</strong>
             </div>
         `;
+
         return;
     }
 
+
     setRobotMessage("🤔 Thinking...");
+
 
     responseBox.innerHTML = `
         <div class="thinking">
@@ -81,9 +120,11 @@ async function askQuestion() {
         </div>
     `;
 
+
     try {
 
         const response = await fetch(API_URL, {
+
             method: "POST",
 
             headers: {
@@ -93,52 +134,74 @@ async function askQuestion() {
             body: JSON.stringify({
                 question: question
             })
+
         });
 
+
         if (!response.ok) {
+
             throw new Error(
                 "Server returned error: " +
                 response.status
             );
+
         }
+
 
         const data =
             await response.json();
+
 
         const answer =
             data.answer ||
             "Sorry, I couldn't generate an answer.";
 
-        // Create chat only after Gemini succeeds
+
+        // Create chat if needed
         if (!activeChatId) {
-            createNewChat();
+            createNewChat(false);
         }
+
 
         const chat =
             eduGenieChats.find(
                 item => item.id === activeChatId
             );
 
+
         if (chat) {
 
             chat.messages.push({
+
                 question: question,
+
                 answer: answer,
-                time: new Date().toLocaleString()
+
+                time:
+                    new Date().toLocaleString()
+
             });
 
+
             if (chat.title === "New Chat") {
+
                 chat.title =
                     question.length > 35
                         ? question.substring(0, 35) + "..."
                         : question;
+
             }
 
+
             saveChats();
+
             renderChatHistory();
+
         }
 
+
         setRobotMessage("🎉 Here you go!");
+
 
         responseBox.innerHTML = `
             <div class="ai-answer">
@@ -161,8 +224,11 @@ async function askQuestion() {
             </div>
         `;
 
+
         input.value = "";
+
         input.focus();
+
 
     } catch (error) {
 
@@ -171,22 +237,36 @@ async function askQuestion() {
             error
         );
 
+
         setRobotMessage(
             "💙 Let's try again!"
         );
 
+
         responseBox.innerHTML = `
             <div class="error-message">
+
                 ⚠️ <strong>Connection Error</strong>
+
                 <br><br>
+
                 ${escapeHtml(error.message)}
+
                 <br><br>
+
                 Please try again.
+
             </div>
         `;
+
     }
+
 }
 
+
+// =====================================================
+// FORMAT ANSWER
+// =====================================================
 
 function formatAnswer(text) {
 
@@ -195,28 +275,64 @@ function formatAnswer(text) {
     }
 
     return escapeHtml(text)
-        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-        .replace(/\n/g, "<br>");
+        .replace(
+            /\*\*(.*?)\*\*/g,
+            "<strong>$1</strong>"
+        )
+        .replace(
+            /\n/g,
+            "<br>"
+        );
 
 }
 
+
+// =====================================================
+// SECURITY
+// =====================================================
 
 function escapeHtml(text) {
 
     return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
+// =====================================================
+// COPY ANSWER
+// =====================================================
+
 async function copyAnswer() {
 
     const answer =
-        document.querySelector(".answer-content");
+        document.querySelector(
+            ".answer-content"
+        );
 
 
     if (!answer) return;
@@ -230,12 +346,15 @@ async function copyAnswer() {
 
 
         const button =
-            document.querySelector(".copy-btn");
+            document.querySelector(
+                ".copy-btn"
+            );
 
 
         if (button) {
 
-            button.innerText = "✅ Copied!";
+            button.innerText =
+                "✅ Copied!";
 
 
             setTimeout(() => {
@@ -250,20 +369,27 @@ async function copyAnswer() {
 
     } catch (error) {
 
-        alert("Unable to copy the answer.");
+        alert(
+            "Unable to copy the answer."
+        );
 
     }
 
 }
 
 
-// Enter key support
+// =====================================================
+// ENTER KEY
+// =====================================================
+
 document.addEventListener(
     "DOMContentLoaded",
     function () {
 
         const input =
-            document.getElementById("question");
+            document.getElementById(
+                "question"
+            );
 
 
         if (input) {
@@ -292,11 +418,16 @@ document.addEventListener(
 );
 
 
-// Floating robot messages
+// =====================================================
+// FLOATING ROBOT MESSAGES
+// =====================================================
+
 function changeRobotMessage() {
 
     const robotMessage =
-        document.getElementById("robotMessage");
+        document.getElementById(
+            "robotMessage"
+        );
 
 
     if (!robotMessage) return;
@@ -313,7 +444,9 @@ function changeRobotMessage() {
 
 
         robotMessage.innerText =
-            robotMessages[robotMessageIndex];
+            robotMessages[
+                robotMessageIndex
+            ];
 
 
         robotMessage.style.opacity = "1";
@@ -327,15 +460,29 @@ setInterval(
     changeRobotMessage,
     3500
 );
-// ---------- VOICE INPUT ----------
+
+
+// =====================================================
+// VOICE INPUT
+// =====================================================
 
 let recognition;
+
 let isListening = false;
+
 
 function startVoiceInput() {
 
-    const input = document.getElementById("question");
-    const voiceBtn = document.getElementById("voiceBtn");
+    const input =
+        document.getElementById(
+            "question"
+        );
+
+    const voiceBtn =
+        document.getElementById(
+            "voiceBtn"
+        );
+
 
     if (!input || !voiceBtn) return;
 
@@ -352,6 +499,7 @@ function startVoiceInput() {
         );
 
         return;
+
     }
 
 
@@ -362,135 +510,204 @@ function startVoiceInput() {
         }
 
         return;
+
     }
 
 
-    recognition = new SpeechRecognition();
-
-    recognition.lang = "en-IN";
-
-    recognition.continuous = false;
-
-    recognition.interimResults = false;
+    recognition =
+        new SpeechRecognition();
 
 
-    recognition.onstart = function () {
-
-        isListening = true;
-
-        voiceBtn.innerText = "🔴";
-
-        voiceBtn.classList.add("voice-listening");
-
-        setRobotMessage("🎧 Listening...");
-
-    };
+    recognition.lang =
+        "en-IN";
 
 
-    recognition.onresult = function (event) {
-
-        const transcript =
-            event.results[0][0].transcript;
-
-        input.value = transcript;
-
-        input.focus();
-
-    };
+    recognition.continuous =
+        false;
 
 
-    recognition.onerror = function (event) {
-
-        console.error(
-            "Voice recognition error:",
-            event.error
-        );
-
-        setRobotMessage("💙 Try speaking again!");
-
-    };
+    recognition.interimResults =
+        false;
 
 
-    recognition.onend = function () {
+    recognition.onstart =
+        function () {
 
-        isListening = false;
+            isListening = true;
 
-        voiceBtn.innerText = "🎤";
 
-        voiceBtn.classList.remove(
-            "voice-listening"
-        );
+            voiceBtn.innerText =
+                "🔴";
 
-        setRobotMessage("💡 Need help?");
 
-    };
+            voiceBtn.classList.add(
+                "voice-listening"
+            );
+
+
+            setRobotMessage(
+                "🎧 Listening..."
+            );
+
+        };
+
+
+    recognition.onresult =
+        function (event) {
+
+            const transcript =
+                event.results[0][0]
+                    .transcript;
+
+
+            input.value =
+                transcript;
+
+
+            input.focus();
+
+        };
+
+
+    recognition.onerror =
+        function (event) {
+
+            console.error(
+                "Voice recognition error:",
+                event.error
+            );
+
+
+            setRobotMessage(
+                "💙 Try speaking again!"
+            );
+
+        };
+
+
+    recognition.onend =
+        function () {
+
+            isListening = false;
+
+
+            voiceBtn.innerText =
+                "🎤";
+
+
+            voiceBtn.classList.remove(
+                "voice-listening"
+            );
+
+
+            setRobotMessage(
+                "💡 Need help?"
+            );
+
+        };
 
 
     recognition.start();
 
 }
-// ---------- CHAT HISTORY SYSTEM ----------
-
-let eduGenieChats =
-    JSON.parse(
-        localStorage.getItem("eduGenieChats")
-    ) || [];
-
-let activeChatId = null;
 
 
-// Create a new chat
-function createNewChat() {
+// =====================================================
+// SAVE CHATS
+// =====================================================
 
-    const chat = {
-        id: Date.now(),
-        title: "New Chat",
-        messages: [],
-        createdAt: new Date().toLocaleString()
-    };
-
-    eduGenieChats.unshift(chat);
-
-    activeChatId = chat.id;
-
-    saveChats();
-
-    renderChatHistory();
-
-    const responseBox =
-        document.getElementById("response");
-
-    if (responseBox) {
-        responseBox.innerHTML = `
-            <div class="thinking">
-                💬 New chat started.
-            </div>
-        `;
-    }
-
-    const input =
-        document.getElementById("question");
-
-    if (input) {
-        input.value = "";
-        input.focus();
-    }
-
-    setRobotMessage("💬 New chat!");
-}
-
-
-// Save chats
 function saveChats() {
 
     localStorage.setItem(
         "eduGenieChats",
-        JSON.stringify(eduGenieChats)
+        JSON.stringify(
+            eduGenieChats
+        )
     );
+
 }
 
 
-// Render recent chats
+// =====================================================
+// CREATE NEW CHAT
+// =====================================================
+
+function createNewChat(showMessage = true) {
+
+    const chat = {
+
+        id: Date.now(),
+
+        title: "New Chat",
+
+        messages: [],
+
+        createdAt:
+            new Date().toLocaleString()
+
+    };
+
+
+    eduGenieChats.unshift(chat);
+
+
+    activeChatId =
+        chat.id;
+
+
+    saveChats();
+
+
+    renderChatHistory();
+
+
+    if (showMessage) {
+
+        const responseBox =
+            document.getElementById(
+                "response"
+            );
+
+
+        if (responseBox) {
+
+            responseBox.innerHTML = `
+                <div class="thinking">
+                    💬 New chat started.
+                </div>
+            `;
+
+        }
+
+
+        const input =
+            document.getElementById(
+                "question"
+            );
+
+
+        if (input) {
+
+            input.value = "";
+
+            input.focus();
+
+        }
+
+
+        setRobotMessage(
+            "💬 New chat!"
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// RENDER RECENT CHATS
+// =====================================================
+
 function renderChatHistory() {
 
     const list =
@@ -498,20 +715,31 @@ function renderChatHistory() {
             "chatHistoryList"
         );
 
+
     if (!list) return;
 
-    if (eduGenieChats.length === 0) {
+
+    if (
+        !eduGenieChats ||
+        eduGenieChats.length === 0
+    ) {
 
         list.innerHTML = `
             <div class="empty-history">
+
                 💬 No chats yet.
+
                 <br>
+
                 Ask EduGenie something to start!
+
             </div>
         `;
 
         return;
+
     }
+
 
     list.innerHTML =
         eduGenieChats
@@ -523,18 +751,24 @@ function renderChatHistory() {
                         chat.messages.length - 1
                     ];
 
+
                 const preview =
                     lastMessage
                         ? lastMessage.question
                         : chat.title;
 
+
                 return `
+
                     <div
                         class="history-item"
                         onclick="continueChat(${chat.id})"
                     >
 
-                        <span>💬</span>
+                        <span>
+                            💬
+                        </span>
+
 
                         <div>
 
@@ -544,6 +778,7 @@ function renderChatHistory() {
                                 )}
                             </strong>
 
+
                             <small>
                                 ${escapeHtml(
                                     preview
@@ -552,34 +787,54 @@ function renderChatHistory() {
 
                         </div>
 
-                        <b>›</b>
+
+                        <b>
+                            ›
+                        </b>
 
                     </div>
+
                 `;
 
             })
             .join("");
+
 }
 
 
-// Continue an existing chat
+// =====================================================
+// CONTINUE CHAT
+// =====================================================
+
 function continueChat(chatId) {
 
     const chat =
         eduGenieChats.find(
-            item => item.id === chatId
+            item =>
+                item.id === chatId
         );
+
 
     if (!chat) return;
 
-    activeChatId = chat.id;
+
+    activeChatId =
+        chat.id;
+
 
     const responseBox =
-        document.getElementById("response");
+        document.getElementById(
+            "response"
+        );
+
 
     if (!responseBox) return;
 
-    if (chat.messages.length === 0) {
+
+    if (
+        !chat.messages ||
+        chat.messages.length === 0
+    ) {
 
         responseBox.innerHTML = `
             <div class="thinking">
@@ -587,66 +842,139 @@ function continueChat(chatId) {
             </div>
         `;
 
+        setRobotMessage(
+            "🔄 Chat continued!"
+        );
+
         return;
+
     }
+
 
     const last =
         chat.messages[
             chat.messages.length - 1
         ];
 
+
     responseBox.innerHTML = `
+
         <div class="ai-answer">
 
             <div class="answer-title">
                 🤖 EduGenie
             </div>
 
+
             <div class="answer-content">
-                ${formatAnswer(last.answer)}
+
+                ${formatAnswer(
+                    last.answer
+                )}
+
             </div>
+
 
             <button
                 class="copy-btn"
                 onclick="copyAnswer()"
             >
+
                 📋 Copy Answer
+
             </button>
 
         </div>
+
     `;
 
-    setRobotMessage("🔄 Chat continued!");
+
+    setRobotMessage(
+        "🔄 Chat continued!"
+    );
+
 
     const input =
-        document.getElementById("question");
+        document.getElementById(
+            "question"
+        );
+
 
     if (input) {
+
         input.focus();
+
     }
+
+
+    // Scroll to answer
+    responseBox.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
 }
 
 
-// Show all chats
+// =====================================================
+// SHOW ALL CHATS / HISTORY BUTTON
+// =====================================================
+
 function showAllChats() {
+
+    const historySection =
+        document.getElementById(
+            "history"
+        );
+
 
     const list =
         document.getElementById(
             "chatHistoryList"
         );
 
+
+    // FIRST: Scroll to History section
+    if (historySection) {
+
+        historySection.scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "center"
+
+        });
+
+    }
+
+
+    // SECOND: Show chats
     if (!list) return;
 
-    if (eduGenieChats.length === 0) {
+
+    if (
+        !eduGenieChats ||
+        eduGenieChats.length === 0
+    ) {
 
         list.innerHTML = `
+
             <div class="empty-history">
+
                 💬 No saved chats yet.
+
+                <br><br>
+
+                Ask EduGenie something first!
+
             </div>
+
         `;
 
         return;
+
     }
+
 
     list.innerHTML =
         eduGenieChats
@@ -657,18 +985,24 @@ function showAllChats() {
                         chat.messages.length - 1
                     ];
 
+
                 const preview =
                     lastMessage
                         ? lastMessage.question
                         : "Empty chat";
 
+
                 return `
+
                     <div
                         class="history-item"
                         onclick="continueChat(${chat.id})"
                     >
 
-                        <span>💬</span>
+                        <span>
+                            💬
+                        </span>
+
 
                         <div>
 
@@ -678,6 +1012,7 @@ function showAllChats() {
                                 )}
                             </strong>
 
+
                             <small>
                                 ${escapeHtml(
                                     preview
@@ -686,20 +1021,59 @@ function showAllChats() {
 
                         </div>
 
-                        <b>›</b>
+
+                        <b>
+                            ›
+                        </b>
 
                     </div>
+
                 `;
 
             })
             .join("");
+
 }
 
 
-// Load history when website opens
+// =====================================================
+// HISTORY BUTTON BACKUP
+// =====================================================
+
+// This makes the History function available
+// to HTML onclick events.
+
+window.showAllChats =
+    showAllChats;
+
+window.continueChat =
+    continueChat;
+
+window.createNewChat =
+    createNewChat;
+
+window.askQuestion =
+    askQuestion;
+
+window.startVoiceInput =
+    startVoiceInput;
+
+window.setQuestion =
+    setQuestion;
+
+window.copyAnswer =
+    copyAnswer;
+
+
+// =====================================================
+// LOAD CHAT HISTORY WHEN WEBSITE OPENS
+// =====================================================
+
 document.addEventListener(
     "DOMContentLoaded",
     function () {
+
         renderChatHistory();
+
     }
-);
+); 
