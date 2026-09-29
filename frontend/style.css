@@ -1019,3 +1019,388 @@ footer {
         font-size: 14px;
     }
 }
+/* ---------- ROAMING MINI EDUGENIE BOT ---------- */
+
+.robot-roamer {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 120px;
+    height: 130px;
+    z-index: 9999;
+    pointer-events: none;
+
+    animation:
+        robotRoam 18s ease-in-out infinite,
+        robotBob 2.5s ease-in-out infinite;
+}
+
+.mini-robot {
+    position: absolute;
+    width: 82px;
+    height: 82px;
+    left: 18px;
+    top: 35px;
+}
+
+/* Glow */
+
+.mini-robot::before {
+    content: "";
+    position: absolute;
+    inset: -25px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(55, 210, 255, .35),
+        rgba(125, 70, 255, .15),
+        transparent 70%
+    );
+    filter: blur(10px);
+    animation: botGlow 2s ease-in-out infinite alternate;
+}
+
+/* Body */
+
+.bot-body {
+    position: absolute;
+    width: 76px;
+    height: 68px;
+    left: 3px;
+    top: 12px;
+
+    border-radius: 28px 28px 25px 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f5fbff 0%,
+            #b8dcff 45%,
+            #657fc0 100%
+        );
+
+    border: 2px solid #55d9ff;
+
+    box-shadow:
+        0 0 15px rgba(50, 210, 255, .8),
+        0 0 35px rgba(110, 80, 255, .4),
+        inset 0 -8px 12px rgba(50, 70, 130, .3);
+}
+
+/* Face */
+
+.bot-face {
+    position: absolute;
+    width: 60px;
+    height: 42px;
+    left: 7px;
+    top: 8px;
+
+    border-radius: 20px;
+
+    background: #09234c;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    padding: 0 9px;
+
+    box-shadow:
+        inset 0 0 12px rgba(60, 210, 255, .4),
+        0 0 10px rgba(60, 210, 255, .4);
+}
+
+/* Eyes */
+
+.bot-eye {
+    font-size: 12px;
+    color: #65e7ff;
+
+    text-shadow:
+        0 0 8px #43ddff,
+        0 0 15px #43ddff;
+
+    animation: botBlink 4s infinite;
+}
+
+/* Smile */
+
+.bot-smile {
+    position: absolute;
+    width: 17px;
+    height: 7px;
+    bottom: 5px;
+
+    border-bottom: 2px solid #65e7ff;
+    border-radius: 0 0 15px 15px;
+}
+
+/* Chest panel */
+
+.bot-panel {
+    position: absolute;
+    bottom: 8px;
+    left: 28px;
+
+    width: 20px;
+    height: 12px;
+
+    border-radius: 6px;
+
+    color: #69eaff;
+    text-align: center;
+    font-size: 10px;
+
+    background: rgba(5, 30, 70, .8);
+
+    box-shadow: 0 0 8px #43d9ff;
+}
+
+/* Graduation cap */
+
+.bot-cap {
+    position: absolute;
+    z-index: 5;
+
+    top: 0;
+    left: 28px;
+
+    font-size: 28px;
+
+    transform: rotate(-8deg);
+
+    filter:
+        drop-shadow(0 0 5px #53dcff)
+        drop-shadow(0 0 10px #806cff);
+
+    animation: capBounce 2.5s ease-in-out infinite;
+}
+
+/* Hover fins */
+
+.bot-hover-left,
+.bot-hover-right {
+    position: absolute;
+
+    top: 42px;
+
+    width: 12px;
+    height: 25px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        #66e8ff,
+        #536cff
+    );
+
+    box-shadow: 0 0 12px #50dcff;
+}
+
+.bot-hover-left {
+    left: -8px;
+    transform: rotate(-18deg);
+}
+
+.bot-hover-right {
+    right: -8px;
+    transform: rotate(18deg);
+}
+
+/* Speech bubble */
+
+.robot-bubble {
+    position: absolute;
+
+    top: -5px;
+    left: 0;
+
+    padding: 7px 11px;
+
+    border-radius: 14px;
+
+    background: rgba(8, 25, 60, .88);
+
+    border: 1px solid rgba(85, 220, 255, .6);
+
+    color: #dffaff;
+
+    font-size: 11px;
+    white-space: nowrap;
+
+    box-shadow:
+        0 0 15px rgba(50, 200, 255, .35);
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
+}
+
+/* Little particles */
+
+.bot-spark {
+    position: absolute;
+
+    color: #62e6ff;
+
+    text-shadow:
+        0 0 8px #4ddcff;
+
+    animation: sparkFloat 2s ease-in-out infinite;
+}
+
+.spark-one {
+    left: 8px;
+    top: 30px;
+}
+
+.spark-two {
+    right: 2px;
+    top: 75px;
+    animation-delay: .6s;
+}
+
+.spark-three {
+    left: 22px;
+    bottom: 5px;
+    animation-delay: 1s;
+}
+
+
+/* ---------- ANIMATIONS ---------- */
+
+@keyframes robotBob {
+
+    0%, 100% {
+        margin-top: 0;
+    }
+
+    50% {
+        margin-top: -12px;
+    }
+}
+
+@keyframes botGlow {
+
+    from {
+        transform: scale(.85);
+        opacity: .5;
+    }
+
+    to {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+}
+
+@keyframes botBlink {
+
+    0%, 92%, 100% {
+        transform: scaleY(1);
+    }
+
+    95% {
+        transform: scaleY(.15);
+    }
+}
+
+@keyframes capBounce {
+
+    0%, 100% {
+        transform: rotate(-8deg) translateY(0);
+    }
+
+    50% {
+        transform: rotate(5deg) translateY(-5px);
+    }
+}
+
+@keyframes sparkFloat {
+
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: .5;
+    }
+
+    50% {
+        transform: translateY(-12px) scale(1.3);
+        opacity: 1;
+    }
+}
+
+
+/* ---------- ROBOT ROAMING ---------- */
+
+@keyframes robotRoam {
+
+    0% {
+        left: 8%;
+        top: 18%;
+        transform: rotate(0deg);
+    }
+
+    15% {
+        left: 78%;
+        top: 15%;
+        transform: rotate(5deg);
+    }
+
+    30% {
+        left: 88%;
+        top: 48%;
+        transform: rotate(-5deg);
+    }
+
+    45% {
+        left: 65%;
+        top: 78%;
+        transform: rotate(4deg);
+    }
+
+    60% {
+        left: 25%;
+        top: 82%;
+        transform: rotate(-4deg);
+    }
+
+    75% {
+        left: 7%;
+        top: 55%;
+        transform: rotate(5deg);
+    }
+
+    90% {
+        left: 25%;
+        top: 25%;
+        transform: rotate(-3deg);
+    }
+
+    100% {
+        left: 8%;
+        top: 18%;
+        transform: rotate(0deg);
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .robot-roamer {
+        width: 100px;
+        height: 110px;
+        transform-origin: center;
+    }
+
+    .mini-robot {
+        transform: scale(.78);
+        transform-origin: top left;
+    }
+
+    .robot-bubble {
+        font-size: 9px;
+        padding: 6px 8px;
+    }
+}
