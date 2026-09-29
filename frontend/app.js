@@ -27,11 +27,25 @@ function setQuestion(text) {
 
 function setRobotMessage(message) {
 
-    const robotMessage = document.getElementById("robotMessage");
+    const robotMessage =
+        document.getElementById("robotMessage");
 
-    if (!robotMessage) return;
+    const robot =
+        document.getElementById("robotRoamer");
 
-    robotMessage.innerText = message;
+    if (robotMessage) {
+        robotMessage.innerText = message;
+    }
+
+    if (robot) {
+
+        if (message.includes("Thinking")) {
+            robot.classList.add("thinking-mode");
+        } else {
+            robot.classList.remove("thinking-mode");
+        }
+
+    }
 }
 
 
