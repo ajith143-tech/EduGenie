@@ -232,111 +232,239 @@ body {
     border: 1px solid rgba(63, 141, 255, 0.35);
     font-size: 12px;
 }
-/* ---------- FLOATING AI ROBOT ---------- */
+/* ---------- EDUGENIE ROBOT ---------- */
 
 .robot {
-    width: 270px;
-    height: 280px;
+    width: 300px;
+    height: 330px;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /* Floating movement */
     animation: robotFloat 4s ease-in-out infinite;
-    will-change: transform;
 }
 
 .robot-glow {
     position: absolute;
-    width: 230px;
-    height: 230px;
+    width: 260px;
+    height: 260px;
     border-radius: 50%;
     background: radial-gradient(
         circle,
-        rgba(40, 160, 255, 0.38),
-        rgba(130, 70, 255, 0.18),
+        rgba(50, 190, 255, 0.4),
+        rgba(110, 70, 255, 0.2),
         transparent 70%
     );
-    filter: blur(14px);
-
-    animation: robotGlow 3s ease-in-out infinite alternate;
+    filter: blur(18px);
+    animation: glowPulse 3s ease-in-out infinite alternate;
 }
 
-.robot-face {
-    width: 165px;
-    height: 125px;
-    border-radius: 42px;
-    border: 3px solid #39baff;
+/* Robot character */
 
-    background: linear-gradient(
-        145deg,
-        #e8f5ff,
-        #8ba9dc
-    );
+.robot-character {
+    position: relative;
+    width: 190px;
+    height: 260px;
+    z-index: 3;
+}
+
+/* Antenna */
+
+.robot-antenna {
+    position: absolute;
+    top: -18px;
+    left: 88px;
+    font-size: 25px;
+    color: #62ddff;
+    text-shadow: 0 0 15px #42cfff;
+    animation: antennaPulse 1.5s infinite;
+}
+
+/* Head */
+
+.robot-head {
+    position: absolute;
+    top: 25px;
+    left: 15px;
+    width: 160px;
+    height: 115px;
+    border-radius: 42px;
+    background: linear-gradient(145deg, #f3fbff, #8ba9dc);
+    border: 3px solid #45caff;
 
     box-shadow:
-        0 0 30px rgba(36, 188, 255, 0.8),
-        0 0 70px rgba(85, 80, 255, 0.35),
-        inset 0 -15px 25px rgba(39, 71, 130, 0.3);
+        0 0 25px rgba(45, 200, 255, .8),
+        inset 0 -15px 20px rgba(50, 80, 140, .3);
 
     display: flex;
-    align-items: center;
     justify-content: center;
-
-    z-index: 2;
-
-    animation: robotPulse 2.5s ease-in-out infinite;
+    align-items: center;
 }
 
-.robot-face span {
-    color: #092a5c;
-    font-size: 34px;
-    text-shadow: 0 0 8px #4ddcff;
-}
+/* Eyes */
 
-.robot-hat {
+.robot-eye {
     position: absolute;
-    top: 12px;
-    z-index: 4;
-    font-size: 55px;
-    transform: rotate(-8deg);
-
-    animation: hatBounce 3s ease-in-out infinite;
+    width: 22px;
+    height: 30px;
+    background: #092a5c;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #4ddcff;
+    animation: blink 4s infinite;
 }
+
+.left-eye {
+    left: 43px;
+}
+
+.right-eye {
+    right: 43px;
+}
+
+/* Smile */
+
+.robot-mouth {
+    position: absolute;
+    bottom: 25px;
+    width: 42px;
+    height: 18px;
+    border-bottom: 4px solid #092a5c;
+    border-radius: 0 0 30px 30px;
+}
+
+/* Neck */
+
+.robot-neck {
+    position: absolute;
+    top: 137px;
+    left: 80px;
+    width: 30px;
+    height: 18px;
+    background: #5875a8;
+    border-radius: 8px;
+}
+
+/* Body */
+
+.robot-body {
+    position: absolute;
+    top: 150px;
+    left: 35px;
+    width: 120px;
+    height: 90px;
+    border-radius: 30px;
+    background: linear-gradient(145deg, #dcecff, #667faa);
+    border: 3px solid #45caff;
+
+    box-shadow:
+        0 0 25px rgba(40, 190, 255, .5),
+        inset 0 -12px 20px rgba(50, 70, 120, .3);
+}
+
+/* Chest screen */
+
+.robot-screen {
+    position: absolute;
+    top: 22px;
+    left: 32px;
+    width: 56px;
+    height: 42px;
+    border-radius: 14px;
+    background: #092a5c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    box-shadow: 0 0 15px #45d9ff;
+}
+
+/* Arms */
+
+.robot-arm {
+    position: absolute;
+    top: 165px;
+    width: 35px;
+    height: 75px;
+    border-radius: 20px;
+    background: linear-gradient(#9fc9ed, #526e9f);
+    border: 3px solid #45caff;
+    color: #bcecff;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 5px;
+    box-shadow: 0 0 15px rgba(40,190,255,.5);
+}
+
+.left-arm {
+    left: 0;
+    transform: rotate(12deg);
+}
+
+.right-arm {
+    right: 0;
+    transform: rotate(-12deg);
+}
+
+/* Legs */
+
+.robot-leg {
+    position: absolute;
+    top: 235px;
+    width: 38px;
+    height: 50px;
+    border-radius: 12px;
+    background: #536f9f;
+    border: 3px solid #45caff;
+}
+
+.left-leg {
+    left: 48px;
+}
+
+.right-leg {
+    right: 48px;
+}
+
+/* Floating book */
 
 .robot-book {
     position: absolute;
-    bottom: 15px;
-    font-size: 50px;
-    z-index: 4;
-
+    right: -5px;
+    bottom: 35px;
+    font-size: 45px;
+    z-index: 5;
     animation: bookFloat 3s ease-in-out infinite;
 }
 
+/* Speech */
+
 .robot-text {
     position: absolute;
-    right: -25px;
-    bottom: 5px;
+    right: -40px;
+    top: 15px;
+    z-index: 6;
 
-    color: #9cceff;
+    padding: 9px 14px;
+    border-radius: 15px;
+
+    color: #d9f5ff;
+    background: rgba(10, 30, 70, .75);
+    border: 1px solid rgba(80, 210, 255, .5);
+
     font-size: 12px;
-    line-height: 1.4;
+    white-space: nowrap;
 
-    transform: rotate(-5deg);
+    box-shadow: 0 0 18px rgba(50,190,255,.3);
 
-    text-shadow:
-        0 0 8px rgba(80, 190, 255, 0.7);
+    transition: opacity .3s ease;
 }
 
-
-/* Robot floating animation */
+/* Animations */
 
 @keyframes robotFloat {
-
-    0%,
-    100% {
-        transform: translateY(0px);
+    0%, 100% {
+        transform: translateY(0);
     }
 
     50% {
@@ -344,68 +472,45 @@ body {
     }
 }
 
-
-/* Glow breathing */
-
-@keyframes robotGlow {
-
-    0% {
-        transform: scale(0.92);
-        opacity: 0.65;
+@keyframes glowPulse {
+    from {
+        transform: scale(.9);
+        opacity: .6;
     }
 
-    100% {
-        transform: scale(1.08);
+    to {
+        transform: scale(1.1);
         opacity: 1;
     }
 }
 
-
-/* Face glow */
-
-@keyframes robotPulse {
-
-    0%,
-    100% {
-        box-shadow:
-            0 0 30px rgba(36, 188, 255, 0.8),
-            0 0 70px rgba(85, 80, 255, 0.35);
+@keyframes blink {
+    0%, 92%, 100% {
+        transform: scaleY(1);
     }
 
-    50% {
-        box-shadow:
-            0 0 45px rgba(36, 210, 255, 1),
-            0 0 90px rgba(120, 80, 255, 0.5);
+    95% {
+        transform: scaleY(.1);
     }
 }
 
-
-/* Hat movement */
-
-@keyframes hatBounce {
-
-    0%,
-    100% {
-        transform: rotate(-8deg) translateY(0);
+@keyframes antennaPulse {
+    0%, 100% {
+        transform: scale(1);
     }
 
     50% {
-        transform: rotate(-5deg) translateY(-6px);
+        transform: scale(1.3);
     }
 }
-
-
-/* Book movement */
 
 @keyframes bookFloat {
-
-    0%,
-    100% {
-        transform: translateY(0) rotate(-2deg);
+    0%, 100% {
+        transform: translateY(0) rotate(-3deg);
     }
 
     50% {
-        transform: translateY(-7px) rotate(2deg);
+        transform: translateY(-10px) rotate(4deg);
     }
 }
 
@@ -415,35 +520,26 @@ body {
 @media (max-width: 700px) {
 
     .robot {
-        width: 210px;
-        height: 220px;
-        margin: 10px auto;
+        width: 240px;
+        height: 290px;
+        margin: 15px auto;
     }
 
-    .robot-face {
-        width: 130px;
-        height: 100px;
-    }
-
-    .robot-face span {
-        font-size: 28px;
-    }
-
-    .robot-hat {
-        font-size: 42px;
-    }
-
-    .robot-book {
-        font-size: 40px;
+    .robot-character {
+        transform: scale(.85);
     }
 
     .robot-text {
         right: -10px;
+        top: 5px;
         font-size: 10px;
     }
 
+    .robot-book {
+        right: 0;
+        font-size: 38px;
+    }
 }
-
 /* ---------- ASK CARD ---------- */
 
 .ask-card,
