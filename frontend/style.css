@@ -232,25 +232,35 @@ body {
     border: 1px solid rgba(63, 141, 255, 0.35);
     font-size: 12px;
 }
-
-/* ---------- ROBOT ---------- */
+/* ---------- FLOATING AI ROBOT ---------- */
 
 .robot {
     width: 270px;
-    height: 250px;
+    height: 280px;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    /* Floating movement */
+    animation: robotFloat 4s ease-in-out infinite;
+    will-change: transform;
 }
 
 .robot-glow {
     position: absolute;
-    width: 220px;
-    height: 220px;
+    width: 230px;
+    height: 230px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(40, 160, 255, 0.32), transparent 68%);
-    filter: blur(10px);
+    background: radial-gradient(
+        circle,
+        rgba(40, 160, 255, 0.38),
+        rgba(130, 70, 255, 0.18),
+        transparent 70%
+    );
+    filter: blur(14px);
+
+    animation: robotGlow 3s ease-in-out infinite alternate;
 }
 
 .robot-face {
@@ -258,14 +268,25 @@ body {
     height: 125px;
     border-radius: 42px;
     border: 3px solid #39baff;
-    background: linear-gradient(145deg, #dcecff, #7fa3d8);
+
+    background: linear-gradient(
+        145deg,
+        #e8f5ff,
+        #8ba9dc
+    );
+
     box-shadow:
-        0 0 30px rgba(36, 188, 255, 0.7),
+        0 0 30px rgba(36, 188, 255, 0.8),
+        0 0 70px rgba(85, 80, 255, 0.35),
         inset 0 -15px 25px rgba(39, 71, 130, 0.3);
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     z-index: 2;
+
+    animation: robotPulse 2.5s ease-in-out infinite;
 }
 
 .robot-face span {
@@ -276,27 +297,151 @@ body {
 
 .robot-hat {
     position: absolute;
-    top: 18px;
+    top: 12px;
     z-index: 4;
     font-size: 55px;
     transform: rotate(-8deg);
+
+    animation: hatBounce 3s ease-in-out infinite;
 }
 
 .robot-book {
     position: absolute;
-    bottom: 12px;
+    bottom: 15px;
     font-size: 50px;
     z-index: 4;
+
+    animation: bookFloat 3s ease-in-out infinite;
 }
 
 .robot-text {
     position: absolute;
-    right: -10px;
-    bottom: 10px;
+    right: -25px;
+    bottom: 5px;
+
     color: #9cceff;
     font-size: 12px;
     line-height: 1.4;
+
     transform: rotate(-5deg);
+
+    text-shadow:
+        0 0 8px rgba(80, 190, 255, 0.7);
+}
+
+
+/* Robot floating animation */
+
+@keyframes robotFloat {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-18px);
+    }
+}
+
+
+/* Glow breathing */
+
+@keyframes robotGlow {
+
+    0% {
+        transform: scale(0.92);
+        opacity: 0.65;
+    }
+
+    100% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+}
+
+
+/* Face glow */
+
+@keyframes robotPulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 30px rgba(36, 188, 255, 0.8),
+            0 0 70px rgba(85, 80, 255, 0.35);
+    }
+
+    50% {
+        box-shadow:
+            0 0 45px rgba(36, 210, 255, 1),
+            0 0 90px rgba(120, 80, 255, 0.5);
+    }
+}
+
+
+/* Hat movement */
+
+@keyframes hatBounce {
+
+    0%,
+    100% {
+        transform: rotate(-8deg) translateY(0);
+    }
+
+    50% {
+        transform: rotate(-5deg) translateY(-6px);
+    }
+}
+
+
+/* Book movement */
+
+@keyframes bookFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-2deg);
+    }
+
+    50% {
+        transform: translateY(-7px) rotate(2deg);
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .robot {
+        width: 210px;
+        height: 220px;
+        margin: 10px auto;
+    }
+
+    .robot-face {
+        width: 130px;
+        height: 100px;
+    }
+
+    .robot-face span {
+        font-size: 28px;
+    }
+
+    .robot-hat {
+        font-size: 42px;
+    }
+
+    .robot-book {
+        font-size: 40px;
+    }
+
+    .robot-text {
+        right: -10px;
+        font-size: 10px;
+    }
+
 }
 
 /* ---------- ASK CARD ---------- */
