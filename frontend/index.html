@@ -97,14 +97,18 @@
                 📝 Notes
             </a>
 
-            <a
-                href="#history"
-                onclick="
-                    showAllChats();
-                "
-            >
-                ◷ History
-            </a>
+           <a
+    href="#history"
+    onclick="
+        showAllChats();
+        document.getElementById('history').scrollIntoView({
+            behavior: 'smooth'
+        });
+        return false;
+    "
+>
+    ◷ History
+</a>
 
         </nav>
 
