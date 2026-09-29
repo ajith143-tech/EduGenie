@@ -70,7 +70,6 @@ if (robotMessage) {
 if (robotMessage) {
     robotMessage.innerText = "🎉 Here you go!";
 }
-typeAnswer(answer);
         responseBox.innerHTML = `
             <div class="ai-answer">
 
@@ -78,7 +77,9 @@ typeAnswer(answer);
                     🤖 EduGenie
                 </div>
 
-               <div class="answer-content" id="aiTyping"></div>
+               <div class="answer-content">
+    ${formatAnswer(answer)}
+</div>
 
                 <button class="copy-btn" onclick="copyAnswer()">
                     📋 Copy Answer
