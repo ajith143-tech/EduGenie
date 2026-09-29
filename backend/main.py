@@ -77,13 +77,18 @@ Explain the student's question clearly and simply.
 Student question:
 {question}
 
-Give:
+Give a clear, moderately detailed answer.
+
+Include:
 1. A simple explanation
 2. Important points
 3. An example when useful
 
-Keep the answer student-friendly.
-"""
+Keep the answer student-friendly and easy to understand.
+
+Avoid answers that are too short or too long.
+Usually keep the response around 150–250 words,
+depending on the question.
 
     models = [
         "gemini-3.6-flash",
