@@ -13,7 +13,7 @@ load_dotenv()
 app = FastAPI(
     title="EduGenie API",
     description="Google Gemini Powered Learning Assistant",
-    version="2.1.0"
+    version="2.2.0"
 )
 
 
@@ -50,6 +50,7 @@ client = (
 
 class QuestionRequest(BaseModel):
     question: str
+    history: list = []
 
 
 # ---------- HOME ----------
@@ -94,17 +95,55 @@ def ask_question(request: QuestionRequest):
         }
 
 
+    # ---------- BUILD CONVERSATION ----------
+
+    conversation = ""
+
+    if request.history:
+
+        conversation += "\nPrevious conversation:\n\n"
+
+        for message in request.history:
+
+            previous_question = str(
+                message.get("question", "")
+            )
+
+            previous_answer = str(
+                message.get("answer", "")
+            )
+
+            conversation += (
+                "Student: "
+                + previous_question
+                + "\n"
+            )
+
+            conversation += (
+                "EduGenie: "
+                + previous_answer
+                + "\n\n"
+            )
+
+
+    # ---------- PROMPT ----------
+
     prompt = f"""
 You are EduGenie, a friendly AI learning assistant.
 
-Explain the student's question clearly and simply.
+Your job is to help students understand their subjects
+clearly and simply.
 
-Student question:
+{conversation}
+
+Current student question:
+
 {question}
 
-Give a clear, moderately detailed answer.
+Answer the current question while remembering
+the previous conversation when it is relevant.
 
-Include:
+Give:
 
 1. A simple explanation
 2. Important points
@@ -112,17 +151,19 @@ Include:
 
 Keep the answer student-friendly and easy to understand.
 
-Avoid answers that are too short or too long.
 Usually keep the response around 150–250 words,
 depending on the question.
+
+Do not mention that you are using conversation history.
 """
 
+
+    # ---------- GEMINI MODELS ----------
 
     models = [
         "gemini-3.6-flash",
         "gemini-3.5-flash-lite"
     ]
-
 
     last_error = ""
 
@@ -141,7 +182,6 @@ depending on the question.
                 "answer": response.text,
                 "model": model
             }
-
 
         except Exception as error:
 
