@@ -214,3 +214,28 @@ function changeRobotMessage() {
 }
 
 setInterval(changeRobotMessage, 3500);
+function typeAnswer(text) {
+
+    const box = document.getElementById("aiTyping");
+
+    if (!box) return;
+
+    box.innerHTML = "";
+
+    const formatted = formatAnswer(text);
+    let index = 0;
+
+    function type() {
+
+        if (index < formatted.length) {
+
+            box.innerHTML = formatted.substring(0, index + 1);
+            index++;
+
+            setTimeout(type, 8);
+
+        }
+    }
+
+    type();
+}
