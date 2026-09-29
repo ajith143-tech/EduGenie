@@ -48,7 +48,6 @@ function setRobotMessage(message) {
     }
 }
 
-
 async function askQuestion() {
 
     const input =
@@ -63,27 +62,13 @@ async function askQuestion() {
         input.value.trim();
 
     if (!question) {
-
         responseBox.innerHTML = `
             <div class="error-message">
                 ⚠️ <strong>Please enter a question first.</strong>
             </div>
         `;
-
         return;
     }
-
-    // Create a chat automatically if needed
-    if (!activeChatId) {
-        createNewChat();
-    }
-
-    const chat =
-        eduGenieChats.find(
-            item => item.id === activeChatId
-        );
-
-    if (!chat) return;
 
     setRobotMessage("🤔 Thinking...");
 
@@ -96,46 +81,21 @@ async function askQuestion() {
         </div>
     `;
 
-    // Build conversation context
-    let conversationContext = "";
-
-    if (chat.messages.length > 0) {
-
-        conversationContext = `
-Previous conversation:
-
-${chat.messages.map(message => `
-Student: ${message.question}
-EduGenie: ${message.answer}
-`).join("\n")}
-
-Continue the conversation naturally.
-
-`;
-    }
-
-    const fullQuestion =
-        conversationContext +
-        `Student's new question:
-${question}`;
-
     try {
 
-        const response =
-            await fetch(API_URL, {
-                method: "POST",
+        const response = await fetch(API_URL, {
+            method: "POST",
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-                body: JSON.stringify({
-                    question: fullQuestion
-                })
-            });
+            body: JSON.stringify({
+                question: question
+            })
+        });
 
         if (!response.ok) {
-
             throw new Error(
                 "Server returned error: " +
                 response.status
@@ -149,26 +109,34 @@ ${question}`;
             data.answer ||
             "Sorry, I couldn't generate an answer.";
 
-        // Save conversation
-        chat.messages.push({
-            question: question,
-            answer: answer,
-            time: new Date().toLocaleString()
-        });
-
-        // Use first question as chat title
-        if (
-            chat.title === "New Chat"
-        ) {
-            chat.title =
-                question.length > 35
-                    ? question.substring(0, 35) + "..."
-                    : question;
+        // Create chat only after Gemini succeeds
+        if (!activeChatId) {
+            createNewChat();
         }
 
-        saveChats();
+        const chat =
+            eduGenieChats.find(
+                item => item.id === activeChatId
+            );
 
-        renderChatHistory();
+        if (chat) {
+
+            chat.messages.push({
+                question: question,
+                answer: answer,
+                time: new Date().toLocaleString()
+            });
+
+            if (chat.title === "New Chat") {
+                chat.title =
+                    question.length > 35
+                        ? question.substring(0, 35) + "..."
+                        : question;
+            }
+
+            saveChats();
+            renderChatHistory();
+        }
 
         setRobotMessage("🎉 Here you go!");
 
@@ -193,7 +161,6 @@ ${question}`;
             </div>
         `;
 
-        // Clear input for the next message
         input.value = "";
         input.focus();
 
@@ -210,21 +177,11 @@ ${question}`;
 
         responseBox.innerHTML = `
             <div class="error-message">
-
-                ⚠️ <strong>
-                    Connection Error
-                </strong>
-
+                ⚠️ <strong>Connection Error</strong>
                 <br><br>
-
-                ${escapeHtml(
-                    error.message
-                )}
-
+                ${escapeHtml(error.message)}
                 <br><br>
-
                 Please try again.
-
             </div>
         `;
     }
