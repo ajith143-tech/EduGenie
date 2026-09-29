@@ -1404,3 +1404,33 @@ footer {
         padding: 6px 8px;
     }
 }
+/* ---------- ROBOT THINKING MODE ---------- */
+
+.robot-roamer.thinking-mode .mini-robot {
+    animation: thinkingPulse 0.8s ease-in-out infinite alternate;
+}
+
+.robot-roamer.thinking-mode .bot-eye {
+    box-shadow:
+        0 0 10px #ffffff,
+        0 0 20px #45d9ff;
+}
+
+.robot-roamer.thinking-mode .robot-bubble {
+    border-color: #62e6ff;
+    box-shadow:
+        0 0 20px rgba(50, 220, 255, .7);
+}
+
+@keyframes thinkingPulse {
+
+    from {
+        filter: brightness(1);
+        transform: scale(1);
+    }
+
+    to {
+        filter: brightness(1.35);
+        transform: scale(1.06);
+    }
+}
