@@ -314,3 +314,105 @@ setInterval(
     changeRobotMessage,
     3500
 );
+// ---------- VOICE INPUT ----------
+
+let recognition;
+let isListening = false;
+
+function startVoiceInput() {
+
+    const input = document.getElementById("question");
+    const voiceBtn = document.getElementById("voiceBtn");
+
+    if (!input || !voiceBtn) return;
+
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+
+    if (!SpeechRecognition) {
+
+        alert(
+            "Voice input is not supported in this browser."
+        );
+
+        return;
+    }
+
+
+    if (isListening) {
+
+        if (recognition) {
+            recognition.stop();
+        }
+
+        return;
+    }
+
+
+    recognition = new SpeechRecognition();
+
+    recognition.lang = "en-IN";
+
+    recognition.continuous = false;
+
+    recognition.interimResults = false;
+
+
+    recognition.onstart = function () {
+
+        isListening = true;
+
+        voiceBtn.innerText = "🔴";
+
+        voiceBtn.classList.add("voice-listening");
+
+        setRobotMessage("🎧 Listening...");
+
+    };
+
+
+    recognition.onresult = function (event) {
+
+        const transcript =
+            event.results[0][0].transcript;
+
+        input.value = transcript;
+
+        input.focus();
+
+    };
+
+
+    recognition.onerror = function (event) {
+
+        console.error(
+            "Voice recognition error:",
+            event.error
+        );
+
+        setRobotMessage("💙 Try speaking again!");
+
+    };
+
+
+    recognition.onend = function () {
+
+        isListening = false;
+
+        voiceBtn.innerText = "🎤";
+
+        voiceBtn.classList.remove(
+            "voice-listening"
+        );
+
+        setRobotMessage("💡 Need help?");
+
+    };
+
+
+    recognition.start();
+
+}
