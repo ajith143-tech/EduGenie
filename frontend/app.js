@@ -416,3 +416,277 @@ function startVoiceInput() {
     recognition.start();
 
 }
+// ---------- CHAT HISTORY SYSTEM ----------
+
+let eduGenieChats =
+    JSON.parse(
+        localStorage.getItem("eduGenieChats")
+    ) || [];
+
+let activeChatId = null;
+
+
+// Create a new chat
+function createNewChat() {
+
+    const chat = {
+        id: Date.now(),
+        title: "New Chat",
+        messages: [],
+        createdAt: new Date().toLocaleString()
+    };
+
+    eduGenieChats.unshift(chat);
+
+    activeChatId = chat.id;
+
+    saveChats();
+
+    renderChatHistory();
+
+    const responseBox =
+        document.getElementById("response");
+
+    if (responseBox) {
+        responseBox.innerHTML = `
+            <div class="thinking">
+                💬 New chat started.
+            </div>
+        `;
+    }
+
+    const input =
+        document.getElementById("question");
+
+    if (input) {
+        input.value = "";
+        input.focus();
+    }
+
+    setRobotMessage("💬 New chat!");
+}
+
+
+// Save chats
+function saveChats() {
+
+    localStorage.setItem(
+        "eduGenieChats",
+        JSON.stringify(eduGenieChats)
+    );
+}
+
+
+// Render recent chats
+function renderChatHistory() {
+
+    const list =
+        document.getElementById(
+            "chatHistoryList"
+        );
+
+    if (!list) return;
+
+    if (eduGenieChats.length === 0) {
+
+        list.innerHTML = `
+            <div class="empty-history">
+                💬 No chats yet.
+                <br>
+                Ask EduGenie something to start!
+            </div>
+        `;
+
+        return;
+    }
+
+    list.innerHTML =
+        eduGenieChats
+            .slice(0, 6)
+            .map(chat => {
+
+                const lastMessage =
+                    chat.messages[
+                        chat.messages.length - 1
+                    ];
+
+                const preview =
+                    lastMessage
+                        ? lastMessage.question
+                        : chat.title;
+
+                return `
+                    <div
+                        class="history-item"
+                        onclick="continueChat(${chat.id})"
+                    >
+
+                        <span>💬</span>
+
+                        <div>
+
+                            <strong>
+                                ${escapeHtml(
+                                    chat.title
+                                )}
+                            </strong>
+
+                            <small>
+                                ${escapeHtml(
+                                    preview
+                                )}
+                            </small>
+
+                        </div>
+
+                        <b>›</b>
+
+                    </div>
+                `;
+
+            })
+            .join("");
+}
+
+
+// Continue an existing chat
+function continueChat(chatId) {
+
+    const chat =
+        eduGenieChats.find(
+            item => item.id === chatId
+        );
+
+    if (!chat) return;
+
+    activeChatId = chat.id;
+
+    const responseBox =
+        document.getElementById("response");
+
+    if (!responseBox) return;
+
+    if (chat.messages.length === 0) {
+
+        responseBox.innerHTML = `
+            <div class="thinking">
+                💬 Continue your conversation...
+            </div>
+        `;
+
+        return;
+    }
+
+    const last =
+        chat.messages[
+            chat.messages.length - 1
+        ];
+
+    responseBox.innerHTML = `
+        <div class="ai-answer">
+
+            <div class="answer-title">
+                🤖 EduGenie
+            </div>
+
+            <div class="answer-content">
+                ${formatAnswer(last.answer)}
+            </div>
+
+            <button
+                class="copy-btn"
+                onclick="copyAnswer()"
+            >
+                📋 Copy Answer
+            </button>
+
+        </div>
+    `;
+
+    setRobotMessage("🔄 Chat continued!");
+
+    const input =
+        document.getElementById("question");
+
+    if (input) {
+        input.focus();
+    }
+}
+
+
+// Show all chats
+function showAllChats() {
+
+    const list =
+        document.getElementById(
+            "chatHistoryList"
+        );
+
+    if (!list) return;
+
+    if (eduGenieChats.length === 0) {
+
+        list.innerHTML = `
+            <div class="empty-history">
+                💬 No saved chats yet.
+            </div>
+        `;
+
+        return;
+    }
+
+    list.innerHTML =
+        eduGenieChats
+            .map(chat => {
+
+                const lastMessage =
+                    chat.messages[
+                        chat.messages.length - 1
+                    ];
+
+                const preview =
+                    lastMessage
+                        ? lastMessage.question
+                        : "Empty chat";
+
+                return `
+                    <div
+                        class="history-item"
+                        onclick="continueChat(${chat.id})"
+                    >
+
+                        <span>💬</span>
+
+                        <div>
+
+                            <strong>
+                                ${escapeHtml(
+                                    chat.title
+                                )}
+                            </strong>
+
+                            <small>
+                                ${escapeHtml(
+                                    preview
+                                )}
+                            </small>
+
+                        </div>
+
+                        <b>›</b>
+
+                    </div>
+                `;
+
+            })
+            .join("");
+}
+
+
+// Load history when website opens
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+        renderChatHistory();
+    }
+);
