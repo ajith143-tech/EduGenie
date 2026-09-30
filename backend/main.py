@@ -199,3 +199,392 @@ Do not mention that you are using conversation history.
         ),
         "error": last_error
     }
+    # =====================================================
+# STUDENT DATABASE
+# =====================================================
+
+import hashlib
+import secrets
+from datetime import datetime, timedelta, timezone
+
+import psycopg
+
+
+# ---------- PASSWORD HELPERS ----------
+
+def hash_password(password: str):
+
+    salt = secrets.token_hex(16)
+
+    password_hash = hashlib.pbkdf2_hmac(
+        "sha256",
+        password.encode(),
+        salt.encode(),
+        100000
+    ).hex()
+
+    return f"{salt}${password_hash}"
+
+
+def verify_password(password: str, stored_password: str):
+
+    try:
+
+        salt, stored_hash = stored_password.split("$", 1)
+
+        password_hash = hashlib.pbkdf2_hmac(
+            "sha256",
+            password.encode(),
+            salt.encode(),
+            100000
+        ).hex()
+
+        return secrets.compare_digest(
+            password_hash,
+            stored_hash
+        )
+
+    except Exception:
+
+        return False
+
+
+# ---------- DATABASE CONNECTION ----------
+
+def get_db():
+
+    database_url = os.getenv("DATABASE_URL")
+
+    if not database_url:
+
+        raise Exception(
+            "DATABASE_URL is not configured."
+        )
+
+    return psycopg.connect(
+        database_url
+    )
+
+
+# ---------- CREATE STUDENT TABLE ----------
+
+def create_student_table():
+
+    with get_db() as connection:
+
+        with connection.cursor() as cursor:
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS students (
+
+                    id SERIAL PRIMARY KEY,
+
+                    name VARCHAR(100) NOT NULL,
+
+                    email VARCHAR(150) UNIQUE NOT NULL,
+
+                    password_hash TEXT NOT NULL,
+
+                    xp INTEGER DEFAULT 0,
+
+                    streak INTEGER DEFAULT 0,
+
+                    quiz_count INTEGER DEFAULT 0,
+
+                    correct_answers INTEGER DEFAULT 0,
+
+                    study_minutes INTEGER DEFAULT 0,
+
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+                )
+            """)
+
+        connection.commit()
+
+
+# ---------- INITIALIZE DATABASE ----------
+
+try:
+
+    create_student_table()
+
+except Exception as error:
+
+    print(
+        "Database initialization error:",
+        error
+    )
+
+
+# =====================================================
+# REGISTER
+# =====================================================
+
+class RegisterRequest(BaseModel):
+
+    name: str
+
+    email: str
+
+    password: str
+
+
+@app.post("/register")
+def register_student(request: RegisterRequest):
+
+    name = request.name.strip()
+
+    email = request.email.strip().lower()
+
+    password = request.password
+
+
+    if not name:
+
+        return {
+            "success": False,
+            "message": "Please enter your name."
+        }
+
+
+    if not email:
+
+        return {
+            "success": False,
+            "message": "Please enter your email."
+        }
+
+
+    if len(password) < 6:
+
+        return {
+            "success": False,
+            "message": "Password must contain at least 6 characters."
+        }
+
+
+    try:
+
+        password_hash = hash_password(
+            password
+        )
+
+
+        with get_db() as connection:
+
+            with connection.cursor() as cursor:
+
+                cursor.execute(
+                    """
+                    INSERT INTO students
+                    (
+                        name,
+                        email,
+                        password_hash
+                    )
+                    VALUES (%s, %s, %s)
+                    RETURNING id
+                    """,
+                    (
+                        name,
+                        email,
+                        password_hash
+                    )
+                )
+
+                student_id = cursor.fetchone()[0]
+
+
+            connection.commit()
+
+
+        return {
+
+            "success": True,
+
+            "message":
+                "Student account created successfully.",
+
+            "student_id":
+                student_id
+
+        }
+
+
+    except Exception as error:
+
+        error_text = str(error).lower()
+
+
+        if (
+            "unique" in error_text
+            or "duplicate" in error_text
+        ):
+
+            return {
+
+                "success": False,
+
+                "message":
+                    "An account with this email already exists."
+
+            }
+
+
+        print(
+            "Registration error:",
+            error
+        )
+
+
+        return {
+
+            "success": False,
+
+            "message":
+                "Unable to create account right now."
+
+        }
+
+
+# =====================================================
+# LOGIN
+# =====================================================
+
+class LoginRequest(BaseModel):
+
+    email: str
+
+    password: str
+
+
+@app.post("/login")
+def login_student(request: LoginRequest):
+
+    email = request.email.strip().lower()
+
+    password = request.password
+
+
+    try:
+
+        with get_db() as connection:
+
+            with connection.cursor() as cursor:
+
+                cursor.execute(
+                    """
+                    SELECT
+                        id,
+                        name,
+                        email,
+                        password_hash,
+                        xp,
+                        streak,
+                        quiz_count,
+                        correct_answers,
+                        study_minutes
+                    FROM students
+                    WHERE email = %s
+                    """,
+                    (email,)
+                )
+
+                student = cursor.fetchone()
+
+
+        if not student:
+
+            return {
+
+                "success": False,
+
+                "message":
+                    "Invalid email or password."
+
+            }
+
+
+        (
+            student_id,
+            name,
+            student_email,
+            password_hash,
+            xp,
+            streak,
+            quiz_count,
+            correct_answers,
+            study_minutes
+        ) = student
+
+
+        if not verify_password(
+            password,
+            password_hash
+        ):
+
+            return {
+
+                "success": False,
+
+                "message":
+                    "Invalid email or password."
+
+            }
+
+
+        return {
+
+            "success": True,
+
+            "message":
+                "Login successful.",
+
+            "student": {
+
+                "id":
+                    student_id,
+
+                "name":
+                    name,
+
+                "email":
+                    student_email,
+
+                "xp":
+                    xp,
+
+                "streak":
+                    streak,
+
+                "quiz_count":
+                    quiz_count,
+
+                "correct_answers":
+                    correct_answers,
+
+                "study_minutes":
+                    study_minutes
+
+            }
+
+        }
+
+
+    except Exception as error:
+
+        print(
+            "Login error:",
+            error
+        )
+
+
+        return {
+
+            "success": False,
+
+            "message":
+                "Unable to login right now."
+
+        }
