@@ -4207,6 +4207,137 @@ body {
         padding: 7px 9px;
     }
 }
+```css
+/* =====================================================
+   🤖 ROBOT ACTION ANIMATIONS
+   ===================================================== */
+
+
+/* 👋 WAVE */
+
+#robotRoamer.robot-waving
+.bot-hover-right {
+
+    animation:
+        robotWave
+        .22s
+        ease-in-out
+        6;
+}
+
+
+@keyframes robotWave {
+
+    0% {
+        transform: rotate(-10deg);
+    }
+
+    50% {
+        transform: rotate(-45deg);
+    }
+
+    100% {
+        transform: rotate(-10deg);
+    }
+}
+
+
+/* 🎉 HAPPY */
+
+#robotRoamer.robot-happy
+.mini-robot {
+
+    animation:
+        robotHappy
+        .35s
+        ease-in-out
+        4;
+}
+
+
+@keyframes robotHappy {
+
+    0% {
+        transform:
+            translateX(-50%)
+            rotate(0deg)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translateX(-50%)
+            rotate(-4deg)
+            scale(1.08);
+    }
+
+    100% {
+        transform:
+            translateX(-50%)
+            rotate(0deg)
+            scale(1);
+    }
+}
+
+
+/* 🧠 THINKING */
+
+#robotRoamer.robot-thinking
+.mini-robot {
+
+    animation:
+        robotThink
+        .8s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes robotThink {
+
+    0%, 100% {
+        transform:
+            translateX(-50%)
+            rotate(0deg);
+    }
+
+    50% {
+        transform:
+            translateX(-50%)
+            rotate(3deg);
+    }
+}
+
+
+/* 🚶 WALKING */
+
+#robotRoamer.robot-walking
+.mini-robot {
+
+    animation:
+        robotWalk
+        .45s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes robotWalk {
+
+    0%, 100% {
+        transform:
+            translateX(-50%)
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateX(-50%)
+            translateY(-5px);
+    }
+}
+
+
 
 
 /* =====================================================
