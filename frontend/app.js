@@ -6081,6 +6081,7 @@ async function eduGenieLogin() {
             data.student
         );
 
+        updateEduGenieNavbarAuth();
 
         setTimeout(
             () => {
