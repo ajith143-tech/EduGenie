@@ -4740,7 +4740,28 @@ body {
 #eduGenieLoginNav {
     white-space: nowrap;
 }
+/* =====================================================
+   EDUGENIE PROFILE & SETTINGS PAGE DISPLAY FIX
+   ===================================================== */
 
+/* Keep them hidden on the main page */
+#studentProfile {
+    display: none !important;
+}
+
+#egSettings {
+    display: none !important;
+}
+
+/* Show Profile when moved into Profile Page */
+#profilePageContent #studentProfile {
+    display: block !important;
+}
+
+/* Show Settings when moved into Settings Page */
+#egSettingsPageContent #egSettings {
+    display: block !important;
+}
 
 
 
