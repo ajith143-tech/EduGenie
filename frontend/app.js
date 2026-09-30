@@ -5240,3 +5240,90 @@ window.egApplySettings =
 console.log(
     "⚙️ EduGenie Settings loaded!"
 );
+```javascript
+// =====================================================
+// SEPARATE SETTINGS PAGE
+// =====================================================
+
+function openSettingsPage() {
+
+    const page =
+        document.getElementById("egSettingsPage");
+
+    const settings =
+        document.getElementById("egSettings");
+
+    const container =
+        document.getElementById("egSettingsPageContent");
+
+    if (!page || !settings || !container) {
+
+        console.error(
+            "EduGenie: Settings page elements missing."
+        );
+
+        return;
+    }
+
+    // Move existing settings section into the page
+    if (settings.parentNode !== container) {
+        container.appendChild(settings);
+    }
+
+    page.hidden = false;
+    page.removeAttribute("hidden");
+    page.style.display = "block";
+
+    document.body.style.overflow = "hidden";
+
+    // Make sure saved settings are applied
+    if (typeof egLoadSettings === "function") {
+        egLoadSettings();
+    }
+
+    if (typeof egApplyAllSettings === "function") {
+        egApplyAllSettings();
+    }
+
+    if (typeof setRobotMessage === "function") {
+        setRobotMessage("⚙️ Welcome to Settings!");
+    }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+function closeSettingsPage() {
+
+    const page =
+        document.getElementById("egSettingsPage");
+
+    if (!page) return;
+
+    page.hidden = true;
+    page.setAttribute("hidden", "");
+    page.style.display = "none";
+
+    document.body.style.overflow = "";
+
+    if (typeof setRobotMessage === "function") {
+        setRobotMessage("💡 Need help?");
+    }
+}
+
+
+// Make functions available to HTML
+window.openSettingsPage =
+    openSettingsPage;
+
+window.closeSettingsPage =
+    closeSettingsPage;
+
+console.log(
+    "⚙️ EduGenie Separate Settings Page loaded!"
+);
+```
+
