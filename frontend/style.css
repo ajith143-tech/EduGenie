@@ -2778,6 +2778,394 @@ body {
 
 }
 /* =====================================================
+   EDUGENIE SMART ROBOT COMPANION
+   ADD-ONLY
+   ===================================================== */
+
+.eg-smart-robot {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    width: 110px;
+    height: 155px;
+    z-index: 999998;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    animation: egRobotFloat 3.2s ease-in-out infinite;
+    transition: transform .3s ease;
+}
+
+.eg-smart-robot:hover {
+    transform: scale(1.08);
+}
+
+.eg-robot-body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    filter:
+        drop-shadow(
+            0 15px 18px rgba(0,0,0,.35)
+        );
+}
+
+
+/* =========================
+   HEAD
+   ========================= */
+
+.eg-robot-head {
+    position: absolute;
+    left: 21px;
+    top: 25px;
+    width: 68px;
+    height: 55px;
+    border-radius: 19px;
+    background:
+        linear-gradient(
+            145deg,
+            #f5fbff,
+            #b8d9e8
+        );
+    border: 3px solid #75b9d8;
+    box-shadow:
+        inset 0 4px 8px rgba(255,255,255,.8),
+        inset 0 -5px 10px rgba(50,120,160,.2);
+}
+
+
+/* =========================
+   EYES
+   ========================= */
+
+.eg-robot-eye {
+    position: absolute;
+    top: 18px;
+    width: 11px;
+    height: 14px;
+    border-radius: 50%;
+    background: #153c58;
+    box-shadow:
+        0 0 7px rgba(70,200,255,.8);
+    animation: egRobotBlink 5s infinite;
+}
+
+.eg-robot-eye.left {
+    left: 16px;
+}
+
+.eg-robot-eye.right {
+    right: 16px;
+}
+
+
+/* =========================
+   MOUTH
+   ========================= */
+
+.eg-robot-mouth {
+    position: absolute;
+    left: 25px;
+    bottom: 10px;
+    width: 18px;
+    height: 7px;
+    border-bottom: 3px solid #34789b;
+    border-radius: 50%;
+}
+
+
+/* =========================
+   ANTENNA
+   ========================= */
+
+.eg-robot-antenna {
+    position: absolute;
+    left: 52px;
+    top: 5px;
+    width: 5px;
+    height: 22px;
+    border-radius: 5px;
+    background: #6aaecb;
+}
+
+.eg-robot-antenna span {
+    position: absolute;
+    left: -4px;
+    top: -8px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #54d8ff;
+    box-shadow:
+        0 0 10px #54d8ff,
+        0 0 20px rgba(84,216,255,.5);
+    animation: egRobotLight 1.5s infinite;
+}
+
+
+/* =========================
+   NECK
+   ========================= */
+
+.eg-robot-neck {
+    position: absolute;
+    left: 45px;
+    top: 80px;
+    width: 20px;
+    height: 10px;
+    border-radius: 5px;
+    background: #72a9c2;
+}
+
+
+/* =========================
+   TORSO
+   ========================= */
+
+.eg-robot-torso {
+    position: absolute;
+    left: 17px;
+    top: 88px;
+    width: 76px;
+    height: 53px;
+    border-radius: 20px 20px 15px 15px;
+    background:
+        linear-gradient(
+            145deg,
+            #dff4fc,
+            #9ac7db
+        );
+    border: 3px solid #69a9c5;
+    box-shadow:
+        inset 0 5px 10px rgba(255,255,255,.7),
+        inset 0 -8px 12px rgba(40,100,130,.2);
+}
+
+
+/* =========================
+   ROBOT SCREEN
+   ========================= */
+
+.eg-robot-screen {
+    position: absolute;
+    left: 22px;
+    top: 12px;
+    width: 32px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: #08283d;
+    border: 2px solid #50c8ef;
+    box-shadow:
+        0 0 10px rgba(50,210,255,.4);
+}
+
+.eg-robot-screen span {
+    font-size: 13px;
+}
+
+
+/* =========================
+   ARMS
+   ========================= */
+
+.eg-robot-arm {
+    position: absolute;
+    top: 96px;
+    width: 13px;
+    height: 40px;
+    border-radius: 10px;
+    background:
+        linear-gradient(
+            180deg,
+            #cdebf6,
+            #7caec4
+        );
+    border: 2px solid #63a0bc;
+}
+
+.eg-robot-arm.left-arm {
+    left: 4px;
+    transform: rotate(15deg);
+}
+
+.eg-robot-arm.right-arm {
+    right: 4px;
+    transform: rotate(-15deg);
+}
+
+
+/* =========================
+   FEET
+   ========================= */
+
+.eg-robot-foot {
+    position: absolute;
+    top: 137px;
+    width: 25px;
+    height: 11px;
+    border-radius: 8px;
+    background: #659db6;
+}
+
+.eg-robot-foot.left-foot {
+    left: 24px;
+}
+
+.eg-robot-foot.right-foot {
+    right: 24px;
+}
+
+
+/* =========================
+   SPEECH BUBBLE
+   ========================= */
+
+.eg-robot-bubble {
+    position: absolute;
+    right: 80px;
+    top: -5px;
+    min-width: 145px;
+    max-width: 210px;
+    padding: 9px 12px;
+    border-radius: 13px;
+    background: rgba(8,28,50,.96);
+    border: 1px solid rgba(90,205,255,.35);
+    color: #dff7ff;
+    font-size: 11px;
+    line-height: 1.4;
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+    opacity: 0;
+    transform:
+        translateY(6px)
+        scale(.95);
+    pointer-events: none;
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
+}
+
+.eg-robot-bubble.show {
+    opacity: 1;
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================
+   ANIMATIONS
+   ========================= */
+
+@keyframes egRobotFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-9px);
+    }
+
+}
+
+@keyframes egRobotBlink {
+
+    0%, 45%, 49%, 100% {
+        transform: scaleY(1);
+    }
+
+    47% {
+        transform: scaleY(.15);
+    }
+
+}
+
+@keyframes egRobotLight {
+
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .35;
+    }
+
+}
+
+
+/* =========================
+   ROBOT STATES
+   ========================= */
+
+.eg-smart-robot.eg-thinking {
+    animation:
+        egRobotThinking .65s ease-in-out infinite alternate;
+}
+
+.eg-smart-robot.eg-happy {
+    animation:
+        egRobotHappy .5s ease-in-out 3;
+}
+
+.eg-smart-robot.eg-sleeping {
+    filter:
+        grayscale(.45)
+        drop-shadow(
+            0 12px 16px rgba(0,0,0,.25)
+        );
+}
+
+@keyframes egRobotThinking {
+
+    from {
+        transform: rotate(-3deg) translateY(0);
+    }
+
+    to {
+        transform: rotate(3deg) translateY(-5px);
+    }
+
+}
+
+@keyframes egRobotHappy {
+
+    0%, 100% {
+        transform: translateY(0) rotate(0);
+    }
+
+    50% {
+        transform: translateY(-13px) rotate(5deg);
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+
+    .eg-smart-robot {
+        right: 14px;
+        bottom: 18px;
+        transform: scale(.82);
+        transform-origin: bottom right;
+    }
+
+    .eg-robot-bubble {
+        right: 75px;
+        min-width: 125px;
+        max-width: 170px;
+    }
+
+}
+/* =====================================================
    END OF EDUGENIE STYLE.CSS
    ===================================================== */
 ```
