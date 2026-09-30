@@ -1,5 +1,5 @@
-console.log("🔥 EduGenie app.js STARTED");
 ```javascript
+console.log("🔥 EduGenie app.js STARTED");
 // =====================================================
 // EduGenie V2 - AI Learning Assistant
 // =====================================================
@@ -2166,5 +2166,6 @@ document.addEventListener(
 
     }
 );
-```
 console.log("🔥 EduGenie app.js FINISHED");
+```
+
