@@ -6724,5 +6724,151 @@ window.copyAnswer = function () {
 
 };
 
+// =====================================================
+// EDUGENIE - COPY ANSWER FINAL FIX
+// =====================================================
+
+window.copyAnswer = async function () {
+
+    // The Copy button that was clicked
+    const button = document.activeElement;
+
+    if (
+        !button ||
+        !button.classList.contains("copy-btn")
+    ) {
+        alert("Copy button not found.");
+        return;
+    }
+
+    // Find the current chat bubble
+    const bubble =
+        button.closest(".chat-bubble");
+
+    if (!bubble) {
+        alert("Answer box not found.");
+        return;
+    }
+
+    let text = "";
+
+    // If this is the newer chat layout
+    if (
+        bubble.classList.contains("chat-bubble")
+    ) {
+
+        const clone =
+            bubble.cloneNode(true);
+
+        // Remove the Copy button
+        const copyButton =
+            clone.querySelector(".copy-btn");
+
+        if (copyButton) {
+            copyButton.remove();
+        }
+
+        // Remove EduGenie label
+        const label =
+            clone.querySelector(".chat-label");
+
+        if (label) {
+            label.remove();
+        }
+
+        text =
+            clone.innerText.trim();
+
+    }
+
+    // Fallback for the old answer layout
+    if (!text) {
+
+        const answer =
+            bubble.querySelector(
+                ".answer-content"
+            );
+
+        if (answer) {
+            text =
+                answer.innerText.trim();
+        }
+
+    }
+
+    if (!text) {
+        alert("Nothing to copy.");
+        return;
+    }
+
+    try {
+
+        // Mobile-safe copy
+        const textarea =
+            document.createElement("textarea");
+
+        textarea.value = text;
+
+        textarea.style.position =
+            "fixed";
+
+        textarea.style.left =
+            "-9999px";
+
+        textarea.style.top =
+            "0";
+
+        textarea.style.opacity =
+            "0";
+
+        document.body.appendChild(
+            textarea
+        );
+
+        textarea.focus();
+        textarea.select();
+
+        textarea.setSelectionRange(
+            0,
+            textarea.value.length
+        );
+
+        const copied =
+            document.execCommand("copy");
+
+        textarea.remove();
+
+        if (!copied) {
+
+            throw new Error(
+                "Copy command failed"
+            );
+
+        }
+
+        button.innerText =
+            "✅ Copied!";
+
+        setTimeout(function () {
+
+            button.innerText =
+                "📋 Copy Answer";
+
+        }, 2000);
+
+    } catch (error) {
+
+        console.error(
+            "EduGenie copy error:",
+            error
+        );
+
+        alert(
+            "Unable to copy the answer."
+        );
+
+    }
+
+};
 
 
