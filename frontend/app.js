@@ -6338,6 +6338,69 @@ document.addEventListener(
 
     }
 );
+// =====================================================
+// EDUGENIE NAVBAR LOGIN / LOGOUT FIX
+// ADD-ONLY
+// =====================================================
+
+function updateEduGenieNavbarAuth() {
+
+    const loginNav =
+        document.getElementById("eduGenieLoginNav");
+
+    if (!loginNav) return;
+
+    const loggedIn =
+        isEduGenieLoggedIn();
+
+    if (loggedIn) {
+
+        const student =
+            getEduGenieStudent();
+
+        loginNav.innerHTML =
+            "👤 " +
+            (student?.name || "Student") +
+            " · Logout";
+
+        loginNav.onclick =
+            function (event) {
+
+                event.preventDefault();
+
+                eduGenieLogout();
+
+                updateEduGenieNavbarAuth();
+
+            };
+
+    } else {
+
+        loginNav.innerHTML =
+            "🔐 Login";
+
+        loginNav.onclick =
+            function (event) {
+
+                event.preventDefault();
+
+                openAuthPage();
+
+            };
+
+    }
+}
+
+
+// Update navbar after page loads
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        updateEduGenieNavbarAuth();
+
+    }
+);
 
 
 
