@@ -6403,6 +6403,95 @@ document.addEventListener(
 
     }
 );
+// =====================================================
+// COPY ANSWER - MOBILE SAFE VERSION
+// =====================================================
+
+async function copyAnswerMobileSafe() {
+
+    const answer =
+        document.querySelector(".answer-content");
+
+    if (!answer) {
+        return;
+    }
+
+    const text =
+        answer.innerText.trim();
+
+    if (!text) {
+        return;
+    }
+
+    try {
+
+        // Modern clipboard
+        if (
+            navigator.clipboard &&
+            window.isSecureContext
+        ) {
+
+            await navigator.clipboard.writeText(text);
+
+        } else {
+
+            // Mobile/browser fallback
+            const textarea =
+                document.createElement("textarea");
+
+            textarea.value = text;
+
+            textarea.style.position = "fixed";
+            textarea.style.left = "-9999px";
+            textarea.style.top = "0";
+
+            document.body.appendChild(textarea);
+
+            textarea.focus();
+            textarea.select();
+
+            document.execCommand("copy");
+
+            textarea.remove();
+
+        }
+
+        const button =
+            document.querySelector(".copy-btn");
+
+        if (button) {
+
+            button.innerText =
+                "✅ Copied!";
+
+            setTimeout(() => {
+
+                button.innerText =
+                    "📋 Copy Answer";
+
+            }, 2000);
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Copy failed:",
+            error
+        );
+
+        alert(
+            "Unable to copy. Please try again."
+        );
+
+    }
+
+}
+
+
+// Override existing copy function
+window.copyAnswer =
+    copyAnswerMobileSafe;
 
 
 
