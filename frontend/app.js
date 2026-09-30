@@ -1767,32 +1767,16 @@ window.askQuestion =
 // SEPARATE PROFILE PAGE
 // =====================================================
 
-// Permanent placeholder.
-// This prevents the profile from being lost
-// when opening/closing the profile page repeatedly.
-
-let profilePlaceholder = null;
-
-
 function openProfilePage() {
 
     const page =
-        document.getElementById(
-            "profilePage"
-        );
-
+        document.getElementById("profilePage");
 
     const profile =
-        document.getElementById(
-            "studentProfile"
-        );
-
+        document.getElementById("studentProfile");
 
     const container =
-        document.getElementById(
-            "profilePageContent"
-        );
-
+        document.getElementById("profilePageContent");
 
     if (
         !page ||
@@ -1809,30 +1793,9 @@ function openProfilePage() {
     }
 
 
-    // Create placeholder only once.
+    // Move profile into the separate profile page
     if (
-        !profilePlaceholder &&
-        profile.parentNode
-    ) {
-
-        profilePlaceholder =
-            document.createComment(
-                "EduGenie Profile Placeholder"
-            );
-
-
-        profile.parentNode.insertBefore(
-            profilePlaceholder,
-            profile
-        );
-
-    }
-
-
-    // Move profile into separate page.
-    if (
-        profile.parentNode !==
-        container
+        profile.parentNode !== container
     ) {
 
         container.appendChild(
@@ -1853,7 +1816,7 @@ function openProfilePage() {
         "block";
 
 
-    // Make sure profile starts in view mode.
+    // Start in view mode
     cancelProfileEdit(false);
 
     loadProfile();
@@ -1888,36 +1851,15 @@ function closeProfilePage() {
         );
 
 
-    const profile =
-        document.getElementById(
-            "studentProfile"
-        );
-
-
-    if (
-        !page ||
-        !profile
-    ) {
+    if (!page) {
 
         return;
 
     }
 
 
-    // Put profile back exactly where it was.
-    if (
-        profilePlaceholder &&
-        profilePlaceholder.parentNode
-    ) {
-
-        profilePlaceholder.parentNode.insertBefore(
-            profile,
-            profilePlaceholder.nextSibling
-        );
-
-    }
-
-
+    // Hide profile page.
+    // Do NOT move the profile back to the AI page.
     page.hidden =
         true;
 
@@ -1939,7 +1881,6 @@ function closeProfilePage() {
     );
 
 }
-
 
 // =====================================================
 // ROBOT ROAMING
