@@ -3453,6 +3453,127 @@ body {
     }
 
 }
+```css
+/* =====================================================
+   SEPARATE SETTINGS PAGE
+   ===================================================== */
+
+.eg-settings-page {
+    position: fixed;
+    inset: 0;
+    z-index: 99998;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 25px 20px 50px;
+
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(40, 130, 220, .18),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #071426,
+            #0d203d
+        );
+}
+
+.eg-settings-page[hidden] {
+    display: none !important;
+}
+
+.eg-settings-page-header {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 25px;
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.eg-settings-page-header span {
+    color: #72d8ff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.eg-settings-page-header h2 {
+    margin: 6px 0 5px;
+    color: #eaf8ff;
+    font-size: 27px;
+}
+
+.eg-settings-page-header p {
+    margin: 0;
+    color: #86a9c4;
+    font-size: 13px;
+}
+
+.eg-settings-back-btn {
+    padding: 10px 16px;
+    border: 1px solid rgba(100, 200, 255, .35);
+    border-radius: 10px;
+
+    background: rgba(70, 170, 230, .12);
+    color: #8edfff;
+
+    cursor: pointer;
+    font-size: 14px;
+    transition: .25s ease;
+}
+
+.eg-settings-back-btn:hover {
+    transform: translateX(-3px);
+    background: rgba(70, 170, 230, .22);
+}
+
+.eg-settings-page-content {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Existing settings card becomes clean inside page */
+.eg-settings-page .eg-settings-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* Hide duplicate old heading because the new page has its own header */
+.eg-settings-page .eg-settings-header {
+    display: none;
+}
+
+@media (max-width: 600px) {
+
+    .eg-settings-page {
+        padding: 18px 12px 40px;
+    }
+
+    .eg-settings-page-header {
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .eg-settings-page-header h2 {
+        font-size: 22px;
+    }
+
+    .eg-settings-page-header p {
+        font-size: 12px;
+    }
+
+    .eg-settings-back-btn {
+        flex-shrink: 0;
+    }
+}
+
 /* =====================================================
    END OF EDUGENIE STYLE.CSS
    ===================================================== */
