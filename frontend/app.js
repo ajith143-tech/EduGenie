@@ -33,22 +33,16 @@ function setRobotMessage(message) {
 
 
     if (robotMessage) {
-
         robotMessage.innerText = message;
-
     }
 
 
     if (robot) {
 
         if (message.includes("Thinking")) {
-
             robot.classList.add("thinking-mode");
-
         } else {
-
             robot.classList.remove("thinking-mode");
-
         }
 
     }
@@ -161,13 +155,9 @@ function createNewChat(showMessage = true) {
         if (responseBox) {
 
             responseBox.innerHTML = `
-
                 <div class="thinking">
-
                     💬 New chat started.
-
                 </div>
-
             `;
 
         }
@@ -226,17 +216,12 @@ async function askQuestion() {
     if (!question) {
 
         responseBox.innerHTML = `
-
             <div class="error-message">
-
                 ⚠️
-
                 <strong>
                     Please enter a question first.
                 </strong>
-
             </div>
-
         `;
 
         return;
@@ -245,9 +230,7 @@ async function askQuestion() {
 
 
     if (!activeChatId) {
-
         createNewChat(false);
-
     }
 
 
@@ -261,13 +244,9 @@ async function askQuestion() {
     if (!currentChat) {
 
         responseBox.innerHTML = `
-
             <div class="error-message">
-
                 ⚠️ Unable to create chat.
-
             </div>
-
         `;
 
         return;
@@ -281,17 +260,12 @@ async function askQuestion() {
 
 
     responseBox.innerHTML = `
-
         <div class="thinking">
-
             ✨ EduGenie is thinking
-
             <span class="dot">.</span>
             <span class="dot">.</span>
             <span class="dot">.</span>
-
         </div>
-
     `;
 
 
@@ -300,13 +274,11 @@ async function askQuestion() {
         const history =
             currentChat.messages.map(
                 message => ({
-
                     question:
                         message.question,
 
                     answer:
                         message.answer
-
                 })
             );
 
@@ -315,27 +287,21 @@ async function askQuestion() {
             await fetch(
                 API_URL,
                 {
-
                     method: "POST",
 
                     headers: {
-
                         "Content-Type":
                             "application/json"
-
                     },
 
                     body:
                         JSON.stringify({
-
                             question:
                                 question,
 
                             history:
                                 history
-
                         })
-
                 }
             );
 
@@ -399,34 +365,24 @@ async function askQuestion() {
 
 
         responseBox.innerHTML = `
-
             <div class="ai-answer">
 
                 <div class="answer-title">
-
                     🤖 EduGenie
-
                 </div>
-
 
                 <div class="answer-content">
-
                     ${formatAnswer(answer)}
-
                 </div>
-
 
                 <button
                     class="copy-btn"
                     onclick="copyAnswer()"
                 >
-
                     📋 Copy Answer
-
                 </button>
 
             </div>
-
         `;
 
 
@@ -449,11 +405,9 @@ async function askQuestion() {
 
 
         responseBox.innerHTML = `
-
             <div class="error-message">
 
                 ⚠️
-
                 <strong>
                     Connection Error
                 </strong>
@@ -467,7 +421,6 @@ async function askQuestion() {
                 Please try again.
 
             </div>
-
         `;
 
     }
@@ -482,9 +435,7 @@ async function askQuestion() {
 function formatAnswer(text) {
 
     if (!text) {
-
         return "No answer received.";
-
     }
 
 
@@ -531,7 +482,9 @@ function escapeHtml(text) {
 async function copyAnswer() {
 
     const answer =
-        document.querySelector(".answer-content");
+        document.querySelector(
+            ".answer-content"
+        );
 
 
     if (!answer) return;
@@ -545,7 +498,9 @@ async function copyAnswer() {
 
 
         const button =
-            document.querySelector(".copy-btn");
+            document.querySelector(
+                ".copy-btn"
+            );
 
 
         if (button) {
@@ -599,17 +554,11 @@ function renderChatHistory() {
     ) {
 
         list.innerHTML = `
-
             <div class="empty-history">
-
                 💬 No chats yet.
-
                 <br>
-
                 Ask EduGenie something to start!
-
             </div>
-
         `;
 
         return;
@@ -635,7 +584,6 @@ function renderChatHistory() {
 
 
                 return `
-
                     <div
                         class="history-item"
                         onclick="continueChat(${chat.id})"
@@ -662,7 +610,6 @@ function renderChatHistory() {
                         </b>
 
                     </div>
-
                 `;
 
             })
@@ -687,11 +634,14 @@ function continueChat(chatId) {
     if (!chat) return;
 
 
-    activeChatId = chat.id;
+    activeChatId =
+        chat.id;
 
 
     const responseBox =
-        document.getElementById("response");
+        document.getElementById(
+            "response"
+        );
 
 
     if (!responseBox) return;
@@ -703,13 +653,9 @@ function continueChat(chatId) {
     ) {
 
         responseBox.innerHTML = `
-
             <div class="thinking">
-
                 💬 Continue your conversation...
-
             </div>
-
         `;
 
         setRobotMessage(
@@ -725,40 +671,29 @@ function continueChat(chatId) {
         chat.messages
             .map(
                 message => `
-
                     <div class="ai-answer">
 
                         <div class="answer-title">
-
                             👤 You
-
                         </div>
 
                         <div class="answer-content">
-
                             ${formatAnswer(
                                 message.question
                             )}
-
                         </div>
 
-
                         <div class="answer-title">
-
                             🤖 EduGenie
-
                         </div>
 
                         <div class="answer-content">
-
                             ${formatAnswer(
                                 message.answer
                             )}
-
                         </div>
 
                     </div>
-
                 `
             )
             .join("");
@@ -770,13 +705,13 @@ function continueChat(chatId) {
 
 
     const input =
-        document.getElementById("question");
+        document.getElementById(
+            "question"
+        );
 
 
     if (input) {
-
         input.focus();
-
     }
 
 }
@@ -823,7 +758,6 @@ function showAllChats() {
 
 
                 return `
-
                     <div
                         class="history-item"
                         onclick="continueChat(${chat.id})"
@@ -850,7 +784,6 @@ function showAllChats() {
                         </b>
 
                     </div>
-
                 `;
 
             })
@@ -885,11 +818,14 @@ function startVoiceInput() {
         new SpeechRecognition();
 
 
-    recognition.lang = "en-IN";
+    recognition.lang =
+        "en-IN";
 
-    recognition.interimResults = false;
+    recognition.interimResults =
+        false;
 
-    recognition.maxAlternatives = 1;
+    recognition.maxAlternatives =
+        1;
 
 
     setRobotMessage(
@@ -904,7 +840,8 @@ function startVoiceInput() {
         function (event) {
 
             const text =
-                event.results[0][0].transcript;
+                event.results[0][0]
+                    .transcript;
 
 
             const input =
@@ -915,7 +852,8 @@ function startVoiceInput() {
 
             if (input) {
 
-                input.value = text;
+                input.value =
+                    text;
 
                 input.focus();
 
@@ -997,7 +935,9 @@ try {
 
             ...defaultProfile,
 
-            ...JSON.parse(savedProfile)
+            ...JSON.parse(
+                savedProfile
+            )
 
         };
 
@@ -1019,23 +959,49 @@ try {
 
 const profileFields = {
 
-    name: "profileName",
+    name:
+        "profileName",
 
-    studentId: "profileStudentId",
+    studentId:
+        "profileStudentId",
 
-    college: "profileCollege",
+    college:
+        "profileCollege",
 
-    department: "profileDepartment",
+    department:
+        "profileDepartment",
 
-    year: "profileYear",
+    year:
+        "profileYear",
 
-    semester: "profileSemester",
+    semester:
+        "profileSemester",
 
-    email: "profileEmail",
+    email:
+        "profileEmail",
 
-    phone: "profilePhone"
+    phone:
+        "profilePhone"
 
 };
+
+
+// =====================================================
+// PROFILE FIELD ORDER
+// =====================================================
+
+const profileFieldNames = [
+
+    "Name",
+    "StudentId",
+    "College",
+    "Department",
+    "Year",
+    "Semester",
+    "Email",
+    "Phone"
+
+];
 
 
 // =====================================================
@@ -1055,7 +1021,8 @@ function loadProfile() {
 
             const input =
                 document.getElementById(
-                    profileFields[key] + "Input"
+                    profileFields[key] +
+                    "Input"
                 );
 
 
@@ -1066,14 +1033,16 @@ function loadProfile() {
 
             if (display) {
 
-                display.innerText = value;
+                display.innerText =
+                    value;
 
             }
 
 
             if (input) {
 
-                input.value = value;
+                input.value =
+                    value;
 
             }
 
@@ -1092,26 +1061,30 @@ function loadProfile() {
 
 function editProfile() {
 
-    const fields = [
-
-        "Name",
-        "StudentId",
-        "College",
-        "Department",
-        "Year",
-        "Semester",
-        "Email",
-        "Phone"
-
-    ];
+    const profile =
+        document.getElementById(
+            "studentProfile"
+        );
 
 
-    fields.forEach(
+    if (!profile) {
+
+        console.error(
+            "EduGenie: studentProfile not found."
+        );
+
+        return;
+
+    }
+
+
+    profileFieldNames.forEach(
         field => {
 
             const display =
                 document.getElementById(
-                    "profile" + field
+                    "profile" +
+                    field
                 );
 
 
@@ -1125,7 +1098,13 @@ function editProfile() {
 
             if (display) {
 
-                display.hidden = true;
+                display.hidden =
+                    true;
+
+                display.setAttribute(
+                    "hidden",
+                    ""
+                );
 
                 display.style.display =
                     "none";
@@ -1135,7 +1114,8 @@ function editProfile() {
 
             if (input) {
 
-                input.hidden = false;
+                input.hidden =
+                    false;
 
                 input.removeAttribute(
                     "hidden"
@@ -1170,7 +1150,8 @@ function editProfile() {
 
     if (actions) {
 
-        actions.hidden = false;
+        actions.hidden =
+            false;
 
         actions.removeAttribute(
             "hidden"
@@ -1182,7 +1163,6 @@ function editProfile() {
     }
 
 
-    // Focus first input
     const firstInput =
         document.getElementById(
             "profileNameInput"
@@ -1293,7 +1273,6 @@ function saveProfile() {
 
     loadProfile();
 
-
     cancelProfileEdit(false);
 
 
@@ -1317,26 +1296,13 @@ function cancelProfileEdit(
     showRobot = true
 ) {
 
-    const fields = [
-
-        "Name",
-        "StudentId",
-        "College",
-        "Department",
-        "Year",
-        "Semester",
-        "Email",
-        "Phone"
-
-    ];
-
-
-    fields.forEach(
+    profileFieldNames.forEach(
         field => {
 
             const display =
                 document.getElementById(
-                    "profile" + field
+                    "profile" +
+                    field
                 );
 
 
@@ -1350,7 +1316,8 @@ function cancelProfileEdit(
 
             if (display) {
 
-                display.hidden = false;
+                display.hidden =
+                    false;
 
                 display.removeAttribute(
                     "hidden"
@@ -1367,7 +1334,13 @@ function cancelProfileEdit(
 
             if (input) {
 
-                input.hidden = true;
+                input.hidden =
+                    true;
+
+                input.setAttribute(
+                    "hidden",
+                    ""
+                );
 
                 input.style.display =
                     "none";
@@ -1386,7 +1359,13 @@ function cancelProfileEdit(
 
     if (actions) {
 
-        actions.hidden = true;
+        actions.hidden =
+            true;
+
+        actions.setAttribute(
+            "hidden",
+            ""
+        );
 
         actions.style.display =
             "none";
@@ -1421,9 +1400,7 @@ function showProfileMessage(message) {
 
 
     if (!profileCard) {
-
         return;
-
     }
 
 
@@ -1434,9 +1411,7 @@ function showProfileMessage(message) {
 
 
     if (oldMessage) {
-
         oldMessage.remove();
-
     }
 
 
@@ -1484,7 +1459,10 @@ function showProfileMessage(message) {
     setTimeout(
         () => {
 
-            if (messageBox) {
+            if (
+                messageBox &&
+                messageBox.parentNode
+            ) {
 
                 messageBox.remove();
 
@@ -1512,7 +1490,8 @@ function updateProfileStats() {
     if (!questionsCount) return;
 
 
-    let totalQuestions = 0;
+    let totalQuestions =
+        0;
 
 
     eduGenieChats.forEach(
@@ -1566,17 +1545,23 @@ function updateLearningLevel(
         "Beginner";
 
 
-    if (totalQuestions >= 100) {
+    if (
+        totalQuestions >= 100
+    ) {
 
         level =
             "Expert";
 
-    } else if (totalQuestions >= 50) {
+    } else if (
+        totalQuestions >= 50
+    ) {
 
         level =
             "Advanced";
 
-    } else if (totalQuestions >= 25) {
+    } else if (
+        totalQuestions >= 25
+    ) {
 
         level =
             "Intermediate";
@@ -1659,9 +1644,7 @@ async function displayConversationAfterAsk() {
                         <div class="chat-bubble">
 
                             <span class="chat-label">
-
                                 🤖 EduGenie
-
                             </span>
 
                             ${formatAnswer(
@@ -1674,9 +1657,7 @@ async function displayConversationAfterAsk() {
                                 class="copy-btn"
                                 onclick="copyAnswer()"
                             >
-
                                 📋 Copy Answer
-
                             </button>
 
                         </div>
@@ -1698,9 +1679,12 @@ window.askQuestion =
 // SEPARATE PROFILE PAGE
 // =====================================================
 
-let originalProfileParent = null;
+// IMPORTANT:
+// A placeholder is used instead of remembering
+// profile.nextSibling. This keeps the original
+// position reliable even after repeated open/close.
 
-let originalProfileNext = null;
+let profilePlaceholder = null;
 
 
 function openProfilePage() {
@@ -1738,38 +1722,64 @@ function openProfilePage() {
     }
 
 
-    // Remember original location
-    if (!originalProfileParent) {
+    // Create a permanent placeholder
+    // at the original profile location.
+    if (!profilePlaceholder) {
 
-        originalProfileParent =
-            profile.parentNode;
+        profilePlaceholder =
+            document.createComment(
+                "EduGenie Profile Placeholder"
+            );
 
-        originalProfileNext =
-            profile.nextSibling;
+
+        if (profile.parentNode) {
+
+            profile.parentNode.insertBefore(
+                profilePlaceholder,
+                profile
+            );
+
+        }
 
     }
 
 
-    // Move profile card into separate page
-    container.appendChild(
-        profile
-    );
+    // Make sure profile is in the page.
+    if (
+        profile.parentNode !==
+        container
+    ) {
+
+        container.appendChild(
+            profile
+        );
+
+    }
 
 
-    // Show separate page
-    page.hidden = false;
-
-    page.removeAttribute("hidden");
-
-    page.style.display = "block";
-
-
-    // Always start in normal view
+    // Always start in view mode.
     cancelProfileEdit(false);
 
 
-    // Load saved data
+    // Load saved information.
     loadProfile();
+
+
+    // Show separate profile page.
+    page.hidden =
+        false;
+
+    page.removeAttribute(
+        "hidden"
+    );
+
+    page.style.display =
+        "block";
+
+
+    // Prevent background scrolling.
+    document.body.style.overflow =
+        "hidden";
 
 
     window.scrollTo({
@@ -1803,47 +1813,47 @@ function closeProfilePage() {
         );
 
 
-    if (!page || !profile) {
+    if (
+        !page ||
+        !profile
+    ) {
 
         return;
 
     }
 
 
-    // Return profile to original location
-    if (originalProfileParent) {
+    // Return profile to its exact
+    // original location.
+    if (
+        profilePlaceholder &&
+        profilePlaceholder.parentNode
+    ) {
 
-        if (
-            originalProfileNext &&
-            originalProfileNext.parentNode ===
-                originalProfileParent
-        ) {
-
-            originalProfileParent.insertBefore(
-                profile,
-                originalProfileNext
-            );
-
-        } else {
-
-            originalProfileParent.appendChild(
-                profile
-            );
-
-        }
+        profilePlaceholder.parentNode.insertBefore(
+            profile,
+            profilePlaceholder.nextSibling
+        );
 
     }
 
 
-    // Hide page
-    page.hidden = true;
+    // Hide separate profile page.
+    page.hidden =
+        true;
 
     page.setAttribute(
         "hidden",
         ""
     );
 
-    page.style.display = "none";
+    page.style.display =
+        "none";
+
+
+    // Restore background scrolling.
+    document.body.style.overflow =
+        "";
 
 
     setRobotMessage(
@@ -1851,13 +1861,6 @@ function closeProfilePage() {
     );
 
 }
-
-
-window.openProfilePage =
-    openProfilePage;
-
-window.closeProfilePage =
-    closeProfilePage;
 
 
 // =====================================================
@@ -1894,11 +1897,13 @@ function randomRobotMove() {
 
 
     const x =
-        Math.random() * maxX;
+        Math.random() *
+        maxX;
 
 
     const y =
-        Math.random() * maxY;
+        Math.random() *
+        maxY;
 
 
     robot.style.left =
@@ -2120,7 +2125,9 @@ document.addEventListener(
 // =====================================================
 
 const robotAnimationStyle =
-    document.createElement("style");
+    document.createElement(
+        "style"
+    );
 
 
 robotAnimationStyle.textContent = `
@@ -2128,19 +2135,13 @@ robotAnimationStyle.textContent = `
 @keyframes robotMessagePop {
 
     from {
-
         opacity: 0;
-
         transform: scale(0.8);
-
     }
 
     to {
-
         opacity: 1;
-
         transform: scale(1);
-
     }
 
 }
