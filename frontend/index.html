@@ -739,14 +739,36 @@
                     </div>
 
 
-                   <button
+                   <<button
     type="button"
     class="profile-edit-btn"
-    id="editProfileBtn"
+    onclick="
+        document.querySelectorAll(
+            '.profile-value'
+        ).forEach(function(el) {
+            el.style.display = 'none';
+        });
+
+        document.querySelectorAll(
+            '.profile-input'
+        ).forEach(function(el) {
+            el.hidden = false;
+            el.style.display = 'block';
+        });
+
+        var actions =
+            document.getElementById(
+                'profileActions'
+            );
+
+        if (actions) {
+            actions.hidden = false;
+            actions.style.display = 'flex';
+        }
+    "
 >
     ✏️ Edit Profile
 </button>
-
                 </div>
 
 
