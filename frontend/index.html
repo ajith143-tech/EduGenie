@@ -1464,6 +1464,329 @@
     </div>
 
 </section>
+
+ <!-- =====================================================
+     EDUGENIE AI LEARNING DASHBOARD
+     ADD-ONLY
+     ===================================================== -->
+
+<section id="egLearningDashboard" class="eg-learning-dashboard">
+
+    <div class="eg-dashboard-header">
+
+        <div>
+            <span class="eg-dashboard-badge">
+                🤖 AI LEARNING DASHBOARD
+            </span>
+
+            <h2>
+                Welcome back, Learner! 👋
+            </h2>
+
+            <p>
+                Keep learning. Keep growing. 🚀
+            </p>
+        </div>
+
+        <div class="eg-dashboard-robot">
+            🤖
+        </div>
+
+    </div>
+
+
+    <!-- LEARNING PROGRESS -->
+
+    <div class="eg-progress-card">
+
+        <div class="eg-progress-top">
+
+            <div>
+                <span>⚡ Your Learning Level</span>
+
+                <strong id="egDashboardLevel">
+                    Beginner
+                </strong>
+            </div>
+
+            <div>
+                <strong id="egDashboardXP">
+                    0 XP
+                </strong>
+            </div>
+
+        </div>
+
+        <div class="eg-progress-bar">
+
+            <div
+                id="egDashboardProgress"
+                class="eg-progress-fill"
+            ></div>
+
+        </div>
+
+        <div class="eg-progress-info">
+
+            <span id="egDashboardProgressText">
+                0 / 100 XP
+            </span>
+
+            <span>
+                Keep going! 🚀
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- STATISTICS -->
+
+    <div class="eg-dashboard-stats">
+
+        <div class="eg-dashboard-stat">
+
+            <span>🔥</span>
+
+            <strong id="egDashboardStreak">
+                0
+            </strong>
+
+            <small>
+                Day Streak
+            </small>
+
+        </div>
+
+
+        <div class="eg-dashboard-stat">
+
+            <span>🧠</span>
+
+            <strong id="egDashboardQuizzes">
+                0
+            </strong>
+
+            <small>
+                Quizzes
+            </small>
+
+        </div>
+
+
+        <div class="eg-dashboard-stat">
+
+            <span>✅</span>
+
+            <strong id="egDashboardCorrect">
+                0
+            </strong>
+
+            <small>
+                Correct Answers
+            </small>
+
+        </div>
+
+
+        <div class="eg-dashboard-stat">
+
+            <span>📝</span>
+
+            <strong id="egDashboardNotes">
+                0
+            </strong>
+
+            <small>
+                Saved Notes
+            </small>
+
+        </div>
+
+
+        <div class="eg-dashboard-stat">
+
+            <span>⏱️</span>
+
+            <strong id="egDashboardMinutes">
+                0
+            </strong>
+
+            <small>
+                Study Minutes
+            </small>
+
+        </div>
+
+
+        <div class="eg-dashboard-stat">
+
+            <span>🏆</span>
+
+            <strong id="egDashboardBadges">
+                0
+            </strong>
+
+            <small>
+                Badges
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <!-- TODAY'S GOAL -->
+
+    <div class="eg-dashboard-grid">
+
+        <div class="eg-dashboard-card">
+
+            <div class="eg-dashboard-card-title">
+
+                <span>🎯</span>
+
+                <div>
+                    <h3>
+                        Today's Goal
+                    </h3>
+
+                    <p>
+                        Complete your learning target
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="eg-goal-progress">
+
+                <div
+                    id="egGoalProgress"
+                    class="eg-goal-fill"
+                ></div>
+
+            </div>
+
+
+            <div class="eg-goal-text">
+
+                <strong id="egGoalText">
+                    0 / 5 Learning Activities
+                </strong>
+
+                <span id="egGoalStatus">
+                    Let's start! 🚀
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- AI MESSAGE -->
+
+        <div class="eg-dashboard-card eg-ai-message-card">
+
+            <div class="eg-dashboard-card-title">
+
+                <span>🤖</span>
+
+                <div>
+                    <h3>
+                        EduGenie Says
+                    </h3>
+
+                    <p>
+                        Your AI learning companion
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div
+                id="egDashboardRobotMessage"
+                class="eg-dashboard-message"
+            >
+                💡 Ready to learn something new?
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="eg-dashboard-card">
+
+        <div class="eg-dashboard-card-title">
+
+            <span>⚡</span>
+
+            <div>
+                <h3>
+                    Quick Learning
+                </h3>
+
+                <p>
+                    Jump directly into your study tools
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="eg-quick-actions">
+
+            <button
+                type="button"
+                onclick="document.getElementById('egQuizTopic')?.focus();"
+            >
+                🧠 AI Quiz
+            </button>
+
+
+            <button
+                type="button"
+                onclick="document.getElementById('egFlashTopic')?.focus();"
+            >
+                🧩 Flashcards
+            </button>
+
+
+            <button
+                type="button"
+                onclick="document.getElementById('egNoteTitle')?.focus();"
+            >
+                📝 New Note
+            </button>
+
+
+            <button
+                type="button"
+                onclick="window.egStartTimer?.();"
+            >
+                ⏱️ Start Study
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ACHIEVEMENT MESSAGE -->
+
+    <div
+        id="egDashboardAchievement"
+        class="eg-dashboard-achievement"
+    >
+        🌟 Start learning to unlock your first achievement!
+    </div>
+
+</section>   
     
 <script src="app.js"></script>
 
