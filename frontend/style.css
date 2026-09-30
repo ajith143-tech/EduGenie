@@ -1637,6 +1637,119 @@ body {
         line-height: 1.65;
     }
 
+}
+/* =========================================================
+   EDU GENIE — CHAT CONVERSATION
+   ========================================================= */
+
+.chat-message-user {
+    display: flex;
+    justify-content: flex-end;
+    margin: 18px 0;
+    animation: chatMessageIn 0.3s ease;
+}
+
+.chat-message-user .chat-bubble {
+    max-width: 78%;
+    padding: 13px 17px;
+
+    border-radius: 18px 18px 5px 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(55, 145, 220, 0.95),
+            rgba(45, 105, 190, 0.95)
+        );
+
+    color: white;
+
+    font-size: 14px;
+    line-height: 1.6;
+
+    box-shadow:
+        0 7px 22px rgba(0, 0, 0, 0.18);
+}
+
+
+.chat-message-ai {
+    display: flex;
+    justify-content: flex-start;
+    margin: 18px 0;
+
+    animation: chatMessageIn 0.35s ease;
+}
+
+.chat-message-ai .chat-bubble {
+    max-width: 85%;
+    padding: 20px;
+
+    border-radius: 18px 18px 18px 5px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 34, 65, 0.98),
+            rgba(8, 21, 43, 0.98)
+        );
+
+    border:
+        1px solid rgba(95, 195, 255, 0.25);
+
+    color: #eaf8ff;
+
+    font-size: 14px;
+    line-height: 1.75;
+
+    box-shadow:
+        0 9px 28px rgba(0, 0, 0, 0.22);
+}
+
+
+.chat-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    color: #75d9ff;
+}
+
+
+.chat-user-label {
+    color: #ffffff;
+}
+
+
+@keyframes chatMessageIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .chat-message-user .chat-bubble {
+        max-width: 84%;
+    }
+
+    .chat-message-ai .chat-bubble {
+        max-width: 92%;
+    }
+
 } =====================================================
    END OF EDUGENIE STYLE.CSS
    ===================================================== */
