@@ -4740,18 +4740,6 @@ body {
 #eduGenieLoginNav {
     white-space: nowrap;
 }
-/* =====================================================
-   EDUGENIE - HIDE PROFILE & SETTINGS FROM MAIN PAGE
-   ===================================================== */
-
-#studentProfile {
-    display: none !important;
-}
-
-#egSettings {
-    display: none !important;
-}
-
 
 
 
