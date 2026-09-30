@@ -1321,6 +1321,23 @@ body {
     }
 
 }
+/* =====================================================
+   PROFILE EDIT VISIBILITY FIX
+   ===================================================== */
+
+.profile-value[hidden],
+.profile-input[hidden],
+.profile-actions[hidden] {
+    display: none !important;
+}
+
+.profile-input:not([hidden]) {
+    display: block;
+}
+
+.profile-actions:not([hidden]) {
+    display: flex;
+}
 
 /* =====================================================
    END OF EDUGENIE STYLE.CSS
