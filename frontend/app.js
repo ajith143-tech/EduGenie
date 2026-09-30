@@ -1164,6 +1164,8 @@ function editProfile() {
 
 function saveProfile() {
 
+    alert("SAVE FUNCTION WORKING");
+
     const fields = {
 
         name:
