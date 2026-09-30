@@ -3779,3 +3779,476 @@ console.log(
 );
 console.log("🔥 EduGenie app.js FINISHED");
 
+// =====================================================
+// EDUGENIE AI LEARNING DASHBOARD
+// ADD-ONLY
+// =====================================================
+
+function egUpdateLearningDashboard() {
+
+    const data =
+        typeof egUpgradeData !== "undefined"
+            ? egUpgradeData
+            : null;
+
+    if (!data) return;
+
+
+    // -------------------------------
+    // BASIC STATISTICS
+    // -------------------------------
+
+    const xp =
+        Number(data.xp || 0);
+
+    const streak =
+        Number(data.streak || 0);
+
+    const quizzes =
+        Number(data.quizzes || 0);
+
+    const correct =
+        Number(data.correctAnswers || 0);
+
+    const notes =
+        Array.isArray(data.notes)
+            ? data.notes.length
+            : 0;
+
+    const minutes =
+        Number(data.studyMinutes || 0);
+
+
+    // -------------------------------
+    // LEVEL
+    // -------------------------------
+
+    let level =
+        "Beginner";
+
+    let levelStart =
+        0;
+
+    let levelTarget =
+        100;
+
+    if (xp >= 1000) {
+
+        level =
+            "Master";
+
+        levelStart =
+            1000;
+
+        levelTarget =
+            1500;
+
+    } else if (xp >= 500) {
+
+        level =
+            "Expert";
+
+        levelStart =
+            500;
+
+        levelTarget =
+            1000;
+
+    } else if (xp >= 250) {
+
+        level =
+            "Advanced";
+
+        levelStart =
+            250;
+
+        levelTarget =
+            500;
+
+    } else if (xp >= 100) {
+
+        level =
+            "Intermediate";
+
+        levelStart =
+            100;
+
+        levelTarget =
+            250;
+
+    }
+
+
+    const levelXP =
+        xp - levelStart;
+
+    const levelRange =
+        levelTarget - levelStart;
+
+    const progress =
+        Math.min(
+            100,
+            Math.max(
+                0,
+                (levelXP / levelRange) * 100
+            )
+        );
+
+
+    // -------------------------------
+    // UPDATE ELEMENTS
+    // -------------------------------
+
+    const levelElement =
+        document.getElementById(
+            "egDashboardLevel"
+        );
+
+    const xpElement =
+        document.getElementById(
+            "egDashboardXP"
+        );
+
+    const progressElement =
+        document.getElementById(
+            "egDashboardProgress"
+        );
+
+    const progressText =
+        document.getElementById(
+            "egDashboardProgressText"
+        );
+
+    const streakElement =
+        document.getElementById(
+            "egDashboardStreak"
+        );
+
+    const quizzesElement =
+        document.getElementById(
+            "egDashboardQuizzes"
+        );
+
+    const correctElement =
+        document.getElementById(
+            "egDashboardCorrect"
+        );
+
+    const notesElement =
+        document.getElementById(
+            "egDashboardNotes"
+        );
+
+    const minutesElement =
+        document.getElementById(
+            "egDashboardMinutes"
+        );
+
+    const badgesElement =
+        document.getElementById(
+            "egDashboardBadges"
+        );
+
+
+    if (levelElement)
+        levelElement.innerText =
+            level;
+
+    if (xpElement)
+        xpElement.innerText =
+            xp + " XP";
+
+    if (progressElement)
+        progressElement.style.width =
+            progress + "%";
+
+    if (progressText)
+        progressText.innerText =
+            `${Math.max(
+                0,
+                xp - levelStart
+            )} / ${levelRange} XP`;
+
+    if (streakElement)
+        streakElement.innerText =
+            streak;
+
+    if (quizzesElement)
+        quizzesElement.innerText =
+            quizzes;
+
+    if (correctElement)
+        correctElement.innerText =
+            correct;
+
+    if (notesElement)
+        notesElement.innerText =
+            notes;
+
+    if (minutesElement)
+        minutesElement.innerText =
+            minutes;
+
+
+    // -------------------------------
+    // BADGES
+    // -------------------------------
+
+    let badgeCount = 0;
+
+    if (xp >= 10)
+        badgeCount++;
+
+    if (quizzes >= 1)
+        badgeCount++;
+
+    if (notes >= 1)
+        badgeCount++;
+
+    if (streak >= 3)
+        badgeCount++;
+
+    if (quizzes >= 10)
+        badgeCount++;
+
+    if (xp >= 100)
+        badgeCount++;
+
+    if (badgesElement)
+        badgesElement.innerText =
+            badgeCount;
+
+
+    // -------------------------------
+    // TODAY'S GOAL
+    // -------------------------------
+
+    const activities =
+        Math.min(
+            5,
+            quizzes +
+            notes +
+            (minutes >= 25 ? 1 : 0)
+        );
+
+    const goalPercent =
+        (activities / 5) * 100;
+
+    const goalProgress =
+        document.getElementById(
+            "egGoalProgress"
+        );
+
+    const goalText =
+        document.getElementById(
+            "egGoalText"
+        );
+
+    const goalStatus =
+        document.getElementById(
+            "egGoalStatus"
+        );
+
+    if (goalProgress)
+        goalProgress.style.width =
+            goalPercent + "%";
+
+    if (goalText)
+        goalText.innerText =
+            `${activities} / 5 Learning Activities`;
+
+    if (goalStatus) {
+
+        if (activities >= 5) {
+
+            goalStatus.innerText =
+                "🎉 Goal completed!";
+
+        } else if (activities >= 3) {
+
+            goalStatus.innerText =
+                "🔥 Almost there!";
+
+        } else if (activities >= 1) {
+
+            goalStatus.innerText =
+                "💪 Keep going!";
+
+        } else {
+
+            goalStatus.innerText =
+                "🚀 Let's start!";
+
+        }
+
+    }
+
+
+    // -------------------------------
+    // AI ROBOT MESSAGE
+    // -------------------------------
+
+    const messageElement =
+        document.getElementById(
+            "egDashboardRobotMessage"
+        );
+
+    if (messageElement) {
+
+        let message =
+            "💡 Ready to learn something new?";
+
+        if (xp >= 1000) {
+
+            message =
+                "🏆 Incredible! You're becoming a true EduGenie Master!";
+
+        } else if (xp >= 500) {
+
+            message =
+                "🔥 Amazing progress! Keep pushing your learning level!";
+
+        } else if (xp >= 250) {
+
+            message =
+                "🚀 You're making serious progress. Keep going!";
+
+        } else if (quizzes >= 10) {
+
+            message =
+                "🧠 Quiz master in progress! Keep testing yourself.";
+
+        } else if (streak >= 7) {
+
+            message =
+                "🔥 One week streak! Your consistency is awesome.";
+
+        } else if (streak >= 3) {
+
+            message =
+                "💪 Great streak! Don't break it today.";
+
+        } else if (notes >= 5) {
+
+            message =
+                "📝 Your notes are growing. Great study habit!";
+
+        } else if (minutes >= 25) {
+
+            message =
+                "⏱️ Nice study session! Consistency beats intensity.";
+
+        } else if (quizzes >= 1) {
+
+            message =
+                "🧠 Nice! You've started testing your knowledge.";
+
+        }
+
+        messageElement.innerText =
+            message;
+
+    }
+
+
+    // -------------------------------
+    // ACHIEVEMENT MESSAGE
+    // -------------------------------
+
+    const achievement =
+        document.getElementById(
+            "egDashboardAchievement"
+        );
+
+    if (achievement) {
+
+        if (xp >= 1000) {
+
+            achievement.innerText =
+                "👑 Master Learner unlocked!";
+
+        } else if (xp >= 500) {
+
+            achievement.innerText =
+                "🏆 Expert Learner unlocked!";
+
+        } else if (xp >= 100) {
+
+            achievement.innerText =
+                "⚡ 100 XP milestone reached!";
+
+        } else if (quizzes >= 1) {
+
+            achievement.innerText =
+                "🧠 Your first quiz journey has begun!";
+
+        } else if (notes >= 1) {
+
+            achievement.innerText =
+                "📝 Your first study note is saved!";
+
+        } else {
+
+            achievement.innerText =
+                "🌟 Start learning to unlock your first achievement!";
+
+        }
+
+    }
+
+}
+
+
+// =====================================================
+// AUTOMATIC DASHBOARD REFRESH
+// =====================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        setTimeout(
+            egUpdateLearningDashboard,
+            300
+        );
+
+    }
+);
+
+
+// Refresh whenever the page becomes active
+
+window.addEventListener(
+    "focus",
+    function () {
+
+        setTimeout(
+            egUpdateLearningDashboard,
+            200
+        );
+
+    }
+);
+
+
+// Refresh when EduGenie data changes
+
+setInterval(
+    function () {
+
+        egUpdateLearningDashboard();
+
+    },
+    3000
+);
+
+
+// Make available globally
+
+window.egUpdateLearningDashboard =
+    egUpdateLearningDashboard;
+
+
+console.log(
+    "🤖 EduGenie AI Learning Dashboard loaded!"
+);
