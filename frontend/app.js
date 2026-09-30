@@ -1563,26 +1563,47 @@ document.addEventListener(
 
         }
 
-
         renderChatHistory();
 
         loadProfile();
-         
+
+
         const editProfileButton =
-    document.getElementById("editProfileBtn");
+            document.getElementById(
+                "editProfileBtn"
+            );
 
-if (editProfileButton) {
+        if (editProfileButton) {
 
-    editProfileButton.addEventListener(
-        "click",
-        function () {
+            editProfileButton.addEventListener(
+                "click",
+                function () {
 
-            editProfile();
+                    editProfile();
+
+                }
+            );
 
         }
-    );
 
-}
+
+        const saveProfileButton =
+            document.getElementById(
+                "saveProfileBtn"
+            );
+
+        if (saveProfileButton) {
+
+            saveProfileButton.addEventListener(
+                "click",
+                function () {
+
+                    saveProfile();
+
+                }
+            );
+
+        }
 
     }
 );
