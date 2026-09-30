@@ -2079,6 +2079,157 @@
 
 </section>
 
+<!-- =====================================================
+     EDUGENIE LOGIN / REGISTER
+     ADD-ONLY
+     ===================================================== -->
+
+<div
+    id="authOverlay"
+    class="auth-overlay"
+    hidden
+>
+
+    <div class="auth-card">
+
+        <button
+            type="button"
+            class="auth-close"
+            onclick="closeAuthPage()"
+        >
+            ✕
+        </button>
+
+
+        <div class="auth-logo">
+            🤖
+        </div>
+
+
+        <h2 id="authTitle">
+            Welcome to EduGenie
+        </h2>
+
+        <p id="authSubtitle">
+            Login to save your learning progress.
+        </p>
+
+
+        <!-- LOGIN -->
+
+        <div id="loginForm">
+
+            <input
+                id="loginEmail"
+                type="email"
+                placeholder="📧 Email address"
+                autocomplete="email"
+            >
+
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="🔒 Password"
+                autocomplete="current-password"
+            >
+
+            <button
+                type="button"
+                class="auth-primary-btn"
+                onclick="eduGenieLogin()"
+            >
+                🔐 Login
+            </button>
+
+            <p class="auth-switch">
+                New student?
+
+                <button
+                    type="button"
+                    onclick="showRegisterForm()"
+                >
+                    Create Account
+                </button>
+            </p>
+
+        </div>
+
+
+        <!-- REGISTER -->
+
+        <div
+            id="registerForm"
+            hidden
+        >
+
+            <input
+                id="registerName"
+                type="text"
+                placeholder="👤 Full name"
+                autocomplete="name"
+            >
+
+            <input
+                id="registerEmail"
+                type="email"
+                placeholder="📧 Email address"
+                autocomplete="email"
+            >
+
+            <input
+                id="registerPassword"
+                type="password"
+                placeholder="🔒 Password (minimum 6 characters)"
+                autocomplete="new-password"
+            >
+
+            <button
+                type="button"
+                class="auth-primary-btn"
+                onclick="eduGenieRegister()"
+            >
+                🚀 Create Account
+            </button>
+
+            <p class="auth-switch">
+                Already have an account?
+
+                <button
+                    type="button"
+                    onclick="showLoginForm()"
+                >
+                    Login
+                </button>
+            </p>
+
+        </div>
+
+
+        <div
+            id="authMessage"
+            class="auth-message"
+        ></div>
+
+
+        <div class="auth-guest">
+
+            <span>
+                You can also continue without an account.
+            </span>
+
+            <button
+                type="button"
+                onclick="closeAuthPage()"
+            >
+                Continue as Guest →
+            </button>
+
+        </div>
+
+    </div>
+
+</div>    
+
 <script src="app.js"></script>
 
 </body>
