@@ -5240,7 +5240,6 @@ window.egApplySettings =
 console.log(
     "⚙️ EduGenie Settings loaded!"
 );
-```javascript
 // =====================================================
 // SEPARATE SETTINGS PAGE
 // =====================================================
@@ -5325,5 +5324,5 @@ window.closeSettingsPage =
 console.log(
     "⚙️ EduGenie Separate Settings Page loaded!"
 );
-```
+
 
