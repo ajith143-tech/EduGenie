@@ -588,35 +588,3 @@ def login_student(request: LoginRequest):
                 "Unable to login right now."
 
         }
-        # =====================================================
-# TEMPORARY DATABASE TEST
-# =====================================================
-
-@app.get("/db-test")
-def database_test():
-
-    try:
-
-        with get_db() as connection:
-
-            with connection.cursor() as cursor:
-
-                cursor.execute(
-                    "SELECT NOW()"
-                )
-
-                result = cursor.fetchone()
-
-        return {
-            "success": True,
-            "database": "connected",
-            "time": str(result[0])
-        }
-
-    except Exception as error:
-
-        return {
-            "success": False,
-            "database": "not connected",
-            "error": str(error)
-        }
