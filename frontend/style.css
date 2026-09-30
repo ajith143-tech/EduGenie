@@ -2010,7 +2010,58 @@ body {
         transform: scale(0.72);
     }
 }
+/* =====================================================
+   PROFILE PAGE FIX
+   ===================================================== */
 
+.profile-page .student-profile-section {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    scroll-margin-top: 0 !important;
+}
+
+.profile-page .profile-card {
+    margin-bottom: 20px;
+}
+
+.profile-page .profile-input {
+    display: block;
+    width: 100%;
+    pointer-events: auto;
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+.profile-page .profile-input[hidden] {
+    display: none !important;
+}
+
+.profile-page .profile-value[hidden] {
+    display: none !important;
+}
+
+.profile-page .profile-actions[hidden] {
+    display: none !important;
+}
+
+.profile-page .profile-actions:not([hidden]) {
+    display: flex !important;
+}
+
+@media (max-width: 760px) {
+
+    .profile-page .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-page .profile-card-title {
+        align-items: flex-start;
+    }
+
+    .profile-page .profile-edit-btn {
+        width: 100%;
+    }
+}
 /* =====================================================
    END OF EDUGENIE STYLE.CSS
    ===================================================== */
