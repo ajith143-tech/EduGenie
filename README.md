@@ -171,10 +171,15 @@ https://edugenie-1-g40s.onrender.com/
 
 Name| Role
 Ajith| 👑 Team Leader
+
 Perumal Raja| 👨‍💻 Team Member
+
 Sridhar| 👨‍💻 Team Member
+
 Kishore| 👨‍💻 Team Member
+
 Sowmiya| 👩‍💻 Team Member
+
 
 🚀 Team — EduGenie
 
