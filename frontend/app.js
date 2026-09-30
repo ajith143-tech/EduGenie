@@ -6588,5 +6588,141 @@ document.addEventListener("click", async function (event) {
 
 });
 
+// =====================================================
+// EDUGENIE - FINAL COPY ANSWER FIX
+// =====================================================
+
+window.copyAnswer = function () {
+
+    // The button that was actually touched
+    const button =
+        document.activeElement &&
+        document.activeElement.classList.contains("copy-btn")
+            ? document.activeElement
+            : document.querySelector(".copy-btn");
+
+    if (!button) {
+        alert("Copy button not found.");
+        return;
+    }
+
+    // Find this button's own answer box
+    const card =
+        button.closest(".ai-answer");
+
+    if (!card) {
+        alert("Answer box not found.");
+        return;
+    }
+
+    const answer =
+        card.querySelector(".answer-content");
+
+    if (!answer) {
+        alert("Answer text not found.");
+        return;
+    }
+
+    const text =
+        answer.innerText.trim();
+
+    if (!text) {
+        alert("Nothing to copy.");
+        return;
+    }
+
+    // Mobile-safe copy method
+    const textarea =
+        document.createElement("textarea");
+
+    textarea.value = text;
+
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+    textarea.style.top = "0";
+    textarea.style.opacity = "0";
+
+    document.body.appendChild(textarea);
+
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(
+        0,
+        textarea.value.length
+    );
+
+    let copied = false;
+
+    try {
+
+        copied =
+            document.execCommand("copy");
+
+    } catch (error) {
+
+        console.error(
+            "Copy error:",
+            error
+        );
+
+    }
+
+    textarea.remove();
+
+    if (copied) {
+
+        button.innerText =
+            "✅ Copied!";
+
+        setTimeout(function () {
+
+            button.innerText =
+                "📋 Copy Answer";
+
+        }, 2000);
+
+    } else {
+
+        // Final modern clipboard attempt
+        if (
+            navigator.clipboard &&
+            window.isSecureContext
+        ) {
+
+            navigator.clipboard
+                .writeText(text)
+                .then(function () {
+
+                    button.innerText =
+                        "✅ Copied!";
+
+                    setTimeout(function () {
+
+                        button.innerText =
+                            "📋 Copy Answer";
+
+                    }, 2000);
+
+                })
+                .catch(function () {
+
+                    alert(
+                        "Unable to copy the answer."
+                    );
+
+                });
+
+        } else {
+
+            alert(
+                "Unable to copy the answer."
+            );
+
+        }
+
+    }
+
+};
+
 
 
