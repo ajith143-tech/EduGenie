@@ -1,3 +1,4 @@
+```css
 /* =====================================================
    EduGenie V2 - Futuristic AI Learning Interface
    ===================================================== */
@@ -35,7 +36,9 @@ body {
     overflow-x: hidden;
 }
 
-/* ---------- NAVBAR ---------- */
+/* =====================================================
+   NAVBAR
+   ===================================================== */
 
 .navbar {
     height: 92px;
@@ -113,15 +116,15 @@ body {
     box-shadow: 0 0 20px rgba(58, 121, 255, 0.3);
 }
 
-/* ---------- MAIN LAYOUT ---------- */
+/* =====================================================
+   MAIN LAYOUT
+   ===================================================== */
 
 .app-layout {
     display: grid;
     grid-template-columns: 235px minmax(0, 1fr) 285px;
     min-height: calc(100vh - 92px);
 }
-
-/* ---------- SIDEBAR ---------- */
 
 .sidebar {
     padding: 25px 18px;
@@ -173,7 +176,9 @@ body {
     transform: rotate(-4deg);
 }
 
-/* ---------- MAIN CONTENT ---------- */
+/* =====================================================
+   MAIN CONTENT
+   ===================================================== */
 
 .main-content {
     padding: 30px;
@@ -182,7 +187,9 @@ body {
     margin: auto;
 }
 
-/* ---------- HERO ---------- */
+/* =====================================================
+   HERO
+   ===================================================== */
 
 .hero {
     min-height: 285px;
@@ -233,7 +240,9 @@ body {
     font-size: 12px;
 }
 
-/* ---------- EDUGENIE ROBOT ---------- */
+/* =====================================================
+   LARGE ROBOT
+   ===================================================== */
 
 .robot {
     width: 300px;
@@ -433,6 +442,7 @@ body {
     0%, 100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-18px);
     }
@@ -443,6 +453,7 @@ body {
         transform: scale(.9);
         opacity: .6;
     }
+
     to {
         transform: scale(1.1);
         opacity: 1;
@@ -453,6 +464,7 @@ body {
     0%, 92%, 100% {
         transform: scaleY(1);
     }
+
     95% {
         transform: scaleY(.1);
     }
@@ -462,6 +474,7 @@ body {
     0%, 100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.3);
     }
@@ -471,12 +484,15 @@ body {
     0%, 100% {
         transform: translateY(0) rotate(-3deg);
     }
+
     50% {
         transform: translateY(-10px) rotate(4deg);
     }
 }
 
-/* ---------- ASK CARD ---------- */
+/* =====================================================
+   ASK CARD
+   ===================================================== */
 
 .ask-card,
 .response-card {
@@ -583,7 +599,9 @@ body {
     box-shadow: 0 0 20px rgba(48, 151, 255, 0.2);
 }
 
-/* ---------- RESPONSE ---------- */
+/* =====================================================
+   RESPONSE
+   ===================================================== */
 
 .response-card {
     margin-top: 18px;
@@ -639,13 +657,16 @@ body {
         opacity: 0;
         transform: translateY(12px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-/* ---------- RIGHT PANEL ---------- */
+/* =====================================================
+   RIGHT PANEL
+   ===================================================== */
 
 .right-panel {
     padding: 22px 18px;
@@ -789,7 +810,9 @@ body {
     margin-top: 10px;
 }
 
-/* ---------- PROFILE SHORTCUT ---------- */
+/* =====================================================
+   PROFILE SHORTCUT
+   ===================================================== */
 
 .profile-shortcut {
     border-color: rgba(105, 110, 255, 0.4);
@@ -810,7 +833,7 @@ body {
     padding: 9px 12px;
     border-radius: 10px;
     cursor: pointer;
-    transition: .25s ease;
+    transition: .25s;
 }
 
 .profile-shortcut button:hover {
@@ -827,8 +850,6 @@ body {
     padding-top: 25px;
     scroll-margin-top: 110px;
 }
-
-/* Profile Header */
 
 .profile-header {
     display: flex;
@@ -878,8 +899,6 @@ body {
         0 0 25px rgba(42, 166, 255, .2),
         inset 0 0 20px rgba(70, 100, 255, .12);
 }
-
-/* Profile Card */
 
 .profile-card {
     position: relative;
@@ -932,8 +951,6 @@ body {
     font-size: 11px;
 }
 
-/* Edit Button */
-
 .profile-edit-btn {
     border: 1px solid rgba(77, 165, 255, .55);
     background: rgba(29, 82, 160, .3);
@@ -950,8 +967,6 @@ body {
     background: rgba(42, 112, 215, .45);
     box-shadow: 0 0 18px rgba(52, 162, 255, .3);
 }
-
-/* Profile Grid */
 
 .profile-grid {
     display: grid;
@@ -990,7 +1005,8 @@ body {
 
 .profile-input {
     width: 100%;
-    padding: 9px 10px;
+    min-height: 42px;
+    padding: 10px 12px;
     border-radius: 9px;
     border: 1px solid rgba(65, 160, 255, .45);
     outline: none;
@@ -1008,20 +1024,43 @@ body {
     box-shadow: 0 0 12px rgba(58, 182, 255, .2);
 }
 
-/* Profile Actions */
+/* PROFILE EDIT FIX */
+
+.profile-value[hidden] {
+    display: none !important;
+}
+
+.profile-input[hidden] {
+    display: none !important;
+}
+
+.profile-input:not([hidden]) {
+    display: block !important;
+}
+
+.profile-actions[hidden] {
+    display: none !important;
+}
+
+.profile-actions:not([hidden]) {
+    display: flex !important;
+}
 
 .profile-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
+    width: 100%;
+    margin-top: 18px;
     padding-top: 18px;
     border-top: 1px solid rgba(74, 127, 210, .18);
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .profile-save-btn,
 .profile-cancel-btn {
+    min-height: 42px;
     border-radius: 10px;
-    padding: 10px 16px;
+    padding: 10px 18px;
     cursor: pointer;
     font-size: 12px;
     transition: .25s ease;
@@ -1049,7 +1088,9 @@ body {
     background: rgba(60, 75, 110, .6);
 }
 
-/* Profile Statistics */
+/* =====================================================
+   PROFILE STATISTICS
+   ===================================================== */
 
 .profile-stats {
     display: grid;
@@ -1064,7 +1105,7 @@ body {
     gap: 12px;
     min-height: 82px;
     padding: 15px;
-        border-radius: 15px;
+    border-radius: 15px;
     border: 1px solid rgba(67, 139, 245, .3);
     background:
         linear-gradient(
@@ -1099,7 +1140,9 @@ body {
     font-size: 10px;
 }
 
-/* ---------- ACHIEVEMENTS ---------- */
+/* =====================================================
+   ACHIEVEMENTS
+   ===================================================== */
 
 .achievements-card {
     margin-bottom: 25px;
@@ -1162,37 +1205,455 @@ body {
     filter: grayscale(.6);
 }
 
-/* ---------- PROFILE SHORTCUT ---------- */
+/* =====================================================
+   AI RESPONSE
+   ===================================================== */
 
-.profile-shortcut {
-    border-color: rgba(105, 110, 255, .4);
-}
-
-.profile-shortcut p {
-    color: #8fa2c5;
-    font-size: 11px;
-    line-height: 1.6;
-    margin-bottom: 12px;
-}
-
-.profile-shortcut button {
+.response-section {
     width: 100%;
-    border: 1px solid rgba(65, 160, 255, .45);
-    background: rgba(30, 85, 165, .3);
-    color: #70caff;
-    padding: 9px 12px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: .25s;
+    margin-top: 22px;
+    margin-bottom: 25px;
 }
 
-.profile-shortcut button:hover {
-    background: rgba(45, 112, 215, .45);
-    box-shadow: 0 0 15px rgba(50, 160, 255, .25);
+.response-section .thinking {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 22px 24px;
+    border-radius: 18px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(20, 35, 65, 0.92),
+            rgba(12, 25, 48, 0.96)
+        );
+    border: 1px solid rgba(90, 190, 255, 0.28);
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.20),
+        0 0 25px rgba(50, 170, 255, 0.08);
+    color: #dff5ff;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    animation: responseAppear 0.35s ease;
+}
+
+.response-section .thinking .dot {
+    display: inline-block;
+    font-size: 20px;
+    line-height: 10px;
+    animation: thinkingDot 1.2s infinite ease-in-out;
+}
+
+.response-section .thinking .dot:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.response-section .thinking .dot:nth-child(3) {
+    animation-delay: 0.30s;
+}
+
+.response-section .thinking .dot:nth-child(4) {
+    animation-delay: 0.45s;
+}
+
+.response-section .ai-answer {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 24px;
+    border-radius: 20px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(18, 35, 66, 0.96),
+            rgba(10, 24, 48, 0.98)
+        );
+    border: 1px solid rgba(90, 190, 255, 0.30);
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.22),
+        0 0 30px rgba(50, 170, 255, 0.08);
+    animation: responseAppear 0.45s ease;
+}
+
+.response-section .answer-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    color: #74d8ff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.response-section .answer-content {
+    color: #e9f8ff;
+    font-size: 15px;
+    line-height: 1.75;
+    word-wrap: break-word;
+}
+
+.response-section .copy-btn {
+    margin-top: 18px;
+    padding: 9px 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(100, 200, 255, 0.25);
+    background: rgba(60, 160, 220, 0.12);
+    color: #8cddff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.response-section .copy-btn:hover {
+    background: rgba(60, 170, 240, 0.22);
+    transform: translateY(-1px);
+    box-shadow: 0 0 15px rgba(70, 190, 255, 0.15);
+}
+
+.response-section .error-message {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(120, 30, 45, 0.22);
+    border: 1px solid rgba(255, 100, 120, 0.30);
+    color: #ffd6dc;
+    line-height: 1.6;
+    animation: responseAppear 0.35s ease;
+}
+
+@keyframes thinkingDot {
+    0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.35;
+    }
+
+    30% {
+        transform: translateY(-5px);
+        opacity: 1;
+    }
+}
+
+@keyframes responseAppear {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* =====================================================
-   MOBILE PROFILE RESPONSIVE
+   CHAT CONVERSATION
+   ===================================================== */
+
+.chat-message-user {
+    display: flex;
+    justify-content: flex-end;
+    margin: 18px 0;
+    animation: chatMessageIn 0.3s ease;
+}
+
+.chat-message-user .chat-bubble {
+    max-width: 78%;
+    padding: 13px 17px;
+    border-radius: 18px 18px 5px 18px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(55, 145, 220, 0.95),
+            rgba(45, 105, 190, 0.95)
+        );
+    color: white;
+    font-size: 14px;
+    line-height: 1.6;
+    box-shadow:
+        0 7px 22px rgba(0, 0, 0, 0.18);
+}
+
+.chat-message-ai {
+    display: flex;
+    justify-content: flex-start;
+    margin: 18px 0;
+    animation: chatMessageIn 0.35s ease;
+}
+
+.chat-message-ai .chat-bubble {
+    max-width: 85%;
+    padding: 20px;
+    border-radius: 18px 18px 18px 5px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 34, 65, 0.98),
+            rgba(8, 21, 43, 0.98)
+        );
+    border: 1px solid rgba(95, 195, 255, 0.25);
+    color: #eaf8ff;
+    font-size: 14px;
+    line-height: 1.75;
+    box-shadow:
+        0 9px 28px rgba(0, 0, 0, 0.22);
+}
+
+.chat-label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #75d9ff;
+}
+
+.chat-user-label {
+    color: #ffffff;
+}
+
+@keyframes chatMessageIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =====================================================
+   SEPARATE PROFILE PAGE
+   ===================================================== */
+
+.profile-page {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    overflow-y: auto;
+    padding: 20px;
+    background:
+        linear-gradient(
+            145deg,
+            #071426,
+            #0d203d
+        );
+}
+
+.profile-page-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.profile-page-header h2 {
+    margin: 0;
+    color: #eaf8ff;
+}
+
+.profile-back-btn {
+    padding: 10px 15px;
+    border: 1px solid rgba(100, 200, 255, 0.25);
+    border-radius: 10px;
+    background: rgba(70, 170, 230, 0.12);
+    color: #8edfff;
+    cursor: pointer;
+}
+
+.profile-back-btn:hover {
+    background: rgba(70, 170, 230, 0.22);
+}
+
+.profile-page-content {
+    max-width: 700px;
+    margin: auto;
+}
+
+.profile-page[hidden] {
+    display: none !important;
+}
+
+/* =====================================================
+   MINI FLOATING ROBOT
+   ===================================================== */
+
+.robot-roamer {
+    position: fixed !important;
+    z-index: 9999;
+    pointer-events: none;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    left: 50%;
+    top: 50%;
+
+    animation: miniRobotFloat 3s ease-in-out infinite;
+}
+
+.robot-bubble {
+    margin-bottom: 8px;
+    padding: 8px 13px;
+    border-radius: 14px;
+    background: rgba(12, 30, 58, 0.95);
+    border: 1px solid rgba(100, 210, 255, 0.3);
+    color: #bceeff;
+    font-size: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+}
+
+.mini-robot {
+    width: 70px;
+    height: 75px;
+    position: relative;
+    filter:
+        drop-shadow(0 8px 15px rgba(0,0,0,0.3));
+}
+
+.bot-cap {
+    position: absolute;
+    top: -15px;
+    left: 25px;
+    font-size: 22px;
+    z-index: 3;
+}
+
+.mini-robot .bot-body {
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    width: 56px;
+    height: 55px;
+    border-radius: 18px;
+    background: linear-gradient(
+        145deg,
+        #dff8ff,
+        #76d9ff
+    );
+    border: 2px solid #58caff;
+    box-shadow:
+        0 5px 20px rgba(70,190,255,0.35);
+}
+
+.bot-face {
+    position: absolute;
+    top: 15px;
+    left: 8px;
+    width: 40px;
+    height: 27px;
+    border-radius: 12px;
+    background: #102642;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.bot-eye {
+    color: #7ee5ff;
+    font-size: 8px;
+}
+
+.bot-smile {
+    position: absolute;
+    width: 13px;
+    height: 6px;
+    bottom: 3px;
+    left: 13px;
+    border-bottom: 2px solid #7ee5ff;
+    border-radius: 50%;
+}
+
+.bot-panel {
+    position: absolute;
+    bottom: 4px;
+    left: 20px;
+    color: #148bc0;
+    font-size: 12px;
+}
+
+.bot-hover-left,
+.bot-hover-right {
+    position: absolute;
+    top: 35px;
+    width: 9px;
+    height: 16px;
+    border-radius: 8px;
+    background: #8de5ff;
+}
+
+.bot-hover-left {
+    left: -3px;
+}
+
+.bot-hover-right {
+    right: -3px;
+}
+
+.bot-spark {
+    position: absolute;
+    color: #8ee8ff;
+    animation: sparkFloat 2s ease-in-out infinite;
+}
+
+.spark-one {
+    top: 10px;
+    left: -18px;
+}
+
+.spark-two {
+    top: 40px;
+    right: -20px;
+    animation-delay: 0.6s;
+}
+
+.spark-three {
+    bottom: 5px;
+    left: -12px;
+    animation-delay: 1s;
+}
+
+@keyframes miniRobotFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes sparkFloat {
+    0%, 100% {
+        opacity: 0.4;
+        transform: translateY(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-7px);
+    }
+}
+
+@keyframes robotMessagePop {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* =====================================================
+   MOBILE PROFILE
    ===================================================== */
 
 @media (max-width: 760px) {
@@ -1249,8 +1710,10 @@ body {
         min-height: 72px;
     }
 
-    .profile-actions {
+    .profile-actions:not([hidden]) {
+        display: flex !important;
         flex-direction: column;
+        width: 100%;
     }
 
     .profile-save-btn,
@@ -1260,6 +1723,37 @@ body {
 
     .achievement-item {
         padding: 11px;
+    }
+
+    .chat-message-user .chat-bubble {
+        max-width: 84%;
+    }
+
+    .chat-message-ai .chat-bubble {
+        max-width: 92%;
+    }
+
+    .response-section {
+        margin-top: 16px;
+    }
+
+    .response-section .thinking,
+    .response-section .ai-answer {
+        padding: 18px;
+        border-radius: 16px;
+    }
+
+    .response-section .answer-content {
+        font-size: 14px;
+        line-height: 1.65;
+    }
+
+    .robot-roamer {
+        transform: scale(0.85);
+    }
+
+    .robot-bubble {
+        font-size: 11px;
     }
 }
 
@@ -1319,745 +1813,9 @@ body {
         height: 39px;
         font-size: 19px;
     }
-
-}
-/* /* =====================================================
-   FINAL PROFILE EDIT FIX
-   ===================================================== */
-
-.profile-value[hidden] {
-    display: none !important;
 }
 
-.profile-input[hidden] {
-    display: none !important;
-}
-
-.profile-input:not([hidden]) {
-    display: block !important;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.profile-actions[hidden] {
-    display: none !important;
-}
-
-.profile-actions:not([hidden]) {
-    display: flex !important;
-}
 /* =====================================================
-   PROFILE PHONE + SAVE BUTTON FIX
-   ===================================================== */
-
-.profile-field:last-child {
-    margin-bottom: 15px;
-}
-
-.profile-input {
-    min-height: 42px;
-    padding: 10px 12px;
-}
-
-.profile-actions {
-    width: 100%;
-    margin-top: 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.profile-actions:not([hidden]) {
-    display: flex !important;
-}
-
-.profile-save-btn,
-.profile-cancel-btn {
-    min-height: 42px;
-    padding: 10px 18px;
-    cursor: pointer;
-}
-
-@media (max-width: 760px) {
-
-    .profile-actions:not([hidden]) {
-        display: flex !important;
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .profile-save-btn,
-    .profile-cancel-btn {
-        width: 100%;
-    }
-
-}
-/* /* =========================================================
-   EDU GENIE AI RESPONSE
-   ========================================================= */
-
-.response-section {
-    width: 100%;
-    margin-top: 22px;
-    margin-bottom: 25px;
-}
-
-
-/* ==================== THINKING BOX ==================== */
-
-.response-section .thinking {
-    width: 100%;
-    box-sizing: border-box;
-
-    padding: 22px 24px;
-
-    border-radius: 18px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(20, 35, 65, 0.92),
-            rgba(12, 25, 48, 0.96)
-        );
-
-    border: 1px solid rgba(90, 190, 255, 0.28);
-
-    box-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.20),
-        0 0 25px rgba(50, 170, 255, 0.08);
-
-    color: #dff5ff;
-
-    font-size: 15px;
-    font-weight: 500;
-
-    display: flex;
-    align-items: center;
-    gap: 7px;
-
-    animation:
-        responseAppear 0.35s ease;
-}
-
-
-/* ==================== THINKING DOTS ==================== */
-
-.response-section .thinking .dot {
-    display: inline-block;
-
-    font-size: 20px;
-    line-height: 10px;
-
-    animation:
-        thinkingDot 1.2s infinite ease-in-out;
-}
-
-.response-section .thinking .dot:nth-child(2) {
-    animation-delay: 0.15s;
-}
-
-.response-section .thinking .dot:nth-child(3) {
-    animation-delay: 0.30s;
-}
-
-.response-section .thinking .dot:nth-child(4) {
-    animation-delay: 0.45s;
-}
-
-
-/* ==================== AI ANSWER ==================== */
-
-.response-section .ai-answer {
-    width: 100%;
-    box-sizing: border-box;
-
-    padding: 24px;
-
-    border-radius: 20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(18, 35, 66, 0.96),
-            rgba(10, 24, 48, 0.98)
-        );
-
-    border: 1px solid rgba(90, 190, 255, 0.30);
-
-    box-shadow:
-        0 12px 40px rgba(0, 0, 0, 0.22),
-        0 0 30px rgba(50, 170, 255, 0.08);
-
-    animation:
-        responseAppear 0.45s ease;
-}
-
-
-/* ==================== ANSWER TITLE ==================== */
-
-.response-section .answer-title {
-    display: flex;
-    align-items: center;
-
-    gap: 8px;
-
-    margin-bottom: 14px;
-
-    color: #74d8ff;
-
-    font-size: 16px;
-    font-weight: 700;
-}
-
-
-/* ==================== ANSWER CONTENT ==================== */
-
-.response-section .answer-content {
-    color: #e9f8ff;
-
-    font-size: 15px;
-
-    line-height: 1.75;
-
-    word-wrap: break-word;
-}
-
-
-/* ==================== COPY BUTTON ==================== */
-
-.response-section .copy-btn {
-    margin-top: 18px;
-
-    padding: 9px 15px;
-
-    border-radius: 10px;
-
-    border: 1px solid rgba(100, 200, 255, 0.25);
-
-    background:
-        rgba(60, 160, 220, 0.12);
-
-    color: #8cddff;
-
-    font-size: 12px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition:
-        all 0.25s ease;
-}
-
-.response-section .copy-btn:hover {
-    background:
-        rgba(60, 170, 240, 0.22);
-
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 0 15px rgba(70, 190, 255, 0.15);
-}
-
-
-/* ==================== ERROR MESSAGE ==================== */
-
-.response-section .error-message {
-    width: 100%;
-    box-sizing: border-box;
-
-    padding: 20px;
-
-    border-radius: 16px;
-
-    background:
-        rgba(120, 30, 45, 0.22);
-
-    border:
-        1px solid rgba(255, 100, 120, 0.30);
-
-    color: #ffd6dc;
-
-    line-height: 1.6;
-
-    animation:
-        responseAppear 0.35s ease;
-}
-
-
-/* ==================== ANIMATIONS ==================== */
-
-@keyframes thinkingDot {
-
-    0%,
-    60%,
-    100% {
-        transform: translateY(0);
-        opacity: 0.35;
-    }
-
-    30% {
-        transform: translateY(-5px);
-        opacity: 1;
-    }
-}
-
-
-@keyframes responseAppear {
-
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
-
-
-/* ==================== MOBILE ==================== */
-
-@media (max-width: 600px) {
-
-    .response-section {
-        margin-top: 16px;
-    }
-
-    .response-section .thinking,
-    .response-section .ai-answer {
-        padding: 18px;
-        border-radius: 16px;
-    }
-
-    .response-section .answer-content {
-        font-size: 14px;
-        line-height: 1.65;
-    }
-
-}
-/* =========================================================
-   EDU GENIE — CHAT CONVERSATION
-   ========================================================= */
-
-.chat-message-user {
-    display: flex;
-    justify-content: flex-end;
-    margin: 18px 0;
-    animation: chatMessageIn 0.3s ease;
-}
-
-.chat-message-user .chat-bubble {
-    max-width: 78%;
-    padding: 13px 17px;
-
-    border-radius: 18px 18px 5px 18px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(55, 145, 220, 0.95),
-            rgba(45, 105, 190, 0.95)
-        );
-
-    color: white;
-
-    font-size: 14px;
-    line-height: 1.6;
-
-    box-shadow:
-        0 7px 22px rgba(0, 0, 0, 0.18);
-}
-
-
-.chat-message-ai {
-    display: flex;
-    justify-content: flex-start;
-    margin: 18px 0;
-
-    animation: chatMessageIn 0.35s ease;
-}
-
-.chat-message-ai .chat-bubble {
-    max-width: 85%;
-    padding: 20px;
-
-    border-radius: 18px 18px 18px 5px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(17, 34, 65, 0.98),
-            rgba(8, 21, 43, 0.98)
-        );
-
-    border:
-        1px solid rgba(95, 195, 255, 0.25);
-
-    color: #eaf8ff;
-
-    font-size: 14px;
-    line-height: 1.75;
-
-    box-shadow:
-        0 9px 28px rgba(0, 0, 0, 0.22);
-}
-
-
-.chat-label {
-    display: block;
-
-    margin-bottom: 7px;
-
-    font-size: 12px;
-    font-weight: 700;
-
-    color: #75d9ff;
-}
-
-
-.chat-user-label {
-    color: #ffffff;
-}
-
-
-@keyframes chatMessageIn {
-
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
-
-
-/* MOBILE */
-
-@media (max-width: 600px) {
-
-    .chat-message-user .chat-bubble {
-        max-width: 84%;
-    }
-
-    .chat-message-ai .chat-bubble {
-        max-width: 92%;
-    }
-
-}
-.profile-page {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-
-    overflow-y: auto;
-    padding: 20px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #071426,
-            #0d203d
-        );
-}
-
-.profile-page-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-
-    margin-bottom: 25px;
-}
-
-.profile-page-header h2 {
-    margin: 0;
-    color: #eaf8ff;
-}
-
-.profile-back-btn {
-    padding: 10px 15px;
-
-    border: 1px solid rgba(100, 200, 255, 0.25);
-    border-radius: 10px;
-
-    background: rgba(70, 170, 230, 0.12);
-    color: #8edfff;
-
-    cursor: pointer;
-}
-
-.profile-page-content {
-    max-width: 700px;
-    margin: auto;
-}
-
-.profile-page[hidden] {
-    display: none !important;
-}
- /* =========================================================
-    EDU GENIE — FLOATING ROBOT
-    ========================================================= */
-
-.robot-roamer {
-    position: fixed;
-    right: 25px;
-    bottom: 30px;
-    z-index: 1000;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    animation: robotFloat 3s ease-in-out infinite;
-}
-
-.robot-bubble {
-    margin-bottom: 8px;
-    padding: 8px 13px;
-
-    border-radius: 14px;
-
-    background: rgba(12, 30, 58, 0.95);
-    border: 1px solid rgba(100, 210, 255, 0.3);
-
-    color: #bceeff;
-    font-size: 12px;
-
-    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
-}
-
-.mini-robot {
-    width: 70px;
-    height: 75px;
-
-    position: relative;
-
-    filter:
-        drop-shadow(0 8px 15px rgba(0,0,0,0.3));
-}
-
-.bot-cap {
-    position: absolute;
-    top: -15px;
-    left: 25px;
-
-    font-size: 22px;
-
-    z-index: 3;
-}
-
-.bot-body {
-    position: absolute;
-    left: 7px;
-    top: 8px;
-
-    width: 56px;
-    height: 55px;
-
-    border-radius: 18px;
-
-    background: linear-gradient(
-        145deg,
-        #dff8ff,
-        #76d9ff
-    );
-
-    border: 2px solid #58caff;
-
-    box-shadow:
-        0 5px 20px rgba(70,190,255,0.35);
-}
-
-.bot-face {
-    position: absolute;
-
-    top: 15px;
-    left: 8px;
-
-    width: 40px;
-    height: 27px;
-
-    border-radius: 12px;
-
-    background: #102642;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-}
-
-.bot-eye {
-    color: #7ee5ff;
-    font-size: 8px;
-}
-
-.bot-smile {
-    position: absolute;
-
-    width: 13px;
-    height: 6px;
-
-    bottom: 3px;
-    left: 13px;
-
-    border-bottom: 2px solid #7ee5ff;
-    border-radius: 50%;
-}
-
-.bot-panel {
-    position: absolute;
-
-    bottom: 4px;
-    left: 20px;
-
-    color: #148bc0;
-    font-size: 12px;
-}
-
-.bot-hover-left,
-.bot-hover-right {
-    position: absolute;
-
-    top: 35px;
-
-    width: 9px;
-    height: 16px;
-
-    border-radius: 8px;
-
-    background: #8de5ff;
-}
-
-.bot-hover-left {
-    left: -3px;
-}
-
-.bot-hover-right {
-    right: -3px;
-}
-
-.bot-spark {
-    position: absolute;
-
-    color: #8ee8ff;
-
-    animation: sparkFloat 2s ease-in-out infinite;
-}
-
-.spark-one {
-    top: 10px;
-    left: -18px;
-}
-
-.spark-two {
-    top: 40px;
-    right: -20px;
-    animation-delay: 0.6s;
-}
-
-.spark-three {
-    bottom: 5px;
-    left: -12px;
-    animation-delay: 1s;
-}
-
-@keyframes robotFloat {
-    0%, 100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-12px);
-    }
-}
-
-@keyframes sparkFloat {
-    0%, 100% {
-        opacity: 0.4;
-        transform: translateY(0);
-    }
-
-    50% {
-        opacity: 1;
-        transform: translateY(-7px);
-    }
-}
-
-@media (max-width: 600px) {
-
-    .robot-roamer {
-        right: 15px;
-        bottom: 20px;
-    }
-
-    .mini-robot {
-        transform: scale(0.85);
-    }
-
-    .robot-bubble {
-        font-size: 11px;
-    }
-}
-/* =========================================================
-   EDU GENIE — FULL PAGE FLOATING ROBOT
-   ========================================================= */
-
-.robot-roamer {
-    position: fixed !important;
-
-    left: 50%;
-    top: 50%;
-
-    z-index: 9999;
-
-    animation: robotFullPageFloat 8s ease-in-out infinite;
-}
-
-@keyframes robotFullPageFloat {
-
-    0% {
-        transform: translate(-45vw, -35vh);
-    }
-
-    25% {
-        transform: translate(25vw, -20vh);
-    }
-
-    50% {
-        transform: translate(35vw, 25vh);
-    }
-
-    75% {
-        transform: translate(-30vw, 30vh);
-    }
-
-    100% {
-        transform: translate(-45vw, -35vh);
-    }
-}
-.robot-roamer {
-    position: fixed !important;
-    z-index: 9999;
-    pointer-events: none;
-}
-@keyframes robotMessagePop {
-
-    from {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-} =====================================================
    END OF EDUGENIE STYLE.CSS
    ===================================================== */
+```
