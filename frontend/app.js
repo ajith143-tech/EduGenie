@@ -1851,3 +1851,52 @@ setTimeout(
     randomRobotMove,
     500
 );
+// =========================================================
+// EDU GENIE — INTERACTIVE ROBOT
+// =========================================================
+
+const robotMessages = [
+    "💡 Need help with your studies?",
+    "📚 Ask me anything!",
+    "🧠 Let's learn something new!",
+    "✨ I'm ready to help!",
+    "🚀 Keep learning, Learner!",
+    "🎯 What's your next question?",
+    "😎 Don't worry, I've got you!",
+    "💙 Let's solve it together!"
+];
+
+const robot =
+    document.getElementById("robotRoamer");
+
+if (robot) {
+
+    robot.style.pointerEvents = "auto";
+    robot.style.cursor = "pointer";
+
+    robot.addEventListener("click", function () {
+
+        const message =
+            document.getElementById("robotMessage");
+
+        if (!message) return;
+
+        const randomIndex =
+            Math.floor(
+                Math.random() *
+                robotMessages.length
+            );
+
+        message.textContent =
+            robotMessages[randomIndex];
+
+        message.style.animation = "none";
+
+        setTimeout(() => {
+            message.style.animation =
+                "robotMessagePop 0.3s ease";
+        }, 10);
+
+    });
+
+}
