@@ -2054,11 +2054,40 @@
         © 2026 EduGenie • Learn • Grow • Succeed 🚀
     </div>
 
-</footer>    
-    
+</footer>  
+
+```html
+<!-- EduGenie Separate Settings Page -->
+<section id="egSettingsPage" class="eg-settings-page" hidden>
+
+    <div class="eg-settings-page-header">
+        <button
+            type="button"
+            class="eg-settings-back-btn"
+            onclick="window.closeSettingsPage()"
+        >
+            ← Back
+        </button>
+
+        <div>
+            <span>⚙️ SETTINGS</span>
+            <h2>EduGenie Preferences</h2>
+            <p>Customize your learning experience.</p>
+        </div>
+    </div>
+
+    <div class="eg-settings-page-content">
+
+        <!-- Your existing settings section -->
+        <div id="egSettingsPageContent"></div>
+
+    </div>
+
+</section>
+
 <script src="app.js"></script>
 
 </body>
 
 </html>
-```
+
