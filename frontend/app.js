@@ -1778,7 +1778,7 @@ window.askQuestion = async function () {
             .join("");
 
 };
-// =========================================================
+// // =========================================================
 // SEPARATE PROFILE PAGE
 // =========================================================
 
@@ -1793,11 +1793,18 @@ function openProfilePage() {
     const container =
         document.getElementById("profilePageContent");
 
-    if (!page || !profile || !container) return;
+    if (!page || !profile || !container) {
+        console.log("Profile page elements not found.");
+        return;
+    }
+
+    container.innerHTML = "";
+
+    container.appendChild(profile);
 
     page.hidden = false;
 
-    container.appendChild(profile);
+    window.scrollTo(0, 0);
 }
 
 
@@ -1809,8 +1816,7 @@ function closeProfilePage() {
     if (!page) return;
 
     page.hidden = true;
-}
-// =========================================================
+} =========================================================
 // EDU GENIE — RANDOM ROBOT ROAMING
 // =========================================================
 
