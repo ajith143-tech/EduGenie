@@ -1778,3 +1778,42 @@ window.askQuestion = async function () {
             .join("");
 
 };
+// =========================================================
+// EDU GENIE — SEPARATE PROFILE PAGE
+// =========================================================
+
+function openProfilePage() {
+
+    const profilePage =
+        document.getElementById("profilePage");
+
+    const profileSection =
+        document.querySelector(".profile-section");
+
+    const profileContent =
+        document.getElementById("profilePageContent");
+
+    if (!profilePage || !profileSection) return;
+
+    profilePage.hidden = false;
+
+    profileContent.appendChild(profileSection);
+
+    document.body.classList.add("profile-open");
+}
+
+
+function closeProfilePage() {
+
+    const profilePage =
+        document.getElementById("profilePage");
+
+    const profileSection =
+        document.querySelector(".profile-section");
+
+    if (!profilePage || !profileSection) return;
+
+    profilePage.hidden = true;
+
+    document.body.classList.remove("profile-open");
+}
