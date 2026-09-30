@@ -307,6 +307,9 @@ async function askQuestion() {
 
         renderChatHistory();
 
+        // Update profile question count
+        updateProfileStats();
+
 
         // Show answer
         setRobotMessage(
@@ -955,7 +958,581 @@ setInterval(
 
 
 // =====================================================
-// ENTER KEY
+// STUDENT PROFILE
+// =====================================================
+
+const PROFILE_STORAGE_KEY =
+    "eduGenieStudentProfile";
+
+
+const defaultProfile = {
+
+    name:
+        "Student Name",
+
+    studentId:
+        "Not added",
+
+    college:
+        "Not added",
+
+    department:
+        "Computer Science & Engineering",
+
+    year:
+        "3rd Year",
+
+    semester:
+        "5th Semester",
+
+    email:
+        "Not added",
+
+    phone:
+        "Not added"
+
+};
+
+
+let studentProfile =
+    JSON.parse(
+        localStorage.getItem(
+            PROFILE_STORAGE_KEY
+        )
+    ) || {
+        ...defaultProfile
+    };
+
+
+// =====================================================
+// LOAD PROFILE
+// =====================================================
+
+function loadProfile() {
+
+    const fields = {
+
+        name: "profileName",
+
+        studentId: "profileStudentId",
+
+        college: "profileCollege",
+
+        department: "profileDepartment",
+
+        year: "profileYear",
+
+        semester: "profileSemester",
+
+        email: "profileEmail",
+
+        phone: "profilePhone"
+
+    };
+
+
+    Object.keys(fields).forEach(
+        key => {
+
+            const element =
+                document.getElementById(
+                    fields[key]
+                );
+
+
+            if (element) {
+
+                element.innerText =
+                    studentProfile[key] ||
+                    defaultProfile[key];
+
+            }
+
+        }
+    );
+
+
+    // Load values into edit inputs
+    Object.keys(fields).forEach(
+        key => {
+
+            const input =
+                document.getElementById(
+                    fields[key] + "Input"
+                );
+
+
+            if (input) {
+
+                input.value =
+                    studentProfile[key] ||
+                    defaultProfile[key];
+
+            }
+
+        }
+    );
+
+
+    updateProfileStats();
+
+}
+
+
+// =====================================================
+// EDIT PROFILE
+// =====================================================
+
+function editProfile() {
+
+    const fields = [
+
+        "Name",
+
+        "StudentId",
+
+        "College",
+
+        "Department",
+
+        "Year",
+
+        "Semester",
+
+        "Email",
+
+        "Phone"
+
+    ];
+
+
+    fields.forEach(
+        field => {
+
+            const value =
+                document.getElementById(
+                    "profile" + field
+                );
+
+            const input =
+                document.getElementById(
+                    "profile" +
+                    field +
+                    "Input"
+                );
+
+
+            if (value) {
+
+                value.hidden =
+                    true;
+
+            }
+
+
+            if (input) {
+
+                input.hidden =
+                    false;
+
+            }
+
+        }
+    );
+
+
+    const actions =
+        document.getElementById(
+            "profileActions"
+        );
+
+
+    if (actions) {
+
+        actions.hidden =
+            false;
+
+    }
+
+
+    setRobotMessage(
+        "✏️ Edit your profile!"
+    );
+
+}
+
+
+// =====================================================
+// SAVE PROFILE
+// =====================================================
+
+function saveProfile() {
+
+    const fields = {
+
+        name:
+            "profileNameInput",
+
+        studentId:
+            "profileStudentIdInput",
+
+        college:
+            "profileCollegeInput",
+
+        department:
+            "profileDepartmentInput",
+
+        year:
+            "profileYearInput",
+
+        semester:
+            "profileSemesterInput",
+
+        email:
+            "profileEmailInput",
+
+        phone:
+            "profilePhoneInput"
+
+    };
+
+
+    Object.keys(fields).forEach(
+        key => {
+
+            const input =
+                document.getElementById(
+                    fields[key]
+                );
+
+
+            if (input) {
+
+                const value =
+                    input.value.trim();
+
+
+                studentProfile[key] =
+                    value ||
+                    defaultProfile[key];
+
+            }
+
+        }
+    );
+
+
+    localStorage.setItem(
+        PROFILE_STORAGE_KEY,
+        JSON.stringify(
+            studentProfile
+        )
+    );
+
+
+    loadProfile();
+
+    cancelProfileEdit(false);
+
+
+    setRobotMessage(
+        "✅ Profile saved!"
+    );
+
+
+    showProfileMessage(
+        "✅ Profile saved succesfully!"
+);
+}
+
+
+// =====================================================
+// CANCEL PROFILE EDIT
+// =====================================================
+
+function cancelProfileEdit(
+    showRobot = true
+) {
+
+    const fields = [
+
+        "Name",
+
+        "StudentId",
+
+        "College",
+
+        "Department",
+
+        "Year",
+
+        "Semester",
+
+        "Email",
+
+        "Phone"
+
+    ];
+
+
+    fields.forEach(
+        field => {
+
+            const value =
+                document.getElementById(
+                    "profile" + field
+                );
+
+            const input =
+                document.getElementById(
+                    "profile" +
+                    field +
+                    "Input"
+                );
+
+
+            if (value) {
+
+                value.hidden =
+                    false;
+
+            }
+
+
+            if (input) {
+
+                input.hidden =
+                    true;
+
+            }
+
+        }
+    );
+
+
+    const actions =
+        document.getElementById(
+            "profileActions"
+        );
+
+
+    if (actions) {
+
+        actions.hidden =
+            true;
+
+    }
+
+
+    loadProfile();
+
+
+    if (showRobot) {
+
+        setRobotMessage(
+            "↩️ Profile edit cancelled."
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// PROFILE MESSAGE
+// =====================================================
+
+function showProfileMessage(message) {
+
+    const profileCard =
+        document.querySelector(
+            ".profile-card"
+        );
+
+
+    if (!profileCard) return;
+
+
+    const oldMessage =
+        document.getElementById(
+            "profileSaveMessage"
+        );
+
+
+    if (oldMessage) {
+
+        oldMessage.remove();
+
+    }
+
+
+    const messageBox =
+        document.createElement(
+            "div"
+        );
+
+
+    messageBox.id =
+        "profileSaveMessage";
+
+    messageBox.innerText =
+        message;
+
+
+    messageBox.style.marginTop =
+        "12px";
+
+    messageBox.style.padding =
+        "10px 12px";
+
+    messageBox.style.borderRadius =
+        "10px";
+
+    messageBox.style.background =
+        "rgba(30, 120, 180, .18)";
+
+    messageBox.style.border =
+        "1px solid rgba(70, 190, 255, .3)";
+
+    messageBox.style.color =
+        "#70d5ff";
+
+    messageBox.style.fontSize =
+        "12px";
+
+
+    profileCard.appendChild(
+        messageBox
+    );
+
+
+    setTimeout(
+        () => {
+
+            messageBox.remove();
+
+        },
+        2500
+    );
+
+}
+
+
+// =====================================================
+// PROFILE STATISTICS
+// =====================================================
+
+function updateProfileStats() {
+
+    const questionsCount =
+        document.getElementById(
+            "profileQuestionsCount"
+        );
+
+
+    if (!questionsCount) return;
+
+
+    let totalQuestions = 0;
+
+
+    eduGenieChats.forEach(
+        chat => {
+
+            if (
+                chat.messages &&
+                Array.isArray(
+                    chat.messages
+                )
+            ) {
+
+                totalQuestions +=
+                    chat.messages.length;
+
+            }
+
+        }
+    );
+
+
+    questionsCount.innerText =
+        totalQuestions;
+
+
+    updateLearningLevel(
+        totalQuestions
+    );
+
+}
+
+
+// =====================================================
+// LEARNING LEVEL
+// =====================================================
+
+function updateLearningLevel(
+    totalQuestions
+) {
+
+    const levelElement =
+        document.querySelector(
+            ".profile-stat-card:nth-child(3) strong"
+        );
+
+
+    if (!levelElement) return;
+
+
+    let level =
+        "Beginner";
+
+
+    if (
+        totalQuestions >= 100
+    ) {
+
+        level =
+            "Expert";
+
+    } else if (
+        totalQuestions >= 50
+    ) {
+
+        level =
+            "Advanced";
+
+    } else if (
+        totalQuestions >= 25
+    ) {
+
+        level =
+            "Intermediate";
+
+    }
+
+
+    levelElement.innerText =
+        level;
+
+}
+
+
+// =====================================================
+// PROFILE FUNCTIONS AVAILABLE TO HTML
+// =====================================================
+
+window.editProfile =
+    editProfile;
+
+window.saveProfile =
+    saveProfile;
+
+window.cancelProfileEdit =
+    cancelProfileEdit;
+
+
+// =====================================================
+// ENTER KEY + PAGE LOAD
 // =====================================================
 
 document.addEventListener(
@@ -992,6 +1569,8 @@ document.addEventListener(
 
 
         renderChatHistory();
+
+        loadProfile();
 
     }
 );
