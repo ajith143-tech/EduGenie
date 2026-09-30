@@ -3174,6 +3174,286 @@ body {
     display: none !important;
 }
 /* =====================================================
+   EDUGENIE FOOTER
+   ADD-ONLY
+   ===================================================== */
+
+.eg-footer {
+    width: 100%;
+    margin-top: 60px;
+    padding: 35px 20px 25px;
+    box-sizing: border-box;
+    text-align: center;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(7,20,38,.3),
+            rgba(3,12,25,.95)
+        );
+}
+
+.eg-footer-line {
+    width: 80px;
+    height: 3px;
+    margin: 0 auto 25px;
+    border-radius: 10px;
+    background: linear-gradient(
+        90deg,
+        #1595e7,
+        #54dcff
+    );
+}
+
+.eg-footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.eg-footer-logo {
+    font-size: 34px;
+}
+
+.eg-footer-content h3 {
+    margin: 0;
+    color: #eaf8ff;
+    font-size: 21px;
+}
+
+.eg-footer-content p {
+    margin: 4px 0 0;
+    color: #789bb5;
+    font-size: 12px;
+}
+
+.eg-footer-created {
+    margin-top: 22px;
+    color: #91afc3;
+    font-size: 13px;
+}
+
+.eg-footer-created strong {
+    color: #78dfff;
+    font-size: 14px;
+}
+
+.eg-footer-copy {
+    margin-top: 10px;
+    color: #597b93;
+    font-size: 11px;
+}
+
+
+/* Cute bow emphasis */
+
+.eg-footer-created strong::after {
+    content: " 🎀";
+    display: inline-block;
+    animation: egBowFloat 2s ease-in-out infinite;
+}
+
+@keyframes egBowFloat {
+
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-3px) rotate(5deg);
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .eg-footer {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .eg-footer-created {
+        font-size: 12px;
+    }
+
+}
+/* =====================================================
+   EDUGENIE SETTINGS
+   ADD-ONLY
+   ===================================================== */
+
+.eg-settings-section {
+    width: 100%;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+.eg-settings-header {
+    margin-bottom: 20px;
+}
+
+.eg-settings-header > span {
+    color: #72d8ff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.eg-settings-header h2 {
+    margin: 8px 0 5px;
+    color: #eaf8ff;
+    font-size: 27px;
+}
+
+.eg-settings-header p {
+    margin: 0;
+    color: #86a9c4;
+    font-size: 13px;
+}
+
+.eg-settings-card {
+    padding: 10px 22px 22px;
+    border-radius: 20px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(12,31,58,.95),
+            rgba(7,21,40,.92)
+        );
+    border: 1px solid rgba(90,190,255,.18);
+    box-shadow: 0 15px 40px rgba(0,0,0,.2);
+}
+
+.eg-setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 5px;
+    border-bottom: 1px solid rgba(100,180,220,.1);
+}
+
+.eg-setting-row strong {
+    display: block;
+    color: #e8f8ff;
+    font-size: 14px;
+}
+
+.eg-setting-row small {
+    display: block;
+    margin-top: 5px;
+    color: #789bb5;
+    font-size: 11px;
+}
+
+.eg-setting-row select {
+    min-width: 110px;
+    padding: 9px 12px;
+    border-radius: 9px;
+    border: 1px solid rgba(80,190,255,.25);
+    background: #071b31;
+    color: #dff6ff;
+    outline: none;
+}
+
+
+/* TOGGLE SWITCH */
+
+.eg-switch {
+    position: relative;
+    width: 48px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.eg-switch input {
+    display: none;
+}
+
+.eg-switch span {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: #29445b;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.eg-switch span::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 3px;
+    top: 3px;
+    border-radius: 50%;
+    background: white;
+    transition: .25s ease;
+}
+
+.eg-switch input:checked + span {
+    background: #1595e7;
+}
+
+.eg-switch input:checked + span::before {
+    transform: translateX(22px);
+}
+
+
+/* SAVE BUTTON */
+
+.eg-settings-save {
+    width: 100%;
+    margin-top: 22px;
+    padding: 13px;
+    border: 0;
+    border-radius: 11px;
+    background: linear-gradient(
+        135deg,
+        #1595e7,
+        #3bc7ff
+    );
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.eg-settings-save:hover {
+    transform: translateY(-2px);
+}
+
+.eg-settings-message {
+    margin-top: 12px;
+    text-align: center;
+    color: #72d8ff;
+    font-size: 12px;
+    min-height: 18px;
+}
+
+
+@media (max-width: 600px) {
+
+    .eg-settings-section {
+        padding: 15px;
+    }
+
+    .eg-settings-card {
+        padding: 8px 15px 18px;
+    }
+
+    .eg-setting-row {
+        gap: 10px;
+    }
+
+    .eg-setting-row strong {
+        font-size: 13px;
+    }
+
+}
+/* =====================================================
    END OF EDUGENIE STYLE.CSS
    ===================================================== */
 ```
