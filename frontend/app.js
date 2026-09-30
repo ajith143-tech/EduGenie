@@ -2106,5 +2106,1676 @@ document.addEventListener(
 
     }
 );
+// =====================================================
+// EDU GENIE UPGRADE CENTER
+// ADD-ONLY — DO NOT REMOVE EXISTING CODE
+// =====================================================
+
+const EG_UPGRADE_STORAGE =
+    "eduGenieUpgradeData";
+
+let egUpgradeData = {
+    xp: 0,
+    streak: 0,
+    lastStudyDate: "",
+    quizzes: 0,
+    correctAnswers: 0,
+    studyMinutes: 0,
+    notes: []
+};
+
+
+// =====================================================
+// LOAD UPGRADE DATA
+// =====================================================
+
+function egLoadUpgradeData() {
+
+    try {
+
+        const saved =
+            localStorage.getItem(
+                EG_UPGRADE_STORAGE
+            );
+
+        if (saved) {
+
+            egUpgradeData = {
+                ...egUpgradeData,
+                ...JSON.parse(saved)
+            };
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "EduGenie upgrade data error:",
+            error
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// SAVE UPGRADE DATA
+// =====================================================
+
+function egSaveUpgradeData() {
+
+    try {
+
+        localStorage.setItem(
+            EG_UPGRADE_STORAGE,
+            JSON.stringify(
+                egUpgradeData
+            )
+        );
+
+    } catch (error) {
+
+        console.error(
+            "EduGenie upgrade save error:",
+            error
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// XP SYSTEM
+// =====================================================
+
+function egAddXP(amount) {
+
+    egUpgradeData.xp += amount;
+
+    egSaveUpgradeData();
+
+    egUpdateUpgradeUI();
+
+    egRobotReact(
+        "⚡ +" + amount + " XP!"
+    );
+
+}
+
+
+// =====================================================
+// STREAK
+// =====================================================
+
+function egUpdateStreak() {
+
+    const today =
+        new Date()
+            .toISOString()
+            .split("T")[0];
+
+    if (
+        egUpgradeData.lastStudyDate ===
+        today
+    ) {
+
+        return;
+
+    }
+
+    if (
+        !egUpgradeData.lastStudyDate
+    ) {
+
+        egUpgradeData.streak = 1;
+
+    } else {
+
+        const last =
+            new Date(
+                egUpgradeData.lastStudyDate
+            );
+
+        const now =
+            new Date(today);
+
+        const difference =
+            Math.floor(
+                (
+                    now - last
+                ) /
+                86400000
+            );
+
+        if (difference === 1) {
+
+            egUpgradeData.streak++;
+
+        } else if (
+            difference > 1
+        ) {
+
+            egUpgradeData.streak = 1;
+
+        }
+
+    }
+
+    egUpgradeData.lastStudyDate =
+        today;
+
+    egSaveUpgradeData();
+
+}
+
+
+// =====================================================
+// QUIZ GENERATOR
+// =====================================================
+
+async function egGenerateQuiz() {
+
+    const topic =
+        document.getElementById(
+            "egQuizTopic"
+        )?.value.trim();
+
+    const difficulty =
+        document.getElementById(
+            "egQuizDifficulty"
+        )?.value;
+
+    const count =
+        document.getElementById(
+            "egQuizCount"
+        )?.value;
+
+    const box =
+        document.getElementById(
+            "egQuizBox"
+        );
+
+    if (!topic) {
+
+        alert(
+            "Please enter a quiz topic."
+        );
+
+        return;
+
+    }
+
+    box.innerHTML =
+        `<div class="eg-loading">
+            🤖 EduGenie is creating your quiz...
+        </div>`;
+
+    try {
+
+        const prompt = `
+Create a ${count}-question multiple choice quiz about "${topic}".
+
+Difficulty: ${difficulty}
+
+Return ONLY valid JSON.
+
+Format:
+[
+ {
+  "question":"question",
+  "options":["A","B","C","D"],
+  "answer":0,
+  "explanation":"short explanation"
+ }
+]
+
+The answer must be the zero-based option number.
+No markdown.
+`;
+
+        const response =
+            await fetch(
+                "https://edugenie-1-g40s.onrender.com/ask",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+                    body: JSON.stringify({
+                        question: prompt,
+                        history: []
+                    })
+                }
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Quiz server error"
+            );
+        }
+
+        const data =
+            await response.json();
+
+        let text =
+            data.answer || "";
+
+        text =
+            text
+                .replace(/```json/gi, "")
+                .replace(/```/g, "")
+                .trim();
+
+        const questions =
+            JSON.parse(text);
+
+        egRenderQuiz(
+            questions,
+            box,
+            false
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Quiz error:",
+            error
+        );
+
+        box.innerHTML =
+            `<div class="eg-loading">
+                ❌ Quiz generation failed.
+                Please try again.
+            </div>`;
+
+    }
+
+}
+
+
+// =====================================================
+// RENDER QUIZ
+// =====================================================
+
+function egRenderQuiz(
+    questions,
+    box,
+    examMode
+) {
+
+    if (
+        !Array.isArray(questions) ||
+        !questions.length
+    ) {
+
+        box.innerHTML =
+            "No questions generated.";
+
+        return;
+
+    }
+
+    let current = 0;
+
+    let score = 0;
+
+    function renderQuestion() {
+
+        if (
+            current >= questions.length
+        ) {
+
+            egUpgradeData.quizzes++;
+
+            egUpgradeData.correctAnswers +=
+                score;
+
+            egAddXP(
+                score * 10 + 20
+            );
+
+            box.innerHTML = `
+                <div class="eg-score">
+                    🏆 Quiz Complete!<br><br>
+                    Score: ${score}/${questions.length}
+                    <br><br>
+                    +${score * 10 + 20} XP
+                </div>
+            `;
+
+            egUpdateUpgradeUI();
+
+            return;
+
+        }
+
+        const q =
+            questions[current];
+
+        box.innerHTML = `
+            <div class="eg-question-card">
+
+                <h4>
+                    Question ${current + 1}
+                    / ${questions.length}
+                </h4>
+
+                <p>${egEscape(
+                    q.question
+                )}</p>
+
+                <div id="egOptions"></div>
+
+            </div>
+        `;
+
+        const options =
+            document.getElementById(
+                "egOptions"
+            );
+
+        q.options.forEach(
+            (option, index) => {
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+                button.className =
+                    "eg-option";
+
+                button.innerText =
+                    option;
+
+                button.onclick =
+                    function () {
+
+                        const buttons =
+                            options.querySelectorAll(
+                                ".eg-option"
+                            );
+
+                        buttons.forEach(
+                            b =>
+                                b.disabled =
+                                    true
+                        );
+
+                        if (
+                            index ===
+                            Number(q.answer)
+                        ) {
+
+                            button.classList.add(
+                                "eg-correct"
+                            );
+
+                            score++;
+
+                            egRobotReact(
+                                "🎉 Correct!"
+                            );
+
+                        } else {
+
+                            button.classList.add(
+                                "eg-wrong"
+                            );
+
+                            buttons[
+                                Number(q.answer)
+                            ]?.classList.add(
+                                "eg-correct"
+                            );
+
+                            egRobotReact(
+                                "💙 Keep learning!"
+                            );
+
+                        }
+
+                        setTimeout(
+                            () => {
+
+                                current++;
+
+                                renderQuestion();
+
+                            },
+                            900
+                        );
+
+                    };
+
+                options.appendChild(
+                    button
+                );
+
+            }
+        );
+
+    }
+
+    renderQuestion();
+
+}
+
+
+// =====================================================
+// EXAM MODE
+// =====================================================
+
+async function egStartExam() {
+
+    const topic =
+        document.getElementById(
+            "egExamTopic"
+        )?.value.trim();
+
+    const count =
+        document.getElementById(
+            "egExamQuestions"
+        )?.value;
+
+    const minutes =
+        Number(
+            document.getElementById(
+                "egExamTime"
+            )?.value
+        );
+
+    const box =
+        document.getElementById(
+            "egExamBox"
+        );
+
+    if (!topic) {
+
+        alert(
+            "Enter an exam topic."
+        );
+
+        return;
+
+    }
+
+    box.innerHTML =
+        `<div class="eg-loading">
+            🎓 Preparing exam...
+        </div>`;
+
+    try {
+
+        const prompt = `
+Create a ${count}-question exam about "${topic}".
+
+Return ONLY valid JSON:
+[
+ {
+  "question":"question",
+  "options":["A","B","C","D"],
+  "answer":0,
+  "explanation":"short explanation"
+ }
+]
+
+No markdown.
+`;
+
+        const response =
+            await fetch(
+                "https://edugenie-1-g40s.onrender.com/ask",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+                    body: JSON.stringify({
+                        question: prompt,
+                        history: []
+                    })
+                }
+            );
+
+        const data =
+            await response.json();
+
+        let text =
+            data.answer || "";
+
+        text =
+            text
+                .replace(/```json/gi, "")
+                .replace(/```/g, "")
+                .trim();
+
+        const questions =
+            JSON.parse(text);
+
+        egStartExamTimer(
+            minutes * 60
+        );
+
+        egRenderQuiz(
+            questions,
+            box,
+            true
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Exam error:",
+            error
+        );
+
+        box.innerHTML =
+            `<div class="eg-loading">
+                ❌ Could not create exam.
+            </div>`;
+
+    }
+
+}
+
+
+// =====================================================
+// EXAM TIMER
+// =====================================================
+
+let egExamInterval = null;
+
+function egStartExamTimer(seconds) {
+
+    clearInterval(
+        egExamInterval
+    );
+
+    let remaining =
+        seconds;
+
+    const timer =
+        document.getElementById(
+            "egExamTimer"
+        );
+
+    function update() {
+
+        const minutes =
+            Math.floor(
+                remaining / 60
+            );
+
+        const secs =
+            remaining % 60;
+
+        timer.innerText =
+            `⏱️ ${
+                String(minutes)
+                    .padStart(2, "0")
+            }:${
+                String(secs)
+                    .padStart(2, "0")
+            }`;
+
+        if (
+            remaining <= 0
+        ) {
+
+            clearInterval(
+                egExamInterval
+            );
+
+            timer.innerText =
+                "⏰ Time's up!";
+
+            return;
+
+        }
+
+        remaining--;
+
+    }
+
+    update();
+
+    egExamInterval =
+        setInterval(
+            update,
+            1000
+        );
+
+}
+
+
+// =====================================================
+// FLASHCARDS
+// =====================================================
+
+let egFlashcards = [];
+
+let egFlashIndex = 0;
+
+function egGenerateFlashcards() {
+
+    const topic =
+        document.getElementById(
+            "egFlashTopic"
+        )?.value.trim();
+
+    const box =
+        document.getElementById(
+            "egFlashBox"
+        );
+
+    if (!topic) {
+
+        alert(
+            "Enter a flashcard topic."
+        );
+
+        return;
+
+    }
+
+    box.innerHTML =
+        `<div class="eg-loading">
+            🧩 Creating flashcards...
+        </div>`;
+
+    fetch(
+        "https://edugenie-1-g40s.onrender.com/ask",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type":
+                    "application/json"
+            },
+            body: JSON.stringify({
+                question: `
+Create 5 flashcards about "${topic}".
+
+Return ONLY JSON:
+[
+ {"question":"...","answer":"..."}
+]
+
+No markdown.
+`,
+                history: []
+            })
+        }
+    )
+        .then(
+            response =>
+                response.json()
+        )
+        .then(
+            data => {
+
+                let text =
+                    data.answer || "";
+
+                text =
+                    text
+                        .replace(
+                            /```json/gi,
+                            ""
+                        )
+                        .replace(
+                            /```/g,
+                            ""
+                        )
+                        .trim();
+
+                egFlashcards =
+                    JSON.parse(text);
+
+                egFlashIndex = 0;
+
+                egShowFlashcard();
+
+            }
+        )
+        .catch(
+            error => {
+
+                console.error(
+                    "Flashcard error:",
+                    error
+                );
+
+                box.innerHTML =
+                    "❌ Flashcard generation failed.";
+
+            }
+        );
+
+}
+
+
+function egShowFlashcard() {
+
+    const box =
+        document.getElementById(
+            "egFlashBox"
+        );
+
+    if (
+        !egFlashcards.length
+    ) return;
+
+    const card =
+        egFlashcards[
+            egFlashIndex
+        ];
+
+    box.innerHTML = `
+        <div
+            class="eg-flashcard"
+            onclick="window.egFlipFlashcard()"
+        >
+            <div id="egFlashContent">
+                🧩 ${egEscape(
+                    card.question
+                )}
+                <br><br>
+                <small>
+                    Tap to reveal answer
+                </small>
+            </div>
+        </div>
+
+        <div style="text-align:center;margin-top:10px">
+
+            <button
+                class="eg-secondary-btn"
+                onclick="window.egNextFlashcard()"
+            >
+                Next →
+            </button>
+
+        </div>
+    `;
+
+}
+
+
+function egFlipFlashcard() {
+
+    const content =
+        document.getElementById(
+            "egFlashContent"
+        );
+
+    if (!content) return;
+
+    const card =
+        egFlashcards[
+            egFlashIndex
+        ];
+
+    content.innerHTML =
+        `💡 ${egEscape(
+            card.answer
+        )}`;
+
+}
+
+
+function egNextFlashcard() {
+
+    if (!egFlashcards.length)
+        return;
+
+    egFlashIndex =
+        (
+            egFlashIndex + 1
+        ) %
+        egFlashcards.length;
+
+    egShowFlashcard();
+
+}
+
+
+// =====================================================
+// SMART NOTES
+// =====================================================
+
+function egSaveNote() {
+
+    const title =
+        document.getElementById(
+            "egNoteTitle"
+        )?.value.trim();
+
+    const text =
+        document.getElementById(
+            "egNoteText"
+        )?.value.trim();
+
+    if (!text) {
+
+        alert(
+            "Write a note first."
+        );
+
+        return;
+
+    }
+
+    egUpgradeData.notes.push({
+
+        id:
+            Date.now(),
+
+        title:
+            title ||
+            "Untitled Note",
+
+        text:
+            text,
+
+        date:
+            new Date()
+                .toLocaleString()
+
+    });
+
+    egAddXP(10);
+
+    egSaveUpgradeData();
+
+    document.getElementById(
+        "egNoteTitle"
+    ).value = "";
+
+    document.getElementById(
+        "egNoteText"
+    ).value = "";
+
+    egRenderNotes();
+
+    egRobotReact(
+        "📝 Note saved!"
+    );
+
+}
+
+
+function egRenderNotes() {
+
+    const box =
+        document.getElementById(
+            "egNotesBox"
+        );
+
+    if (!box) return;
+
+    const search =
+        document.getElementById(
+            "egNoteSearch"
+        )?.value
+            .trim()
+            .toLowerCase() || "";
+
+    const notes =
+        egUpgradeData.notes
+            .filter(
+                note =>
+                    note.title
+                        .toLowerCase()
+                        .includes(search) ||
+                    note.text
+                        .toLowerCase()
+                        .includes(search)
+            );
+
+    if (!notes.length) {
+
+        box.innerHTML =
+            `<div class="eg-loading">
+                No notes found.
+            </div>`;
+
+        return;
+
+    }
+
+    box.innerHTML =
+        notes
+            .map(
+                note => `
+                    <div class="eg-note-item">
+
+                        <button
+                            class="eg-delete"
+                            onclick="window.egDeleteNote(${note.id})"
+                        >
+                            ✕
+                        </button>
+
+                        <strong>
+                            ${egEscape(
+                                note.title
+                            )}
+                        </strong>
+
+                        <small>
+                            ${egEscape(
+                                note.date
+                            )}
+                        </small>
+
+                        <p>
+                            ${egEscape(
+                                note.text
+                            )}
+                        </p>
+
+                    </div>
+                `
+            )
+            .join("");
+
+}
+
+
+function egDeleteNote(id) {
+
+    egUpgradeData.notes =
+        egUpgradeData.notes.filter(
+            note =>
+                note.id !== id
+        );
+
+    egSaveUpgradeData();
+
+    egRenderNotes();
+
+    egUpdateUpgradeUI();
+
+}
+
+
+// =====================================================
+// STUDY TIMER
+// =====================================================
+
+let egTimerSeconds = 25 * 60;
+
+let egTimerInterval = null;
+
+function egUpdateTimerDisplay() {
+
+    const display =
+        document.getElementById(
+            "egTimerDisplay"
+        );
+
+    if (!display) return;
+
+    const minutes =
+        Math.floor(
+            egTimerSeconds / 60
+        );
+
+    const seconds =
+        egTimerSeconds % 60;
+
+    display.innerText =
+        `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+
+}
+
+
+function egStartTimer() {
+
+    if (egTimerInterval)
+        return;
+
+    egTimerInterval =
+        setInterval(
+            () => {
+
+                if (
+                    egTimerSeconds <= 0
+                ) {
+
+                    clearInterval(
+                        egTimerInterval
+                    );
+
+                    egTimerInterval =
+                        null;
+
+                    egAddXP(25);
+
+                    egRobotReact(
+                        "🎉 Study session complete!"
+                    );
+
+                    alert(
+                        "🎉 Study session completed!"
+                    );
+
+                    return;
+
+                }
+
+                egTimerSeconds--;
+
+                egUpdateTimerDisplay();
+
+            },
+            1000
+        );
+
+}
+
+
+function egPauseTimer() {
+
+    clearInterval(
+        egTimerInterval
+    );
+
+    egTimerInterval =
+        null;
+
+}
+
+
+function egResetTimer() {
+
+    egPauseTimer();
+
+    egTimerSeconds =
+        25 * 60;
+
+    egUpdateTimerDisplay();
+
+}
+
+
+// =====================================================
+// DAILY CHALLENGE
+// =====================================================
+
+function egDailyChallenge() {
+
+    const box =
+        document.getElementById(
+            "egDailyChallengeBox"
+        );
+
+    if (!box) return;
+
+    const topics = [
+        "Computer Science",
+        "Mathematics",
+        "Physics",
+        "Chemistry",
+        "General Knowledge"
+    ];
+
+    const topic =
+        topics[
+            new Date().getDate()
+            %
+            topics.length
+        ];
+
+    box.innerHTML =
+        `
+        <div class="eg-question-card">
+
+            <h4>
+                🧠 Today's Topic: ${topic}
+            </h4>
+
+            <p>
+                Complete a quick AI quiz on
+                <strong>${topic}</strong>
+                to earn XP.
+            </p>
+
+            <button
+                class="eg-primary-btn"
+                onclick="
+                    document.getElementById('egQuizTopic').value='${topic}';
+                    window.egGenerateQuiz();
+                "
+            >
+                🚀 Take Challenge
+            </button>
+
+        </div>
+        `;
+
+    egAddXP(5);
+
+}
+
+
+// =====================================================
+// ANALYTICS
+// =====================================================
+
+function egRenderAnalytics() {
+
+    const box =
+        document.getElementById(
+            "egAnalyticsBox"
+        );
+
+    if (!box) return;
+
+    box.innerHTML = `
+        <div class="eg-analytics-grid">
+
+            <div class="eg-analytics-box">
+                <strong>
+                    ${egUpgradeData.xp}
+                </strong>
+                XP
+            </div>
+
+            <div class="eg-analytics-box">
+                <strong>
+                    ${egUpgradeData.quizzes}
+                </strong>
+                Quizzes
+            </div>
+
+            <div class="eg-analytics-box">
+                <strong>
+                    ${egUpgradeData.correctAnswers}
+                </strong>
+                Correct
+            </div>
+
+            <div class="eg-analytics-box">
+                <strong>
+                    ${egUpgradeData.notes.length}
+                </strong>
+                Notes
+            </div>
+
+            <div class="eg-analytics-box">
+                <strong>
+                    ${egUpgradeData.streak}
+                </strong>
+                Day Streak
+            </div>
+
+            <div class="eg-analytics-box">
+                <strong>
+                    ${egUpgradeData.studyMinutes}
+                </strong>
+                Study Minutes
+            </div>
+
+        </div>
+    `;
+
+}
+
+
+// =====================================================
+// BADGES
+// =====================================================
+
+function egRenderBadges() {
+
+    const box =
+        document.getElementById(
+            "egBadgeBox"
+        );
+
+    if (!box) return;
+
+    const badges = [
+
+        {
+            icon: "🌱",
+            name: "First Step",
+            unlocked:
+                egUpgradeData.xp >= 10
+        },
+
+        {
+            icon: "🧠",
+            name: "Quiz Starter",
+            unlocked:
+                egUpgradeData.quizzes >= 1
+        },
+
+        {
+            icon: "📝",
+            name: "Note Maker",
+            unlocked:
+                egUpgradeData.notes.length >= 1
+        },
+
+        {
+            icon: "🔥",
+            name: "3 Day Streak",
+            unlocked:
+                egUpgradeData.streak >= 3
+        },
+
+        {
+            icon: "🏆",
+            name: "Quiz Master",
+            unlocked:
+                egUpgradeData.quizzes >= 10
+        },
+
+        {
+            icon: "⚡",
+            name: "100 XP",
+            unlocked:
+                egUpgradeData.xp >= 100
+        }
+
+    ];
+
+    box.innerHTML =
+        badges
+            .map(
+                badge => `
+                    <div class="eg-badge ${
+                        badge.unlocked
+                            ? ""
+                            : "locked"
+                    }">
+                        ${
+                            badge.icon
+                        }
+                        ${
+                            badge.name
+                        }
+                        ${
+                            badge.unlocked
+                                ? " ✅"
+                                : " 🔒"
+                        }
+                    </div>
+                `
+            )
+            .join("");
+
+    const unlocked =
+        badges.filter(
+            badge =>
+                badge.unlocked
+        ).length;
+
+    const counter =
+        document.getElementById(
+            "egBadges"
+        );
+
+    if (counter) {
+        counter.innerText =
+            unlocked;
+    }
+
+}
+
+
+// =====================================================
+// GLOBAL SEARCH
+// =====================================================
+
+function egGlobalSearch() {
+
+    const query =
+        document.getElementById(
+            "egGlobalSearch"
+        )?.value
+            .trim()
+            .toLowerCase();
+
+    const box =
+        document.getElementById(
+            "egSearchBox"
+        );
+
+    if (!box) return;
+
+    if (!query) {
+
+        box.innerHTML = "";
+
+        return;
+
+    }
+
+    let results = [];
+
+    egUpgradeData.notes.forEach(
+        note => {
+
+            if (
+                note.title
+                    .toLowerCase()
+                    .includes(query) ||
+                note.text
+                    .toLowerCase()
+                    .includes(query)
+            ) {
+
+                results.push(
+                    `📝 <strong>${egEscape(
+                        note.title
+                    )}</strong>`
+                );
+
+            }
+
+        }
+    );
+
+    if (
+        typeof eduGenieChats !==
+        "undefined"
+    ) {
+
+        eduGenieChats.forEach(
+            chat => {
+
+                if (
+                    chat.title
+                        ?.toLowerCase()
+                        .includes(query)
+                ) {
+
+                    results.push(
+                        `💬 <strong>${egEscape(
+                            chat.title
+                        )}</strong>`
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+    if (!results.length) {
+
+        box.innerHTML =
+            `<div class="eg-loading">
+                No results found.
+            </div>`;
+
+        return;
+
+    }
+
+    box.innerHTML =
+        results
+            .map(
+                item =>
+                    `<div class="eg-search-item">
+                        ${item}
+                    </div>`
+            )
+            .join("");
+
+}
+
+
+// =====================================================
+// VOICE READER
+// =====================================================
+
+function egSpeakText() {
+
+    const text =
+        document.getElementById(
+            "egVoiceText"
+        )?.value.trim();
+
+    if (!text) {
+
+        alert(
+            "Enter some text first."
+        );
+
+        return;
+
+    }
+
+    if (
+        !("speechSynthesis" in window)
+    ) {
+
+        alert(
+            "Voice reading is not supported."
+        );
+
+        return;
+
+    }
+
+    window.speechSynthesis.cancel();
+
+    const speech =
+        new SpeechSynthesisUtterance(
+            text
+        );
+
+    speech.lang =
+        "en-IN";
+
+    speech.rate =
+        0.95;
+
+    window.speechSynthesis.speak(
+        speech
+    );
+
+}
+
+
+function egStopVoice() {
+
+    if (
+        "speechSynthesis" in window
+    ) {
+
+        window.speechSynthesis.cancel();
+
+    }
+
+}
+
+
+// =====================================================
+// ROBOT REACTION
+// =====================================================
+
+function egRobotReact(message) {
+
+    if (
+        typeof setRobotMessage ===
+        "function"
+    ) {
+
+        setRobotMessage(
+            message
+        );
+
+        setTimeout(
+            () => {
+
+                setRobotMessage(
+                    "💡 Need help?"
+                );
+
+            },
+            2500
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// HTML ESCAPE
+// =====================================================
+
+function egEscape(text) {
+
+    return String(text)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+// =====================================================
+// UPGRADE UI
+// =====================================================
+
+function egUpdateUpgradeUI() {
+
+    egUpdateStreak();
+
+    const xp =
+        document.getElementById(
+            "egXP"
+        );
+
+    const streak =
+        document.getElementById(
+            "egStreak"
+        );
+
+    const notes =
+        document.getElementById(
+            "egNotesCount"
+        );
+
+    if (xp) {
+        xp.innerText =
+            egUpgradeData.xp;
+    }
+
+    if (streak) {
+        streak.innerText =
+            egUpgradeData.streak;
+    }
+
+    if (notes) {
+        notes.innerText =
+            egUpgradeData.notes.length;
+    }
+
+    egRenderAnalytics();
+
+    egRenderBadges();
+
+    egRenderNotes();
+
+}
+
+
+// =====================================================
+// INITIALIZE UPGRADE CENTER
+// =====================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        egLoadUpgradeData();
+
+        egUpdateTimerDisplay();
+
+        egUpdateUpgradeUI();
+
+    }
+);
+
+
+// =====================================================
+// MAKE UPGRADE FUNCTIONS AVAILABLE
+// =====================================================
+
+window.egGenerateQuiz =
+    egGenerateQuiz;
+
+window.egStartExam =
+    egStartExam;
+
+window.egGenerateFlashcards =
+    egGenerateFlashcards;
+
+window.egFlipFlashcard =
+    egFlipFlashcard;
+
+window.egNextFlashcard =
+    egNextFlashcard;
+
+window.egSaveNote =
+    egSaveNote;
+
+window.egDeleteNote =
+    egDeleteNote;
+
+window.egStartTimer =
+    egStartTimer;
+
+window.egPauseTimer =
+    egPauseTimer;
+
+window.egResetTimer =
+    egResetTimer;
+
+window.egDailyChallenge =
+    egDailyChallenge;
+
+window.egGlobalSearch =
+    egGlobalSearch;
+
+window.egSpeakText =
+    egSpeakText;
+
+window.egStopVoice =
+    egStopVoice;
+
+console.log(
+    "🚀 EduGenie Upgrade Center loaded!"
+);
 console.log("🔥 EduGenie app.js FINISHED");
 
