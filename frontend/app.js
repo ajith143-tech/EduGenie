@@ -4820,3 +4820,423 @@ if (originalRobot) {
 console.log(
     "🤖 Original EduGenie robot upgraded!"
 );
+// =====================================================
+// EDUGENIE SETTINGS ENGINE
+// ADD-ONLY
+// =====================================================
+
+const EG_SETTINGS_STORAGE =
+    "eduGenieSettings";
+
+let egSettings = {
+    theme: "dark",
+    sound: true,
+    robot: true,
+    animations: true,
+    notifications: true
+};
+
+
+// -----------------------------------------------------
+// LOAD SETTINGS
+// -----------------------------------------------------
+
+function egLoadSettings() {
+
+    try {
+
+        const saved =
+            localStorage.getItem(
+                EG_SETTINGS_STORAGE
+            );
+
+        if (saved) {
+
+            egSettings = {
+                ...egSettings,
+                ...JSON.parse(saved)
+            };
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "EduGenie settings error:",
+            error
+        );
+
+    }
+
+}
+
+
+// -----------------------------------------------------
+// APPLY SETTINGS
+// -----------------------------------------------------
+
+function egApplySettings() {
+
+    // Theme
+    document.body.classList.toggle(
+        "eg-light-theme",
+        egSettings.theme === "light"
+    );
+
+
+    // Robot
+    const robot =
+        document.getElementById(
+            "robotRoamer"
+        );
+
+    if (robot) {
+
+        robot.style.display =
+            egSettings.robot
+                ? ""
+                : "none";
+
+    }
+
+
+    // Animations
+    document.body.classList.toggle(
+        "eg-no-animations",
+        !egSettings.animations
+    );
+
+
+    // Update controls
+    const theme =
+        document.getElementById(
+            "egThemeSetting"
+        );
+
+    const sound =
+        document.getElementById(
+            "egSoundSetting"
+        );
+
+    const robotSetting =
+        document.getElementById(
+            "egRobotSetting"
+        );
+
+    const animations =
+        document.getElementById(
+            "egAnimationSetting"
+        );
+
+    const notifications =
+        document.getElementById(
+            "egNotificationSetting"
+        );
+
+
+    if (theme)
+        theme.value =
+            egSettings.theme;
+
+    if (sound)
+        sound.checked =
+            egSettings.sound;
+
+    if (robotSetting)
+        robotSetting.checked =
+            egSettings.robot;
+
+    if (animations)
+        animations.checked =
+            egSettings.animations;
+
+    if (notifications)
+        notifications.checked =
+            egSettings.notifications;
+
+}
+
+
+// -----------------------------------------------------
+// SAVE SETTINGS
+// -----------------------------------------------------
+
+function egSaveSettings() {
+
+    const theme =
+        document.getElementById(
+            "egThemeSetting"
+        );
+
+    const sound =
+        document.getElementById(
+            "egSoundSetting"
+        );
+
+    const robot =
+        document.getElementById(
+            "egRobotSetting"
+        );
+
+    const animations =
+        document.getElementById(
+            "egAnimationSetting"
+        );
+
+    const notifications =
+        document.getElementById(
+            "egNotificationSetting"
+        );
+
+
+    egSettings.theme =
+        theme?.value ||
+        "dark";
+
+    egSettings.sound =
+        sound?.checked ??
+        true;
+
+    egSettings.robot =
+        robot?.checked ??
+        true;
+
+    egSettings.animations =
+        animations?.checked ??
+        true;
+
+    egSettings.notifications =
+        notifications?.checked ??
+        true;
+
+
+    try {
+
+        localStorage.setItem(
+            EG_SETTINGS_STORAGE,
+            JSON.stringify(
+                egSettings
+            )
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Could not save settings:",
+            error
+        );
+
+    }
+
+
+    egApplySettings();
+
+
+    const message =
+        document.getElementById(
+            "egSettingsMessage"
+        );
+
+    if (message) {
+
+        message.innerText =
+            "✅ Preferences saved!";
+
+        setTimeout(
+            function () {
+
+                message.innerText =
+                    "";
+
+            },
+            2500
+        );
+
+    }
+
+
+    if (
+        typeof setRobotMessage ===
+        "function" &&
+        egSettings.robot
+    ) {
+
+        setRobotMessage(
+            "⚙️ Settings saved!"
+        );
+
+    }
+
+}
+
+
+// -----------------------------------------------------
+// LIGHT THEME
+// -----------------------------------------------------
+
+function egApplyLightTheme() {
+
+    const styleId =
+        "egLightThemeStyle";
+
+    if (
+        document.getElementById(
+            styleId
+        )
+    ) return;
+
+
+    const style =
+        document.createElement(
+            "style"
+        );
+
+    style.id =
+        styleId;
+
+    style.innerHTML = `
+        body.eg-light-theme {
+            background:
+                linear-gradient(
+                    145deg,
+                    #eef8ff,
+                    #dceef8
+                ) !important;
+            color: #17324a !important;
+        }
+
+        body.eg-light-theme .eg-card,
+        body.eg-light-theme .eg-dashboard-card,
+        body.eg-light-theme .eg-settings-card,
+        body.eg-light-theme .eg-progress-card {
+            background:
+                rgba(255,255,255,.85) !important;
+            border-color:
+                rgba(40,140,190,.2) !important;
+        }
+
+        body.eg-light-theme h1,
+        body.eg-light-theme h2,
+        body.eg-light-theme h3,
+        body.eg-light-theme h4,
+        body.eg-light-theme strong {
+            color: #17324a !important;
+        }
+
+        body.eg-light-theme p,
+        body.eg-light-theme small {
+            color: #54748b !important;
+        }
+    `;
+
+    document.head.appendChild(
+        style
+    );
+
+}
+
+
+// -----------------------------------------------------
+// NO ANIMATIONS MODE
+// -----------------------------------------------------
+
+function egApplyAnimationSetting() {
+
+    const styleId =
+        "egNoAnimationsStyle";
+
+    let style =
+        document.getElementById(
+            styleId
+        );
+
+
+    if (!style) {
+
+        style =
+            document.createElement(
+                "style"
+            );
+
+        style.id =
+            styleId;
+
+        document.head.appendChild(
+            style
+        );
+
+    }
+
+
+    style.innerHTML =
+        egSettings.animations
+            ? ""
+            : `
+                *,
+                *::before,
+                *::after {
+                    animation-duration:
+                        0.01ms !important;
+
+                    animation-iteration-count:
+                        1 !important;
+
+                    transition:
+                        none !important;
+                }
+            `;
+
+}
+
+
+// -----------------------------------------------------
+// UPDATED APPLY
+// -----------------------------------------------------
+
+function egApplyAllSettings() {
+
+    egApplyLightTheme();
+
+    egApplySettings();
+
+    egApplyAnimationSetting();
+
+}
+
+
+// -----------------------------------------------------
+// PAGE LOAD
+// -----------------------------------------------------
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        egLoadSettings();
+
+        setTimeout(
+            egApplyAllSettings,
+            300
+        );
+
+    }
+);
+
+
+// -----------------------------------------------------
+// GLOBAL ACCESS
+// -----------------------------------------------------
+
+window.egSaveSettings =
+    egSaveSettings;
+
+window.egLoadSettings =
+    egLoadSettings;
+
+window.egApplySettings =
+    egApplySettings;
+
+
+console.log(
+    "⚙️ EduGenie Settings loaded!"
+);
