@@ -4720,3 +4720,103 @@ window.egRobotTap =
 console.log(
     "🤖 EduGenie Smart Robot Brain loaded!"
 );
+// =====================================================
+// CONNECT SMART REACTIONS TO ORIGINAL ROBOT
+// ADD-ONLY
+// =====================================================
+
+function egOriginalRobotReact(message, state = "normal") {
+
+    const robot =
+        document.getElementById("robotRoamer");
+
+    if (!robot) return;
+
+
+    // Use the existing robot message system
+    if (typeof setRobotMessage === "function") {
+        setRobotMessage(message);
+    }
+
+
+    // Existing robot thinking animation
+    if (state === "thinking") {
+        robot.classList.add("thinking-mode");
+    } else {
+        robot.classList.remove("thinking-mode");
+    }
+
+
+    // Small reaction animation
+    robot.style.transform = "scale(1.08)";
+
+    setTimeout(function () {
+
+        robot.style.transform = "";
+
+    }, 350);
+}
+
+
+// Make existing robot react to important actions
+window.egOriginalRobotReact =
+    egOriginalRobotReact;
+
+
+// Initial welcome
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        setTimeout(function () {
+
+            egOriginalRobotReact(
+                "👋 Hi! Ready to learn?"
+            );
+
+        }, 1200);
+
+    }
+);
+
+
+// Robot click
+const originalRobot =
+    document.getElementById("robotRoamer");
+
+if (originalRobot) {
+
+    originalRobot.addEventListener(
+        "click",
+        function () {
+
+            const messages = [
+                "🧠 Ask me something!",
+                "📚 Let's learn!",
+                "🚀 Ready for a challenge?",
+                "✨ You've got this!",
+                "🎯 One step at a time!"
+            ];
+
+            const message =
+                messages[
+                    Math.floor(
+                        Math.random() *
+                        messages.length
+                    )
+                ];
+
+            egOriginalRobotReact(
+                message,
+                "happy"
+            );
+
+        }
+    );
+
+}
+
+
+console.log(
+    "🤖 Original EduGenie robot upgraded!"
+);
