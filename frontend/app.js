@@ -4252,3 +4252,471 @@ window.egUpdateLearningDashboard =
 console.log(
     "🤖 EduGenie AI Learning Dashboard loaded!"
 );
+// =====================================================
+// EDUGENIE SMART ROBOT BRAIN
+// ADD-ONLY
+// =====================================================
+
+let egRobotBubbleTimer = null;
+let egRobotIdleTimer = null;
+
+
+// -----------------------------------------------------
+// SHOW ROBOT MESSAGE
+// -----------------------------------------------------
+
+function egSmartRobotMessage(message, duration = 3500) {
+
+    const robot =
+        document.getElementById(
+            "egSmartRobot"
+        );
+
+    const bubble =
+        document.getElementById(
+            "egRobotBubble"
+        );
+
+    const icon =
+        document.getElementById(
+            "egRobotIcon"
+        );
+
+    if (!robot || !bubble) return;
+
+
+    bubble.innerText =
+        message;
+
+    bubble.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        egRobotBubbleTimer
+    );
+
+
+    egRobotBubbleTimer =
+        setTimeout(
+            function () {
+
+                bubble.classList.remove(
+                    "show"
+                );
+
+            },
+            duration
+        );
+
+
+    egRobotResetIdleTimer();
+}
+
+
+// -----------------------------------------------------
+// ROBOT STATE
+// -----------------------------------------------------
+
+function egSmartRobotState(
+    state
+) {
+
+    const robot =
+        document.getElementById(
+            "egSmartRobot"
+        );
+
+    const icon =
+        document.getElementById(
+            "egRobotIcon"
+        );
+
+    if (!robot) return;
+
+
+    robot.classList.remove(
+        "eg-thinking",
+        "eg-happy",
+        "eg-sleeping"
+    );
+
+
+    if (state === "thinking") {
+
+        robot.classList.add(
+            "eg-thinking"
+        );
+
+        if (icon)
+            icon.innerText = "🤔";
+
+    }
+
+
+    else if (state === "happy") {
+
+        robot.classList.add(
+            "eg-happy"
+        );
+
+        if (icon)
+            icon.innerText = "🎉";
+
+    }
+
+
+    else if (state === "sleeping") {
+
+        robot.classList.add(
+            "eg-sleeping"
+        );
+
+        if (icon)
+            icon.innerText = "😴";
+
+    }
+
+
+    else {
+
+        if (icon)
+            icon.innerText = "💙";
+
+    }
+
+}
+
+
+// -----------------------------------------------------
+// ROBOT REACTION
+// -----------------------------------------------------
+
+function egSmartRobotReact(
+    message,
+    state = "happy"
+) {
+
+    egSmartRobotState(
+        state
+    );
+
+    egSmartRobotMessage(
+        message
+    );
+
+}
+
+
+// -----------------------------------------------------
+// ROBOT CLICK
+// -----------------------------------------------------
+
+function egRobotTap() {
+
+    const messages = [
+
+        "👋 Hey! Ready to learn?",
+
+        "🧠 Ask me something!",
+
+        "🚀 Let's increase your XP!",
+
+        "📚 What are we studying today?",
+
+        "✨ You've got this!",
+
+        "🎯 One question at a time!"
+
+    ];
+
+
+    const message =
+        messages[
+            Math.floor(
+                Math.random() *
+                messages.length
+            )
+        ];
+
+
+    egSmartRobotReact(
+        message,
+        "happy"
+    );
+
+}
+
+
+// -----------------------------------------------------
+// IDLE DETECTION
+// -----------------------------------------------------
+
+function egRobotResetIdleTimer() {
+
+    clearTimeout(
+        egRobotIdleTimer
+    );
+
+
+    egRobotIdleTimer =
+        setTimeout(
+            function () {
+
+                egSmartRobotState(
+                    "sleeping"
+                );
+
+                egSmartRobotMessage(
+                    "😴 Still here when you're ready..."
+                );
+
+            },
+            45000
+        );
+
+}
+
+
+// -----------------------------------------------------
+// USER ACTIVITY
+// -----------------------------------------------------
+
+[
+    "click",
+    "keydown",
+    "mousemove",
+    "touchstart",
+    "scroll"
+].forEach(
+    eventName => {
+
+        document.addEventListener(
+            eventName,
+            function () {
+
+                const robot =
+                    document.getElementById(
+                        "egSmartRobot"
+                    );
+
+                if (
+                    robot &&
+                    robot.classList.contains(
+                        "eg-sleeping"
+                    )
+                ) {
+
+                    egSmartRobotState(
+                        "normal"
+                    );
+
+                    egSmartRobotMessage(
+                        "👋 Welcome back!"
+                    );
+
+                }
+
+                egRobotResetIdleTimer();
+
+            },
+            {
+                passive: true
+            }
+        );
+
+    }
+);
+
+
+// -----------------------------------------------------
+// ROBOT + XP
+// -----------------------------------------------------
+
+const egOriginalAddXP =
+    typeof egAddXP === "function"
+        ? egAddXP
+        : null;
+
+if (egOriginalAddXP) {
+
+    window.egAddXP =
+        function (amount) {
+
+            egOriginalAddXP(
+                amount
+            );
+
+            egSmartRobotReact(
+                "⚡ +" +
+                amount +
+                " XP! Amazing!",
+                "happy"
+            );
+
+        };
+
+}
+
+
+// -----------------------------------------------------
+// ROBOT + DASHBOARD
+// -----------------------------------------------------
+
+const egOriginalDashboardUpdate =
+    typeof egUpdateLearningDashboard ===
+    "function"
+        ? egUpdateLearningDashboard
+        : null;
+
+if (egOriginalDashboardUpdate) {
+
+    window.egUpdateLearningDashboard =
+        function () {
+
+            egOriginalDashboardUpdate();
+
+            const data =
+                typeof egUpgradeData !==
+                "undefined"
+                    ? egUpgradeData
+                    : null;
+
+            if (!data) return;
+
+            if (
+                Number(data.xp || 0) >=
+                100
+            ) {
+
+                egSmartRobotMessage(
+                    "🏆 100 XP! You're doing amazing!"
+                );
+
+            }
+
+        };
+
+}
+
+
+// -----------------------------------------------------
+// ROBOT + QUIZ
+// -----------------------------------------------------
+
+const egOriginalGenerateQuiz =
+    typeof egGenerateQuiz === "function"
+        ? egGenerateQuiz
+        : null;
+
+if (egOriginalGenerateQuiz) {
+
+    window.egGenerateQuiz =
+        async function () {
+
+            egSmartRobotReact(
+                "🤔 Creating your AI quiz...",
+                "thinking"
+            );
+
+            try {
+
+                const result =
+                    await egOriginalGenerateQuiz();
+
+                egSmartRobotReact(
+                    "🧠 Your quiz is ready!",
+                    "happy"
+                );
+
+                return result;
+
+            } catch (error) {
+
+                egSmartRobotReact(
+                    "💙 Something went wrong. Try again!",
+                    "normal"
+                );
+
+                throw error;
+
+            }
+
+        };
+
+}
+
+
+// -----------------------------------------------------
+// ROBOT + FLASHCARDS
+// -----------------------------------------------------
+
+const egOriginalFlashcards =
+    typeof egGenerateFlashcards ===
+    "function"
+        ? egGenerateFlashcards
+        : null;
+
+if (egOriginalFlashcards) {
+
+    window.egGenerateFlashcards =
+        function () {
+
+            egSmartRobotReact(
+                "🧩 Making your flashcards...",
+                "thinking"
+            );
+
+            return egOriginalFlashcards();
+
+        };
+
+}
+
+
+// -----------------------------------------------------
+// INITIAL ROBOT
+// -----------------------------------------------------
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        setTimeout(
+            function () {
+
+                egSmartRobotMessage(
+                    "👋 Hi! I'm your EduGenie companion!",
+                    4500
+                );
+
+                egRobotResetIdleTimer();
+
+            },
+            1000
+        );
+
+    }
+);
+
+
+// -----------------------------------------------------
+// GLOBAL ACCESS
+// -----------------------------------------------------
+
+window.egSmartRobotMessage =
+    egSmartRobotMessage;
+
+window.egSmartRobotReact =
+    egSmartRobotReact;
+
+window.egSmartRobotState =
+    egSmartRobotState;
+
+window.egRobotTap =
+    egRobotTap;
+
+console.log(
+    "🤖 EduGenie Smart Robot Brain loaded!"
+);
