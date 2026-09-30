@@ -1321,24 +1321,30 @@ body {
     }
 
 }
-/* =====================================================
-   PROFILE EDIT VISIBILITY FIX
+/* /* =====================================================
+   FINAL PROFILE EDIT FIX
    ===================================================== */
 
-.profile-value[hidden],
-.profile-input[hidden],
-.profile-actions[hidden] {
+.profile-value[hidden] {
+    display: none !important;
+}
+
+.profile-input[hidden] {
     display: none !important;
 }
 
 .profile-input:not([hidden]) {
-    display: block;
+    display: block !important;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.profile-actions[hidden] {
+    display: none !important;
 }
 
 .profile-actions:not([hidden]) {
-    display: flex;
-}
-
-/* =====================================================
+    display: flex !important;
+} =====================================================
    END OF EDUGENIE STYLE.CSS
    ===================================================== */
