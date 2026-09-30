@@ -5512,6 +5512,832 @@ document.addEventListener(
 console.log(
     "🤖 EduGenie Robot Action System loaded!"
 );
+// =====================================================
+// EDUGENIE LOGIN / REGISTER
+// STEP 3C - AUTHENTICATION
+// ADD-ONLY
+// =====================================================
+
+const AUTH_API_URL =
+    "https://edugenie-1-g40s.onrender.com";
+
+
+// =====================================================
+// OPEN LOGIN
+// =====================================================
+
+function openAuthPage() {
+
+    const overlay =
+        document.getElementById("authOverlay");
+
+    if (!overlay) return;
+
+    overlay.hidden = false;
+
+    showLoginForm();
+
+}
+
+
+// =====================================================
+// CLOSE LOGIN
+// =====================================================
+
+function closeAuthPage() {
+
+    const overlay =
+        document.getElementById("authOverlay");
+
+    if (!overlay) return;
+
+    overlay.hidden = true;
+
+}
+
+
+// =====================================================
+// SHOW LOGIN FORM
+// =====================================================
+
+function showLoginForm() {
+
+    const loginForm =
+        document.getElementById("loginForm");
+
+    const registerForm =
+        document.getElementById("registerForm");
+
+    const title =
+        document.getElementById("authTitle");
+
+    const subtitle =
+        document.getElementById("authSubtitle");
+
+    const message =
+        document.getElementById("authMessage");
+
+
+    if (loginForm) {
+
+        loginForm.hidden = false;
+
+    }
+
+
+    if (registerForm) {
+
+        registerForm.hidden = true;
+
+    }
+
+
+    if (title) {
+
+        title.innerText =
+            "Welcome to EduGenie";
+
+    }
+
+
+    if (subtitle) {
+
+        subtitle.innerText =
+            "Login to save your learning progress.";
+
+    }
+
+
+    if (message) {
+
+        message.innerText = "";
+
+    }
+
+}
+
+
+// =====================================================
+// SHOW REGISTER FORM
+// =====================================================
+
+function showRegisterForm() {
+
+    const loginForm =
+        document.getElementById("loginForm");
+
+    const registerForm =
+        document.getElementById("registerForm");
+
+    const title =
+        document.getElementById("authTitle");
+
+    const subtitle =
+        document.getElementById("authSubtitle");
+
+    const message =
+        document.getElementById("authMessage");
+
+
+    if (loginForm) {
+
+        loginForm.hidden = true;
+
+    }
+
+
+    if (registerForm) {
+
+        registerForm.hidden = false;
+
+    }
+
+
+    if (title) {
+
+        title.innerText =
+            "Create your EduGenie Account";
+
+    }
+
+
+    if (subtitle) {
+
+        subtitle.innerText =
+            "Save your learning progress across devices.";
+
+    }
+
+
+    if (message) {
+
+        message.innerText = "";
+
+    }
+
+}
+
+
+// =====================================================
+// AUTH MESSAGE
+// =====================================================
+
+function showAuthMessage(
+    message,
+    type = "normal"
+) {
+
+    const messageBox =
+        document.getElementById(
+            "authMessage"
+        );
+
+
+    if (!messageBox) return;
+
+
+    messageBox.innerText =
+        message;
+
+
+    if (type === "error") {
+
+        messageBox.style.color =
+            "#ff8c9b";
+
+    } else if (type === "success") {
+
+        messageBox.style.color =
+            "#6ff0b0";
+
+    } else {
+
+        messageBox.style.color =
+            "#72d8ff";
+
+    }
+
+}
+
+
+// =====================================================
+// REGISTER STUDENT
+// =====================================================
+
+async function eduGenieRegister() {
+
+    const nameInput =
+        document.getElementById(
+            "registerName"
+        );
+
+    const emailInput =
+        document.getElementById(
+            "registerEmail"
+        );
+
+    const passwordInput =
+        document.getElementById(
+            "registerPassword"
+        );
+
+
+    if (
+        !nameInput ||
+        !emailInput ||
+        !passwordInput
+    ) {
+
+        return;
+
+    }
+
+
+    const name =
+        nameInput.value.trim();
+
+    const email =
+        emailInput.value.trim();
+
+    const password =
+        passwordInput.value;
+
+
+    if (!name) {
+
+        showAuthMessage(
+            "⚠️ Please enter your name.",
+            "error"
+        );
+
+        nameInput.focus();
+
+        return;
+
+    }
+
+
+    if (!email) {
+
+        showAuthMessage(
+            "⚠️ Please enter your email.",
+            "error"
+        );
+
+        emailInput.focus();
+
+        return;
+
+    }
+
+
+    if (password.length < 6) {
+
+        showAuthMessage(
+            "⚠️ Password must contain at least 6 characters.",
+            "error"
+        );
+
+        passwordInput.focus();
+
+        return;
+
+    }
+
+
+    showAuthMessage(
+        "⏳ Creating your account..."
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                AUTH_API_URL + "/register",
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        name:
+                            name,
+
+                        email:
+                            email,
+
+                        password:
+                            password
+
+                    })
+
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server error: " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            showAuthMessage(
+                "❌ " +
+                (
+                    data.message ||
+                    "Unable to create account."
+                ),
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        showAuthMessage(
+            "✅ Account created! You can now login.",
+            "success"
+        );
+
+
+        passwordInput.value = "";
+
+
+        setTimeout(
+            () => {
+
+                showLoginForm();
+
+                if (emailInput) {
+
+                    const loginEmail =
+                        document.getElementById(
+                            "loginEmail"
+                        );
+
+                    if (loginEmail) {
+
+                        loginEmail.value =
+                            email;
+
+                    }
+
+                }
+
+            },
+            1200
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "EduGenie Registration Error:",
+            error
+        );
+
+
+        showAuthMessage(
+            "❌ Unable to connect to EduGenie server. Please try again.",
+            "error"
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// LOGIN STUDENT
+// =====================================================
+
+async function eduGenieLogin() {
+
+    const emailInput =
+        document.getElementById(
+            "loginEmail"
+        );
+
+    const passwordInput =
+        document.getElementById(
+            "loginPassword"
+        );
+
+
+    if (
+        !emailInput ||
+        !passwordInput
+    ) {
+
+        return;
+
+    }
+
+
+    const email =
+        emailInput.value.trim();
+
+    const password =
+        passwordInput.value;
+
+
+    if (!email) {
+
+        showAuthMessage(
+            "⚠️ Please enter your email.",
+            "error"
+        );
+
+        emailInput.focus();
+
+        return;
+
+    }
+
+
+    if (!password) {
+
+        showAuthMessage(
+            "⚠️ Please enter your password.",
+            "error"
+        );
+
+        passwordInput.focus();
+
+        return;
+
+    }
+
+
+    showAuthMessage(
+        "⏳ Logging you in..."
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                AUTH_API_URL + "/login",
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        email:
+                            email,
+
+                        password:
+                            password
+
+                    })
+
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server error: " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            showAuthMessage(
+                "❌ " +
+                (
+                    data.message ||
+                    "Invalid email or password."
+                ),
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        // Save logged-in student
+        localStorage.setItem(
+            "eduGenieLoggedIn",
+            "true"
+        );
+
+
+        localStorage.setItem(
+            "eduGenieStudent",
+            JSON.stringify(
+                data.student
+            )
+        );
+
+
+        showAuthMessage(
+            "✅ Login successful!",
+            "success"
+        );
+
+
+        passwordInput.value = "";
+
+
+        updateLoggedInStudentUI(
+            data.student
+        );
+
+
+        setTimeout(
+            () => {
+
+                closeAuthPage();
+
+                setRobotMessage(
+                    "👋 Welcome back!"
+                );
+
+            },
+            900
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "EduGenie Login Error:",
+            error
+        );
+
+
+        showAuthMessage(
+            "❌ Unable to connect to EduGenie server. Please try again.",
+            "error"
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// CHECK LOGIN
+// =====================================================
+
+function isEduGenieLoggedIn() {
+
+    return (
+        localStorage.getItem(
+            "eduGenieLoggedIn"
+        ) === "true"
+    );
+
+}
+
+
+// =====================================================
+// GET LOGGED-IN STUDENT
+// =====================================================
+
+function getEduGenieStudent() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                "eduGenieStudent"
+            )
+        );
+
+    } catch (error) {
+
+        return null;
+
+    }
+
+}
+
+
+// =====================================================
+// UPDATE UI AFTER LOGIN
+// =====================================================
+
+function updateLoggedInStudentUI(
+    student
+) {
+
+    if (!student) return;
+
+
+    // Update common profile name
+    const profileName =
+        document.getElementById(
+            "profileName"
+        );
+
+
+    if (profileName) {
+
+        profileName.innerText =
+            student.name ||
+            "Student";
+
+    }
+
+
+    // Update profile email
+    const profileEmail =
+        document.getElementById(
+            "profileEmail"
+        );
+
+
+    if (profileEmail) {
+
+        profileEmail.innerText =
+            student.email ||
+            "Not added";
+
+    }
+
+
+    // Update local profile
+    if (
+        typeof studentProfile !==
+        "undefined"
+    ) {
+
+        studentProfile.name =
+            student.name ||
+            studentProfile.name;
+
+        studentProfile.email =
+            student.email ||
+            studentProfile.email;
+
+
+        localStorage.setItem(
+            PROFILE_STORAGE_KEY,
+            JSON.stringify(
+                studentProfile
+            )
+        );
+
+    }
+
+
+    if (
+        typeof loadProfile ===
+        "function"
+    ) {
+
+        loadProfile();
+
+    }
+
+}
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+function eduGenieLogout() {
+
+    const student =
+        getEduGenieStudent();
+
+
+    localStorage.removeItem(
+        "eduGenieLoggedIn"
+    );
+
+
+    localStorage.removeItem(
+        "eduGenieStudent"
+    );
+
+
+    setRobotMessage(
+        "👋 See you again!"
+    );
+
+
+    showAuthMessage(
+        "You have been logged out."
+    );
+
+
+    console.log(
+        "EduGenie logged out:",
+        student
+    );
+
+}
+
+
+// =====================================================
+// AUTH UI ON PAGE LOAD
+// =====================================================
+
+function initializeEduGenieAuth() {
+
+    const student =
+        getEduGenieStudent();
+
+
+    if (
+        isEduGenieLoggedIn() &&
+        student
+    ) {
+
+        updateLoggedInStudentUI(
+            student
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// MAKE AUTH FUNCTIONS AVAILABLE TO HTML
+// =====================================================
+
+window.openAuthPage =
+    openAuthPage;
+
+window.closeAuthPage =
+    closeAuthPage;
+
+window.showLoginForm =
+    showLoginForm;
+
+window.showRegisterForm =
+    showRegisterForm;
+
+window.eduGenieLogin =
+    eduGenieLogin;
+
+window.eduGenieRegister =
+    eduGenieRegister;
+
+window.eduGenieLogout =
+    eduGenieLogout;
+
+window.isEduGenieLoggedIn =
+    isEduGenieLoggedIn;
+
+window.getEduGenieStudent =
+    getEduGenieStudent;
+
+
+// =====================================================
+// START AUTH
+// =====================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        initializeEduGenieAuth();
+
+    }
+);
 
 
 
