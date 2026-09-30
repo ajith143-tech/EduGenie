@@ -2230,6 +2230,127 @@
 
 </div>    
 
+<!-- =====================================================
+     EDUGENIE AUTH BUTTON
+     STEP 3D
+     ADD-ONLY
+     ===================================================== -->
+
+<div
+    id="eduGenieAuthButton"
+    style="
+        position: fixed;
+        top: 18px;
+        right: 20px;
+        z-index: 9990;
+    "
+>
+
+    <button
+        id="guestLoginButton"
+        type="button"
+        onclick="openAuthPage()"
+        style="
+            padding: 10px 18px;
+            border: 1px solid rgba(80,200,255,.35);
+            border-radius: 12px;
+            background: rgba(10,25,45,.9);
+            color: #7bdcff;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,150,255,.12);
+        "
+    >
+        🔐 Login
+    </button>
+
+</div>
+
+<script>
+
+function updateEduGenieAuthButton() {
+
+    const container =
+        document.getElementById(
+            "eduGenieAuthButton"
+        );
+
+    if (!container) return;
+
+
+    const loggedIn =
+        typeof isEduGenieLoggedIn === "function"
+            ? isEduGenieLoggedIn()
+            : false;
+
+
+    if (loggedIn) {
+
+        const student =
+            typeof getEduGenieStudent === "function"
+                ? getEduGenieStudent()
+                : null;
+
+
+        container.innerHTML = `
+
+            <button
+                type="button"
+                onclick="eduGenieLogout()"
+                style="
+                    padding:10px 16px;
+                    border:1px solid rgba(100,220,180,.3);
+                    border-radius:12px;
+                    background:rgba(10,35,35,.92);
+                    color:#7ff0c0;
+                    font-weight:700;
+                    cursor:pointer;
+                "
+            >
+                👤 ${student?.name || "Student"} · Logout
+            </button>
+
+        `;
+
+    } else {
+
+        container.innerHTML = `
+
+            <button
+                type="button"
+                onclick="openAuthPage()"
+                style="
+                    padding:10px 18px;
+                    border:1px solid rgba(80,200,255,.35);
+                    border-radius:12px;
+                    background:rgba(10,25,45,.9);
+                    color:#7bdcff;
+                    font-weight:700;
+                    cursor:pointer;
+                    box-shadow:0 5px 20px rgba(0,150,255,.12);
+                "
+            >
+                🔐 Login
+            </button>
+
+        `;
+
+    }
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        updateEduGenieAuthButton();
+
+    }
+);
+
+</script>    
+
 <script src="app.js"></script>
 
 </body>
