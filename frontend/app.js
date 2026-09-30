@@ -1810,3 +1810,44 @@ function closeProfilePage() {
 
     page.hidden = true;
 }
+// =========================================================
+// EDU GENIE — RANDOM ROBOT ROAMING
+// =========================================================
+
+function randomRobotMove() {
+
+    const robot =
+        document.getElementById("robotRoamer");
+
+    if (!robot) return;
+
+    const maxX =
+        window.innerWidth - robot.offsetWidth - 20;
+
+    const maxY =
+        window.innerHeight - robot.offsetHeight - 20;
+
+    const x =
+        Math.max(10, Math.random() * maxX);
+
+    const y =
+        Math.max(10, Math.random() * maxY);
+
+    robot.style.left = x + "px";
+    robot.style.top = y + "px";
+    robot.style.right = "auto";
+    robot.style.bottom = "auto";
+
+    robot.style.transition =
+        "left 3s ease-in-out, top 3s ease-in-out";
+}
+
+setInterval(
+    randomRobotMove,
+    3500
+);
+
+setTimeout(
+    randomRobotMove,
+    500
+);
