@@ -1,20 +1,29 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<head>
 
-<title>
-    EduGenie | Your AI Learning Companion
-</title>
+    <meta charset="UTF-8">
 
-<link
-    rel="stylesheet"
-    href="style.css"
->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-</head><body><!-- ==================== NAVBAR ==================== -->
+    <title>
+        EduGenie | Your AI Learning Companion
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
 
 <header class="navbar">
 
@@ -104,8 +113,6 @@
             ◷ History
         </a>
 
-
-        <!-- STUDENT PROFILE -->
 
         <a
             href="#studentProfile"
@@ -426,7 +433,7 @@
 
 
 
-            <!-- ROBOT -->
+            <!-- ==================== ROBOT ==================== -->
 
             <div
                 class="robot-roamer"
@@ -533,6 +540,7 @@
 
                     <button
                         class="subject-btn"
+                        type="button"
                     >
                         📖 General ▾
                     </button>
@@ -540,6 +548,7 @@
 
                     <button
                         class="attach-btn"
+                        type="button"
                     >
                         🔗
                     </button>
@@ -548,6 +557,7 @@
                     <button
                         class="voice-btn"
                         id="voiceBtn"
+                        type="button"
                         onclick="startVoiceInput()"
                         title="Ask using your voice"
                     >
@@ -557,6 +567,7 @@
 
                     <button
                         class="ask-btn"
+                        type="button"
                         onclick="askQuestion()"
                     >
                         ➤ Ask EduGenie
@@ -576,6 +587,7 @@
 
 
                 <button
+                    type="button"
                     onclick="
                         setQuestion(
                             'What is HTML?'
@@ -591,6 +603,7 @@
 
 
                 <button
+                    type="button"
                     onclick="
                         setQuestion(
                             'Explain photosynthesis'
@@ -606,6 +619,7 @@
 
 
                 <button
+                    type="button"
                     onclick="
                         setQuestion(
                             'Solve this math problem for me'
@@ -621,6 +635,7 @@
 
 
                 <button
+                    type="button"
                     onclick="
                         setQuestion(
                             'Give me a study plan'
@@ -636,6 +651,7 @@
 
 
                 <button
+                    type="button"
                     onclick="
                         setQuestion(
                             'Give me quick notes on OS'
@@ -655,26 +671,21 @@
 
 
 
-        <!-- ==================== RESPONSE ==================== -->
+        <!-- ==================== AI RESPONSE ==================== -->
 
-        <section class="response-card">
+        <section
+            class="response-section"
+            id="response"
+        >
 
-            <div id="response">
+            <div class="ai-answer">
 
-                <div class="welcome-response">
+                <div class="answer-title">
+                    🤖 EduGenie
+                </div>
 
-                    🤖
-
-                    <strong>
-                        EduGenie
-                    </strong>
-
-
-                    <p>
-                        Your AI learning assistant
-                        is ready.
-                    </p>
-
+                <div class="answer-content">
+                    Your AI learning assistant is ready. Ask me a question to begin! ✨
                 </div>
 
             </div>
@@ -739,36 +750,15 @@
                     </div>
 
 
-                   <<button
-    type="button"
-    class="profile-edit-btn"
-    onclick="
-        document.querySelectorAll(
-            '.profile-value'
-        ).forEach(function(el) {
-            el.style.display = 'none';
-        });
+                    <button
+                        type="button"
+                        class="profile-edit-btn"
+                        id="editProfileBtn"
+                        onclick="editProfile()"
+                    >
+                        ✏️ Edit Profile
+                    </button>
 
-        document.querySelectorAll(
-            '.profile-input'
-        ).forEach(function(el) {
-            el.hidden = false;
-            el.style.display = 'block';
-        });
-
-        var actions =
-            document.getElementById(
-                'profileActions'
-            );
-
-        if (actions) {
-            actions.hidden = false;
-            actions.style.display = 'flex';
-        }
-    "
->
-    ✏️ Edit Profile
-</button>
                 </div>
 
 
@@ -869,7 +859,7 @@
                             class="profile-value"
                             id="profileDepartment"
                         >
-                            Computer Science & Engineering
+                            Computer Science &amp; Engineering
                         </div>
 
                         <input
@@ -881,9 +871,6 @@
                         >
 
                     </div>
-
-
-
                     <!-- YEAR -->
 
                     <div class="profile-field">
@@ -984,13 +971,15 @@
                             type="tel"
                             id="profilePhoneInput"
                             class="profile-input"
-                            placeholder="Enter phone number"hidden
+                            placeholder="Enter phone number"
+                            hidden
                         >
 
                     </div>
 
 
                 </div>
+
 
 
                 <!-- PROFILE ACTIONS -->
@@ -1001,14 +990,15 @@
                     hidden
                 >
 
-              <button
-    type="button"
-    class="profile-save-btn"
-    id="saveProfileBtn"
-    onclick="saveProfile()"
->
-    💾 Save Profile
-</button>
+                    <button
+                        type="button"
+                        class="profile-save-btn"
+                        id="saveProfileBtn"
+                        onclick="saveProfile()"
+                    >
+                        💾 Save Profile
+                    </button>
+
 
                     <button
                         type="button"
@@ -1021,7 +1011,17 @@
                 </div>
 
             </div>
-      </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- ==================== JAVASCRIPT ==================== -->
 
 <script src="app.js"></script>
 
