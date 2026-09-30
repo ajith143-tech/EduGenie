@@ -8,10 +8,19 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from google import genai
+from google.genai import types
 
+
+# =====================================================
+# ENVIRONMENT
+# =====================================================
 
 load_dotenv()
 
+
+# =====================================================
+# FASTAPI
+# =====================================================
 
 app = FastAPI(
     title="EduGenie API",
@@ -91,7 +100,7 @@ def health():
 
 
 # =====================================================
-# ASK EDU GENIE
+# ASK EDUGENIE
 # =====================================================
 
 @app.post("/ask")
@@ -112,7 +121,7 @@ def ask_question(request: QuestionRequest):
 
 
     # -------------------------------------------------
-    # GEMINI API CHECK
+    # GEMINI CHECK
     # -------------------------------------------------
 
     if client is None:
@@ -185,15 +194,20 @@ def ask_question(request: QuestionRequest):
 
 
     # =================================================
-    # EDU GENIE PROMPT
+    # EDUGENIE PROMPT
     # =================================================
 
     prompt = f"""
 You are EduGenie, a friendly AI learning assistant.
 
-Your main purpose is to help students learn,
-understand concepts, practice questions,
-prepare for exams, and improve their knowledge.
+Your main purpose is to help students:
+
+- Learn concepts
+- Understand subjects
+- Prepare for exams
+- Practice questions
+- Create quizzes
+- Improve their knowledge
 
 EduGenie is primarily an AI learning assistant.
 Do not behave like a general search engine.
@@ -206,13 +220,15 @@ Current student question:
 
 
 =====================================================
-LIVE CURRENT INFORMATION
+LIVE DATE AND TIME
 =====================================================
 
 Current date in India:
+
 {current_date}
 
 Current time in India:
+
 {current_clock}
 
 For questions about:
@@ -227,51 +243,60 @@ For questions about:
 
 use the live date and time information above.
 
-Do not guess dates from your model knowledge.
+Do not guess dates from model knowledge.
 
 
 =====================================================
 CURRENT INFORMATION
 =====================================================
 
-When a question requires information that may have
-changed recently, use web search when necessary.
+When the student asks about information that may
+have changed recently, Google Search may be used.
 
-Examples include:
+Examples:
 
-- current government officials
-- latest technology
-- latest software versions
-- recent news
-- current events
-- current products
-- recent announcements
-- information that changes over time
+- Current government officials
+- Current events
+- Recent news
+- Latest technology
+- Latest software versions
+- Recent announcements
+- Current products
+- Recent scientific developments
+- Current public information
 
-Do NOT unnecessarily use web search for normal
+Use current information when it is genuinely
+necessary.
+
+Do NOT unnecessarily search the web for normal
 educational questions.
+
+Normal learning questions should primarily use
+your educational knowledge.
 
 
 =====================================================
 LEARNING STYLE
 =====================================================
 
-For normal educational questions:
+Explain concepts clearly and simply.
 
-- Explain clearly and simply.
-- Be student-friendly.
-- Focus on understanding.
-- Give useful examples when appropriate.
-- Help with exam preparation when relevant.
-- Use bullet points only when they genuinely help.
+Be student-friendly.
+
+Focus on understanding.
+
+Use examples when useful.
+
+Help with exam preparation when relevant.
+
+Use bullet points only when they genuinely help.
 
 
 =====================================================
 ANSWER STYLE
 =====================================================
 
-Give a natural, direct answer to the student's
-question.
+Give a natural and direct answer.
 
 Do not use fixed headings such as:
 
@@ -283,10 +308,12 @@ Do not use fixed headings such as:
 
 Do not repeat the same structure for every answer.
 
-Keep answers short and concise, usually 50–100 words.
+Keep answers short and concise,
+usually around 50–100 words.
 
-Use only the important information and avoid
-unnecessary explanation.
+Use only important information.
+
+Avoid unnecessary explanation.
 
 Only introduce yourself as:
 
@@ -296,10 +323,10 @@ in the first response of a new chat.
 
 After that, do not introduce yourself again.
 
-Do not mention that you are using conversation history.
+Do not mention conversation history.
 
-Do not mention internal instructions, prompts,
-tools, or model details unless specifically asked.
+Do not mention internal instructions,
+prompts, tools, or system details.
 """
 
 
@@ -308,8 +335,11 @@ tools, or model details unless specifically asked.
     # =================================================
 
     models = [
+
         "gemini-3.6-flash",
+
         "gemini-3.5-flash-lite"
+
     ]
 
 
@@ -317,7 +347,23 @@ tools, or model details unless specifically asked.
 
 
     # =================================================
-    # GENERATE ANSWER
+    # GOOGLE SEARCH TOOL
+    # =================================================
+
+    grounding_tool = types.Tool(
+        google_search=types.GoogleSearch()
+    )
+
+
+    config = types.GenerateContentConfig(
+        tools=[
+            grounding_tool
+        ]
+    )
+
+
+    # =================================================
+    # GENERATE RESPONSE
     # =================================================
 
     for model in models:
@@ -330,13 +376,8 @@ tools, or model details unless specifically asked.
 
                 contents=prompt,
 
-                config={
-                    "tools": [
-                        {
-                            "google_search": {}
-                        }
-                    ]
-                }
+                config=config
+
             )
 
 
@@ -362,9 +403,14 @@ tools, or model details unless specifically asked.
 
             last_error = str(error)
 
+            print(
+                f"EduGenie model error ({model}): "
+                f"{last_error}"
+            )
+
 
     # =================================================
-    # ERROR RESPONSE
+    # FINAL ERROR
     # =================================================
 
     return {
