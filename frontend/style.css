@@ -2041,6 +2041,11 @@ body {
     100% {
         transform: translate(-45vw, -35vh);
     }
+}
+.robot-roamer {
+    position: fixed !important;
+    z-index: 9999;
+    pointer-events: none;
 } =====================================================
    END OF EDUGENIE STYLE.CSS
    ===================================================== */
