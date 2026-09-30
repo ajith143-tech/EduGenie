@@ -1779,41 +1779,34 @@ window.askQuestion = async function () {
 
 };
 // =========================================================
-// EDU GENIE — SEPARATE PROFILE PAGE
+// SEPARATE PROFILE PAGE
 // =========================================================
 
 function openProfilePage() {
 
-    const profilePage =
+    const page =
         document.getElementById("profilePage");
 
-    const profileSection =
-        document.querySelector(".profile-section");
+    const profile =
+        document.getElementById("studentProfile");
 
-    const profileContent =
+    const container =
         document.getElementById("profilePageContent");
 
-    if (!profilePage || !profileSection) return;
+    if (!page || !profile || !container) return;
 
-    profilePage.hidden = false;
+    page.hidden = false;
 
-    profileContent.appendChild(profileSection);
-
-    document.body.classList.add("profile-open");
+    container.appendChild(profile);
 }
 
 
 function closeProfilePage() {
 
-    const profilePage =
+    const page =
         document.getElementById("profilePage");
 
-    const profileSection =
-        document.querySelector(".profile-section");
+    if (!page) return;
 
-    if (!profilePage || !profileSection) return;
-
-    profilePage.hidden = true;
-
-    document.body.classList.remove("profile-open");
+    page.hidden = true;
 }
