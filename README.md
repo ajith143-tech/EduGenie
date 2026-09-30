@@ -1,108 +1,229 @@
-# EduGenie 🎓
+🤖 EduGenie — AI Learning Assistant
 
-## Google Gemini Powered Learning Assistant
+🚀 Google Gemini Powered Learning Platform
 
-EduGenie is an AI-powered learning assistant designed to help students understand academic topics using Google Gemini.
+EduGenie is a web-based AI learning assistant designed to help students Ask, Learn, Practice, Revise, and Grow from one interactive platform.
 
-## Project Objective
+It combines Generative AI with useful academic tools such as AI Chat, Smart Notes, Quizzes, Flashcards, Exam Mode, Study Timer, Learning Analytics, and more.
 
-The main objective of EduGenie is to provide students with an intelligent and interactive learning assistant that can explain concepts, answer questions, generate summaries, and support exam preparation.
+---
 
-## Features
+✨ Features
 
-- 📚 Topic explanations
-- 🤖 AI-powered answers
-- 📝 Automatic summaries
-- ❓ Question generation
-- 🎯 Personalized learning assistance
-- 💡 Simple and student-friendly explanations
-- 📖 Academic study support
+- 🤖 AI Learning Chat — Ask academic questions and get AI-powered explanations.
 
-## Target Users
+- 📝 Smart Notes — Create, save, search, and manage study notes.
 
-- School students
-- College students
-- Beginners
-- Students preparing for examinations
+- 🧠 AI Quiz Arena — Practice with AI-generated questions.
 
-## Technology Stack
+- 🃏 AI Flashcards — Create flashcards for quick revision.
 
-- HTML
-- CSS
-- JavaScript
-- Python
-- FastAPI
-- Google Gemini API
-- GitHub
+- 🎯 Exam Mode — Practice in an exam-style environment.
 
-## System Architecture
+- ⏱️ Study Timer — Maintain focused study sessions.
 
-Student
-↓
-EduGenie Web Interface
-↓
-FastAPI Backend
-↓
-Prompt Processing
-↓
-Google Gemini API
-↓
-Response Processing
-↓
-Student
+- 📊 Learning Analytics — Track learning activity and progress.
 
-## Project Workflow
+- 🏆 XP, Streaks & Achievements — Stay motivated while learning.
 
-Planning → Design → Development → Testing → Deployment → Evaluation
+- 🎤 Voice Input & Reader — Support hands-free learning.
 
-## Backend
+- 👤 Student Profile — Manage student information and statistics.
 
-The EduGenie backend is developed using FastAPI.
+- 🔍 EduGenie Search — Find saved learning content and conversations.
 
-The backend is responsible for:
+---
 
-- Receiving student questions
-- Processing requests
-- Communicating with Google Gemini
-- Returning AI-generated responses
+🛠️ Technologies Used
 
-## AI Model
+Technology| Purpose:
 
-EduGenie uses Google Gemini as its generative AI engine.
+HTML5| Website structure
 
-The AI can assist students with:
+CSS3| UI design and animations
 
-- Concept explanations
-- Summaries
-- Examples
-- Practice questions
-- Study assistance
+JavaScript| Frontend functionality
 
-## Security
+Python| Backend development
 
-The Gemini API key will be stored securely and will not be exposed in frontend code or committed to GitHub.
+FastAPI| REST API
 
-## Project Status
+Google Gemini API| Generative AI
 
-🚧 Under Development
+GitHub| Version control
 
-## Future Enhancements
+Render| Deployment
 
-- Personalized study plans
-- Quiz generation
-- Subject-specific learning
-- Learning-level detection
-- Voice-based learning
-- Progress tracking
+---
 
-## Team
+🏗️ System Architecture
 
-- Ajith S
-- Perumal Raja
-- Sowmiya S
-- Sridhar P
-- Kishore S
+┌─────────────────────────────┐
+│        Student/User         │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│      EduGenie Frontend      │
+│       HTML / CSS / JS       │
+└──────────────┬──────────────┘
+               │
+               │ HTTPS API
+               ▼
+┌─────────────────────────────┐
+│       FastAPI Backend       │
+│          Python             │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│      Google Gemini API      │
+│       Generative AI         │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│       AI Generated Answer   │
+└─────────────────────────────┘
 
-## Repository
+---
 
-EduGenie – Google Gemini Powered Learning Assistant
+📂 Project Structure
+
+EduGenie/
+│
+├── index.html
+├── style.css
+├── app.js
+│
+├── main.py
+├── requirements.txt
+├── .env
+│
+└── README.md
+
+«🔐 Never commit your Gemini API key to GitHub. Store it securely using environment variables.»
+
+---
+
+⚙️ How It Works
+
+1. Student opens EduGenie.
+2. Student enters an academic question.
+3. The frontend sends the question to the FastAPI backend.
+4. The backend communicates with Google Gemini.
+5. Gemini generates the response.
+6. EduGenie displays the answer.
+7. Learning activity can be tracked through the platform.
+
+---
+
+🚀 Getting Started
+
+1. Clone the Repository
+
+git clone https://github.com/ajith143-tech/EduGenie.git
+
+2. Open the Project
+
+cd EduGenie
+
+3. Install Dependencies
+
+pip install -r requirements.txt
+
+4. Configure Environment Variables
+
+Create a ".env" file:
+
+GEMINI_API_KEY=your_api_key_here
+
+5. Run the Backend
+
+uvicorn main:app --reload
+
+6. Run the Frontend
+
+Open "index.html" using a local development server such as VS Code Live Server.
+
+---
+
+🌐 Deployment
+
+- GitHub: Source code management
+- Render: Web/API deployment
+- Google Gemini API: AI processing
+
+🔗 Project Links
+
+GitHub:
+https://github.com/ajith143-tech/EduGenie
+
+Live Website:
+https://edugenie-web.onrender.com/
+
+Backend API:
+https://edugenie-1-g40s.onrender.com/
+
+---
+
+👥 Team Members
+
+Name| Role
+Ajith| 👑 Team Leader
+Perumal Raja| 👨‍💻 Team Member
+Sridhar| 👨‍💻 Team Member
+Kishore| 👨‍💻 Team Member
+Sowmiya| 👩‍💻 Team Member
+
+🚀 Team — EduGenie
+
+Together we Ask • Learn • Practice • Revise • Grow
+
+---
+
+🎯 Project Objective
+
+The main objective of EduGenie is to create a centralized AI-powered learning environment where students can access academic assistance and study tools from a single platform.
+
+       ASK
+        ↓
+      LEARN
+        ↓
+    PRACTICE
+        ↓
+      REVISE
+        ↓
+      TRACK
+        ↓
+      GROW 🚀
+
+---
+
+🔮 Future Scope
+
+- 📷 Image-based question solving
+- 📚 Personalized study plans
+- 🌐 Multilingual learning
+- 📊 Advanced learning analytics
+- 📱 Mobile application
+- 🎙️ Improved voice interaction
+- 🤝 Collaborative learning features
+
+---
+
+👨‍💻 Project
+
+EduGenie — Google Gemini Powered AI Learning Assistant
+
+Built as an academic project to explore the use of Generative AI in student learning and education.
+
+❤️ Built With
+
+HTML • CSS • JavaScript • Python • FastAPI • Google Gemini
+
+---
+
+📜 License
+
+This project is created for educational and academic purposes.
