@@ -2063,6 +2063,344 @@ body {
     }
 }
 /* =====================================================
+   EDU GENIE UPGRADE CENTER
+   ADD-ONLY
+   ===================================================== */
+
+.eg-upgrade-center {
+    width: 100%;
+    max-width: 1050px;
+    margin: 55px auto;
+    padding: 25px;
+}
+
+.eg-upgrade-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.eg-upgrade-title > span {
+    font-size: 42px;
+}
+
+.eg-upgrade-title h2 {
+    margin: 0;
+    color: #eaf8ff;
+    font-size: 28px;
+}
+
+.eg-upgrade-title p {
+    margin: 5px 0 0;
+    color: #8bb7d8;
+}
+
+.eg-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.eg-stat-card {
+    padding: 20px;
+    border-radius: 18px;
+    text-align: center;
+    background: rgba(15, 35, 65, .75);
+    border: 1px solid rgba(70, 190, 255, .18);
+    box-shadow: 0 10px 30px rgba(0,0,0,.18);
+}
+
+.eg-stat-card span {
+    display: block;
+    font-size: 25px;
+    margin-bottom: 7px;
+}
+
+.eg-stat-card strong {
+    display: block;
+    color: #72d8ff;
+    font-size: 25px;
+}
+
+.eg-stat-card small {
+    color: #9db7ca;
+}
+
+.eg-card {
+    margin-top: 18px;
+    padding: 23px;
+    border-radius: 20px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(12,31,58,.95),
+            rgba(7,21,40,.92)
+        );
+    border: 1px solid rgba(90,190,255,.18);
+    box-shadow: 0 15px 40px rgba(0,0,0,.18);
+}
+
+.eg-card-heading {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 18px;
+}
+
+.eg-card-heading > span {
+    font-size: 28px;
+}
+
+.eg-card-heading h3 {
+    margin: 0;
+    color: #eaf8ff;
+}
+
+.eg-card-heading p {
+    margin: 4px 0 0;
+    color: #86a9c4;
+    font-size: 13px;
+}
+
+.eg-controls {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 13px;
+}
+
+.eg-controls input,
+.eg-controls select,
+.eg-full-input,
+.eg-note-input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(80,180,255,.25);
+    border-radius: 11px;
+    padding: 12px;
+    background: rgba(2,12,28,.8);
+    color: white;
+    outline: none;
+}
+
+.eg-note-input {
+    min-height: 120px;
+    resize: vertical;
+    margin-bottom: 10px;
+}
+
+.eg-full-input {
+    margin-bottom: 10px;
+}
+
+.eg-primary-btn,
+.eg-secondary-btn,
+.eg-timer-buttons button {
+    border: 0;
+    border-radius: 11px;
+    padding: 11px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    margin: 5px 4px 5px 0;
+}
+
+.eg-primary-btn {
+    background: linear-gradient(135deg,#1595e7,#3bc7ff);
+    color: white;
+}
+
+.eg-secondary-btn {
+    background: rgba(80,150,200,.15);
+    color: #9bdcff;
+    border: 1px solid rgba(100,200,255,.25);
+}
+
+.eg-result-box {
+    margin-top: 15px;
+}
+
+.eg-question-card {
+    margin-top: 15px;
+    padding: 18px;
+    border-radius: 15px;
+    background: rgba(3,17,35,.75);
+    border: 1px solid rgba(100,190,255,.14);
+}
+
+.eg-question-card h4 {
+    margin-top: 0;
+    color: #eaf8ff;
+}
+
+.eg-option {
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+    padding: 11px;
+    text-align: left;
+    border-radius: 10px;
+    border: 1px solid rgba(100,190,255,.18);
+    background: rgba(30,65,100,.3);
+    color: #dcefff;
+    cursor: pointer;
+}
+
+.eg-option:hover {
+    background: rgba(50,130,190,.3);
+}
+
+.eg-correct {
+    border-color: #39d98a !important;
+}
+
+.eg-wrong {
+    border-color: #ff667a !important;
+}
+
+.eg-score {
+    margin-top: 15px;
+    padding: 18px;
+    border-radius: 15px;
+    text-align: center;
+    background: rgba(30,120,180,.15);
+    color: #9fe5ff;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.eg-note-item,
+.eg-search-item,
+.eg-badge {
+    padding: 14px;
+    margin-top: 10px;
+    border-radius: 13px;
+    background: rgba(4,20,40,.75);
+    border: 1px solid rgba(90,180,255,.13);
+}
+
+.eg-note-item strong,
+.eg-search-item strong {
+    color: #8edfff;
+}
+
+.eg-note-item p {
+    color: #b5c9d8;
+    white-space: pre-wrap;
+}
+
+.eg-delete {
+    float: right;
+    border: 0;
+    background: transparent;
+    color: #ff7d8e;
+    cursor: pointer;
+}
+
+.eg-timer-card {
+    text-align: center;
+}
+
+.eg-timer-display {
+    font-size: 60px;
+    font-weight: 800;
+    color: #72d8ff;
+    letter-spacing: 3px;
+    margin: 15px 0;
+}
+
+.eg-exam-timer {
+    margin: 15px 0;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffcc70;
+}
+
+.eg-flashcard {
+    margin-top: 15px;
+    min-height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 25px;
+    border-radius: 18px;
+    background: linear-gradient(
+        145deg,
+        rgba(25,70,110,.8),
+        rgba(8,25,50,.9)
+    );
+    color: #e9f9ff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.eg-analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 12px;
+}
+
+.eg-analytics-box {
+    padding: 18px;
+    border-radius: 14px;
+    background: rgba(20,55,85,.35);
+    text-align: center;
+}
+
+.eg-analytics-box strong {
+    display: block;
+    color: #73d9ff;
+    font-size: 25px;
+}
+
+.eg-badge {
+    display: inline-block;
+    width: calc(50% - 15px);
+    margin-right: 10px;
+    color: #dff7ff;
+}
+
+.eg-badge.locked {
+    opacity: .35;
+}
+
+.eg-loading {
+    text-align: center;
+    padding: 20px;
+    color: #83dfff;
+}
+
+@media (max-width: 760px) {
+
+    .eg-upgrade-center {
+        padding: 15px;
+    }
+
+    .eg-stats-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .eg-controls {
+        grid-template-columns: 1fr;
+    }
+
+    .eg-analytics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .eg-badge {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .eg-timer-display {
+        font-size: 48px;
+    }
+}
+/* =====================================================
    END OF EDUGENIE STYLE.CSS
    ===================================================== */
 ```
