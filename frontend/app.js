@@ -1692,3 +1692,89 @@ document.addEventListener(
 
     }
 );
+
+// =========================================================
+// EDU GENIE — CONVERSATION DISPLAY
+// ADD THIS AT THE VERY BOTTOM
+// =========================================================
+
+const originalEduGenieAsk =
+    window.askQuestion;
+
+window.askQuestion = async function () {
+
+    await originalEduGenieAsk();
+
+    const responseBox =
+        document.getElementById("response");
+
+    if (!responseBox) return;
+
+    const currentChat =
+        eduGenieChats.find(
+            chat =>
+                chat.id === activeChatId
+        );
+
+    if (
+        !currentChat ||
+        !currentChat.messages ||
+        currentChat.messages.length === 0
+    ) {
+        return;
+    }
+
+    responseBox.innerHTML =
+        currentChat.messages
+            .map(message => {
+
+                return `
+                    <div class="chat-message-user">
+
+                        <div class="chat-bubble">
+
+                            <span
+                                class="chat-label chat-user-label"
+                            >
+                                👤 You
+                            </span>
+
+                            ${formatAnswer(
+                                message.question
+                            )}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="chat-message-ai">
+
+                        <div class="chat-bubble">
+
+                            <span class="chat-label">
+                                🤖 EduGenie
+                            </span>
+
+                            ${formatAnswer(
+                                message.answer
+                            )}
+
+                            <br>
+
+                            <button
+                                class="copy-btn"
+                                onclick="copyAnswer()"
+                            >
+                                📋 Copy Answer
+                            </button>
+
+                        </div>
+
+                    </div>
+                `;
+
+            })
+            .join("");
+
+};
