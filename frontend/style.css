@@ -4719,6 +4719,27 @@ body {
     }
 
 }
+/* =====================================================
+   EDUGENIE NAVBAR LOGIN POSITION FIX
+   ===================================================== */
+
+.navbar {
+    gap: 16px;
+}
+
+.top-nav {
+    flex: 1;
+    justify-content: center;
+}
+
+.curious-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+#eduGenieLoginNav {
+    white-space: nowrap;
+}
 
 
 
