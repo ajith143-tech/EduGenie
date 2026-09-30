@@ -1567,6 +1567,22 @@ document.addEventListener(
         renderChatHistory();
 
         loadProfile();
+         
+        const editProfileButton =
+    document.getElementById("editProfileBtn");
+
+if (editProfileButton) {
+
+    editProfileButton.addEventListener(
+        "click",
+        function () {
+
+            editProfile();
+
+        }
+    );
+
+}
 
     }
 );
