@@ -6871,4 +6871,144 @@ window.copyAnswer = async function () {
 
 };
 
+// =====================================================
+// EDUGENIE - COPY ANSWER FINAL WORKING FIX
+// =====================================================
+
+window.copyAnswer = function () {
+
+    const buttons =
+        document.querySelectorAll(".copy-btn");
+
+    if (!buttons.length) {
+        alert("Copy button not found.");
+        return;
+    }
+
+    // Find the button that was clicked
+    // using the most recently interacted button.
+    const button =
+        window.eduGenieLastCopyButton;
+
+    if (!button) {
+        alert("Please tap Copy Answer again.");
+        return;
+    }
+
+    const bubble =
+        button.closest(".chat-bubble");
+
+    if (!bubble) {
+        alert("Answer box not found.");
+        return;
+    }
+
+    // Clone the bubble so we can remove
+    // the label and button before copying.
+    const clone =
+        bubble.cloneNode(true);
+
+    const copyButton =
+        clone.querySelector(".copy-btn");
+
+    if (copyButton) {
+        copyButton.remove();
+    }
+
+    const label =
+        clone.querySelector(".chat-label");
+
+    if (label) {
+        label.remove();
+    }
+
+    const text =
+        clone.innerText.trim();
+
+    if (!text) {
+        alert("Nothing to copy.");
+        return;
+    }
+
+    const textarea =
+        document.createElement("textarea");
+
+    textarea.value = text;
+
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+    textarea.style.top = "0";
+    textarea.style.opacity = "0";
+
+    document.body.appendChild(textarea);
+
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(
+        0,
+        textarea.value.length
+    );
+
+    let copied = false;
+
+    try {
+
+        copied =
+            document.execCommand("copy");
+
+    } catch (error) {
+
+        console.error(
+            "EduGenie copy error:",
+            error
+        );
+
+    }
+
+    textarea.remove();
+
+    if (copied) {
+
+        button.innerText =
+            "✅ Copied!";
+
+        setTimeout(function () {
+
+            button.innerText =
+                "📋 Copy Answer";
+
+        }, 2000);
+
+    } else {
+
+        alert(
+            "Unable to copy the answer."
+        );
+
+    }
+
+};
+
+
+// =====================================================
+// REMEMBER THE EXACT COPY BUTTON TOUCHED
+// =====================================================
+
+document.addEventListener(
+    "pointerdown",
+    function (event) {
+
+        const button =
+            event.target.closest(".copy-btn");
+
+        if (button) {
+
+            window.eduGenieLastCopyButton =
+                button;
+
+        }
+
+    },
+    true
+);
 
