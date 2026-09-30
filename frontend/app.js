@@ -1839,12 +1839,12 @@ function randomRobotMove() {
     robot.style.bottom = "auto";
 
     robot.style.transition =
-        "left 3s ease-in-out, top 3s ease-in-out";
+        "left 7s ease-in-out, top 7s ease-in-out";
 }
 
 setInterval(
     randomRobotMove,
-    3500
+    8000
 );
 
 setTimeout(
