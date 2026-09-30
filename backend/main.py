@@ -151,8 +151,9 @@ Give:
 
 Keep the answer student-friendly and easy to understand.
 
-Usually keep the response around 150–250 words,
-depending on the question.
+Keep answers short and concise, usually 50–100 words.
+
+Use only the important points and avoid unnecessary explanation.
 
 Do not mention that you are using conversation history.
 """
