@@ -6252,7 +6252,8 @@ function eduGenieLogout() {
         "eduGenieStudent"
     );
 
-
+    updateEduGenieNavbarAuth();
+    
     setRobotMessage(
         "👋 See you again!"
     );
