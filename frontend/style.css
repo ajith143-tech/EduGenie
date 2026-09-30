@@ -4337,6 +4337,14 @@ body {
     }
 }
 
+/* 🤖 Hide EduGenie Robot */
+
+#robotRoamer {
+    display: none !important;
+}
+
+
+
 
 
 
