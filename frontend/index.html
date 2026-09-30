@@ -1081,6 +1081,390 @@
 
 <!-- ==================== JAVASCRIPT ==================== -->
 
+<!-- =====================================================
+     EDU GENIE UPGRADE CENTER
+     ADD-ONLY
+     ===================================================== -->
+
+<section id="eduGenieUpgradeCenter" class="eg-upgrade-center">
+
+    <div class="eg-upgrade-title">
+        <span>🚀</span>
+        <div>
+            <h2>EduGenie Upgrade Center</h2>
+            <p>Your complete AI learning toolkit</p>
+        </div>
+    </div>
+
+    <!-- XP DASHBOARD -->
+    <div class="eg-stats-grid">
+
+        <div class="eg-stat-card">
+            <span>⚡</span>
+            <strong id="egXP">0</strong>
+            <small>XP Points</small>
+        </div>
+
+        <div class="eg-stat-card">
+            <span>🔥</span>
+            <strong id="egStreak">0</strong>
+            <small>Day Streak</small>
+        </div>
+
+        <div class="eg-stat-card">
+            <span>🏆</span>
+            <strong id="egBadges">0</strong>
+            <small>Badges</small>
+        </div>
+
+        <div class="eg-stat-card">
+            <span>📚</span>
+            <strong id="egNotesCount">0</strong>
+            <small>Saved Notes</small>
+        </div>
+
+    </div>
+
+
+    <!-- DAILY CHALLENGE -->
+    <div class="eg-card">
+
+        <div class="eg-card-heading">
+            <span>🔥</span>
+            <div>
+                <h3>Daily Challenge</h3>
+                <p>Complete today's learning challenge</p>
+            </div>
+        </div>
+
+        <button
+            type="button"
+            class="eg-primary-btn"
+            onclick="window.egDailyChallenge()"
+        >
+            🎯 Start Daily Challenge
+        </button>
+
+        <div
+            id="egDailyChallengeBox"
+            class="eg-result-box"
+        ></div>
+
+    </div>
+
+
+    <!-- AI QUIZ -->
+    <div class="eg-card">
+
+        <div class="eg-card-heading">
+            <span>🧠</span>
+            <div>
+                <h3>AI Quiz Arena</h3>
+                <p>Generate an AI-powered quiz</p>
+            </div>
+        </div>
+
+        <div class="eg-controls">
+
+            <input
+                id="egQuizTopic"
+                type="text"
+                placeholder="Topic e.g. Data Structures"
+            >
+
+            <select id="egQuizDifficulty">
+                <option value="easy">Easy</option>
+                <option value="medium" selected>Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+
+            <select id="egQuizCount">
+                <option value="5">5 Questions</option>
+                <option value="10">10 Questions</option>
+            </select>
+
+        </div>
+
+        <button
+            type="button"
+            class="eg-primary-btn"
+            onclick="window.egGenerateQuiz()"
+        >
+            🚀 Generate Quiz
+        </button>
+
+        <div id="egQuizBox"></div>
+
+    </div>
+
+
+    <!-- EXAM MODE -->
+    <div class="eg-card">
+
+        <div class="eg-card-heading">
+            <span>🎓</span>
+            <div>
+                <h3>Exam Mode</h3>
+                <p>Practice under exam conditions</p>
+            </div>
+        </div>
+
+        <div class="eg-controls">
+
+            <input
+                id="egExamTopic"
+                type="text"
+                placeholder="Exam topic"
+            >
+
+            <select id="egExamQuestions">
+                <option value="5">5 Questions</option>
+                <option value="10">10 Questions</option>
+            </select>
+
+            <select id="egExamTime">
+                <option value="5">5 Minutes</option>
+                <option value="10">10 Minutes</option>
+            </select>
+
+        </div>
+
+        <button
+            type="button"
+            class="eg-primary-btn"
+            onclick="window.egStartExam()"
+        >
+            🎓 Start Exam
+        </button>
+
+        <div
+            id="egExamTimer"
+            class="eg-exam-timer"
+        ></div>
+
+        <div id="egExamBox"></div>
+
+    </div>
+
+
+    <!-- FLASHCARDS -->
+    <div class="eg-card">
+
+        <div class="eg-card-heading">
+            <span>🧩</span>
+            <div>
+                <h3>AI Flashcards</h3>
+                <p>Learn quickly with question cards</p>
+            </div>
+        </div>
+
+        <input
+            id="egFlashTopic"
+            class="eg-full-input"
+            type="text"
+            placeholder="Enter flashcard topic"
+        >
+
+        <button
+            type="button"
+            class="eg-primary-btn"
+            onclick="window.egGenerateFlashcards()"
+        >
+            🧩 Generate Flashcards
+        </button>
+
+        <div id="egFlashBox"></div>
+
+    </div>
+
+
+    <!-- SMART NOTES -->
+    <div class="eg-card">
+
+        <div class="eg-card-heading">
+            <span>📝</span>
+            <div>
+                <h3>Smart Notes</h3>
+                <p>Save your own study notes</p>
+            </div>
+        </div>
+
+        <input
+            id="egNoteTitle"
+            class="eg-full-input"
+            type="text"
+            placeholder="Note title"
+        >
+
+        <textarea
+            id="egNoteText"
+            class="eg-note-input"
+            placeholder="Write your study note..."
+        ></textarea>
+
+        <button
+            type="button"
+            class="eg-primary-btn"
+            onclick="window.egSaveNote()"
+        >
+            💾 Save Note
+        </button>
+
+        <input
+            id="egNoteSearch"
+            class="eg-full-input"
+            type="text"
+            placeholder="🔍 Search saved notes..."
+            oninput="window.egRenderNotes()"
+        >
+
+        <div id="egNotesBox"></div>
+
+    </div>
+
+
+    <!-- STUDY TIMER -->
+    <div class="eg-card eg-timer-card">
+
+        <div class="eg-card-heading">
+            <span>⏱️</span>
+            <div>
+                <h3>Study Timer</h3>
+                <p>Focus without distractions</p>
+            </div>
+        </div>
+
+        <div
+            id="egTimerDisplay"
+            class="eg-timer-display"
+        >
+            25:00
+        </div>
+
+        <div class="eg-timer-buttons">
+
+            <button
+                type="button"
+                onclick="window.egStartTimer()"
+            >
+                ▶ Start
+            </button>
+
+            <button
+                type="button"
+                onclick="window.egPauseTimer()"
+            >
+                ⏸ Pause
+            </button>
+
+            <button
+                type="button"
+                onclick="window.egResetTimer()"
+            >
+                🔄 Reset
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SEARCH -->
+    <div class="eg-card">
+
+        <div class="eg-card-heading">
+            <span>🔍</span>
+            <div>
+                <h3>EduGenie Search</h3>
+                <p>Search your saved learning content</p>
+            </div>
+        </div>
+
+        <input
+            id="egGlobalSearch"
+            class="eg-full-input"
+            type="text"
+            placeholder="Search notes, chats and topics..."
+            oninput="window.egGlobalSearch()"
+        >
+
+        <div id="egSearchBox"></div>
+
+    </div>
+
+
+    <!-- ANALYTICS -->
+    <div class="eg-card">
+
+        <div class="eg-card-heading">
+            <span>📊</span>
+            <div>
+                <h3>Learning Analytics</h3>
+                <p>Your EduGenie learning activity</p>
+            </div>
+        </div>
+
+        <div
+            id="egAnalyticsBox"
+            class="eg-analytics"
+        ></div>
+
+    </div>
+
+
+    <!-- VOICE -->
+    <div class="eg-card">
+
+        <div class="eg-card-heading">
+            <span>🎤</span>
+            <div>
+                <h3>Voice Reader</h3>
+                <p>Let EduGenie read your answer</p>
+            </div>
+        </div>
+
+        <textarea
+            id="egVoiceText"
+            class="eg-note-input"
+            placeholder="Paste an answer here..."
+        ></textarea>
+
+        <button
+            type="button"
+            class="eg-primary-btn"
+            onclick="window.egSpeakText()"
+        >
+            🔊 Read Aloud
+        </button>
+
+        <button
+            type="button"
+            class="eg-secondary-btn"
+            onclick="window.egStopVoice()"
+        >
+            ⏹ Stop
+        </button>
+
+    </div>
+
+
+    <!-- BADGES -->
+    <div class="eg-card">
+
+        <div class="eg-card-heading">
+            <span>🏆</span>
+            <div>
+                <h3>Achievements</h3>
+                <p>Keep learning and unlock badges</p>
+            </div>
+        </div>
+
+        <div id="egBadgeBox"></div>
+
+    </div>
+
+</section>
+    
 <script src="app.js"></script>
 
 </body>
