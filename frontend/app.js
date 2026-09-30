@@ -1778,9 +1778,17 @@ window.askQuestion = async function () {
             .join("");
 
 };
-// // =========================================================
+// // <div class="profile-page-content">
+
+    <div id="profilePageContent"></div>
+
+</div>
+// =========================================================
 // SEPARATE PROFILE PAGE
 // =========================================================
+
+let originalProfileParent = null;
+let originalProfileNext = null;
 
 function openProfilePage() {
 
@@ -1793,16 +1801,21 @@ function openProfilePage() {
     const container =
         document.getElementById("profilePageContent");
 
-    if (!page || !profile || !container) {
-        console.log("Profile page elements not found.");
-        return;
-    }
+    if (!page || !profile || !container) return;
 
-    container.innerHTML = "";
+    if (!originalProfileParent) {
+        originalProfileParent =
+            profile.parentNode;
+
+        originalProfileNext =
+            profile.nextSibling;
+    }
 
     container.appendChild(profile);
 
     page.hidden = false;
+
+    loadProfile();
 
     window.scrollTo(0, 0);
 }
@@ -1813,7 +1826,19 @@ function closeProfilePage() {
     const page =
         document.getElementById("profilePage");
 
-    if (!page) return;
+    const profile =
+        document.getElementById("studentProfile");
+
+    if (!page || !profile) return;
+
+    if (originalProfileParent) {
+
+        originalProfileParent.insertBefore(
+            profile,
+            originalProfileNext
+        );
+
+    }
 
     page.hidden = true;
 } =========================================================
