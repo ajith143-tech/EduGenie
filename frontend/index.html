@@ -1843,6 +1843,175 @@
     </div>
 
 </div>    
+
+<!-- =====================================================
+     EDUGENIE SETTINGS
+     ADD-ONLY
+     ===================================================== -->
+
+<section
+    id="egSettings"
+    class="eg-settings-section"
+>
+
+    <div class="eg-settings-header">
+
+        <div>
+            <span>⚙️ SETTINGS</span>
+
+            <h2>
+                EduGenie Preferences
+            </h2>
+
+            <p>
+                Customize your learning experience.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="eg-settings-card">
+
+        <div class="eg-setting-row">
+
+            <div>
+                <strong>🌙 Appearance</strong>
+
+                <small>
+                    Choose your preferred theme
+                </small>
+            </div>
+
+            <select id="egThemeSetting">
+                <option value="dark">
+                    Dark
+                </option>
+
+                <option value="light">
+                    Light
+                </option>
+            </select>
+
+        </div>
+
+
+        <div class="eg-setting-row">
+
+            <div>
+                <strong>🔊 Sound Effects</strong>
+
+                <small>
+                    Enable learning sounds
+                </small>
+            </div>
+
+            <label class="eg-switch">
+
+                <input
+                    type="checkbox"
+                    id="egSoundSetting"
+                    checked
+                >
+
+                <span></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="eg-setting-row">
+
+            <div>
+                <strong>🤖 Robot Companion</strong>
+
+                <small>
+                    Show your EduGenie robot
+                </small>
+            </div>
+
+            <label class="eg-switch">
+
+                <input
+                    type="checkbox"
+                    id="egRobotSetting"
+                    checked
+                >
+
+                <span></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="eg-setting-row">
+
+            <div>
+                <strong>✨ Animations</strong>
+
+                <small>
+                    Enable interface animations
+                </small>
+            </div>
+
+            <label class="eg-switch">
+
+                <input
+                    type="checkbox"
+                    id="egAnimationSetting"
+                    checked
+                >
+
+                <span></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="eg-setting-row">
+
+            <div>
+                <strong>🔔 Learning Notifications</strong>
+
+                <small>
+                    Show learning reminders
+                </small>
+            </div>
+
+            <label class="eg-switch">
+
+                <input
+                    type="checkbox"
+                    id="egNotificationSetting"
+                    checked
+                >
+
+                <span></span>
+
+            </label>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="eg-settings-save"
+            onclick="window.egSaveSettings()"
+        >
+            💾 Save Preferences
+        </button>
+
+        <div
+            id="egSettingsMessage"
+            class="eg-settings-message"
+        ></div>
+
+    </div>
+
+</section>    
     
 <script src="app.js"></script>
 
