@@ -5325,4 +5325,194 @@ console.log(
     "⚙️ EduGenie Separate Settings Page loaded!"
 );
 
+// =====================================================
+// 🤖 EDUGENIE ROBOT ACTION SYSTEM
+// ADD TO THE VERY BOTTOM OF app.js
+// =====================================================
+
+function egRobotAction(action) {
+
+    const robot =
+        document.getElementById("robotRoamer");
+
+    if (!robot) return;
+
+
+    // Remove previous action classes
+    robot.classList.remove(
+        "robot-thinking",
+        "robot-waving",
+        "robot-happy",
+        "robot-walking"
+    );
+
+
+    // Apply new action
+    if (action === "thinking") {
+
+        robot.classList.add(
+            "robot-thinking"
+        );
+
+    }
+
+
+    if (action === "wave") {
+
+        robot.classList.add(
+            "robot-waving"
+        );
+
+    }
+
+
+    if (action === "happy") {
+
+        robot.classList.add(
+            "robot-happy"
+        );
+
+    }
+
+
+    if (action === "walking") {
+
+        robot.classList.add(
+            "robot-walking"
+        );
+
+    }
+
+
+    // Automatically return to idle
+    if (action !== "idle") {
+
+        setTimeout(function () {
+
+            robot.classList.remove(
+                "robot-thinking",
+                "robot-waving",
+                "robot-happy",
+                "robot-walking"
+            );
+
+        }, 1800);
+
+    }
+
+}
+
+
+// =====================================================
+// 👋 GREETING
+// =====================================================
+
+function egRobotGreeting() {
+
+    egRobotAction("wave");
+
+    if (typeof setRobotMessage === "function") {
+
+        setRobotMessage(
+            "👋 Hi! Ready to learn?"
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// 🧠 THINKING
+// =====================================================
+
+function egRobotThinking() {
+
+    egRobotAction("thinking");
+
+    if (typeof setRobotMessage === "function") {
+
+        setRobotMessage(
+            "🧠 Thinking..."
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// 🎉 HAPPY
+// =====================================================
+
+function egRobotHappy() {
+
+    egRobotAction("happy");
+
+    if (typeof setRobotMessage === "function") {
+
+        setRobotMessage(
+            "🎉 Here's your answer!"
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// 🚶 WALKING
+// =====================================================
+
+function egRobotWalking() {
+
+    egRobotAction("walking");
+
+}
+
+
+// =====================================================
+// MAKE AVAILABLE TO OTHER CODE
+// =====================================================
+
+window.egRobotAction =
+    egRobotAction;
+
+window.egRobotGreeting =
+    egRobotGreeting;
+
+window.egRobotThinking =
+    egRobotThinking;
+
+window.egRobotHappy =
+    egRobotHappy;
+
+window.egRobotWalking =
+    egRobotWalking;
+
+
+// =====================================================
+// 👋 STARTUP GREETING
+// =====================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        setTimeout(function () {
+
+            egRobotGreeting();
+
+        }, 1200);
+
+    }
+);
+
+
+console.log(
+    "🤖 EduGenie Robot Action System loaded!"
+);
+
+
+
 
