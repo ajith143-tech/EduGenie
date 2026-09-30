@@ -1088,19 +1088,12 @@ function editProfile() {
     const fields = [
 
         "Name",
-
         "StudentId",
-
         "College",
-
         "Department",
-
         "Year",
-
         "Semester",
-
         "Email",
-
         "Phone"
 
     ];
@@ -1124,16 +1117,18 @@ function editProfile() {
 
             if (value) {
 
-                value.hidden =
-                    true;
+                value.style.display =
+                    "none";
 
             }
 
 
             if (input) {
 
-                input.hidden =
-                    false;
+                input.hidden = false;
+
+                input.style.display =
+                    "block";
 
             }
 
@@ -1149,8 +1144,10 @@ function editProfile() {
 
     if (actions) {
 
-        actions.hidden =
-            false;
+        actions.hidden = false;
+
+        actions.style.display =
+            "flex";
 
     }
 
@@ -1160,7 +1157,6 @@ function editProfile() {
     );
 
 }
-
 
 // =====================================================
 // SAVE PROFILE
